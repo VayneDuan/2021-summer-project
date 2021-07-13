@@ -1,0 +1,3 @@
+FROM daocloud.io/library/nginx 
+ADD conf/nginx_gate.conf /etc/nginx/nginx.conf
+

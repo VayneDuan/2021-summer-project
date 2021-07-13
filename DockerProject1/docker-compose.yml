@@ -1,0 +1,173 @@
+version: "3.9"
+services: 
+    # dmdb:
+    #     build:
+    #         context: ./dmdb/
+    #     environment:
+    #         SYSDBA_PWD: 123456789
+    #     networks:
+    #         in:
+    #             ipv4_address: 192.168.254.2
+    #     ports: 
+    #         - 5236:5236
+    #     volumes: 
+    #         - ${VOLUME_BASE}/dmdb:/home/dmdba/data
+
+    fdfs_gate:
+        build:
+            context: ./fdfs/
+            dockerfile: Dockerfile_nginx_gate
+        networks:
+            in:
+                ipv4_address: 192.168.254.3
+        ports:
+            - 18888:80
+        depends_on: 
+            - fdfs_t1
+            - fdfs_t2
+        
+        
+    fdfs_t1:
+        image: fastdfs:tracker
+        volumes:
+            - ${VOLUME_BASE}/fdfs/t1/data:/fastdfs/tracker/data
+        networks:
+            in:
+                ipv4_address: 192.168.254.4
+        environment: 
+            GROUP_NUM: -1
+            
+
+    fdfs_t2:
+        image: fastdfs:tracker
+        volumes: 
+            - ${VOLUME_BASE}/fdfs/t2/data:/fastdfs/tracker/data
+        networks:
+            in:
+                ipv4_address: 192.168.254.5
+        environment: 
+            GROUP_NUM: -1
+        
+
+    fdfs_g1s1:
+        image: fastdfs:storage
+        volumes: 
+            - ${VOLUME_BASE}/fdfs/g1s1/data:/fastdfs/storage/data
+            - ${VOLUME_BASE}/fdfs/g1s1/path:/fastdfs/store_path
+        networks:
+            in:
+                ipv4_address: 192.168.254.6
+        environment: 
+            GROUP_NUM: 1
+        depends_on: 
+            - fdfs_t1
+            - fdfs_t2
+        
+
+    fdfs_g1s2:
+        image: fastdfs:storage
+        volumes: 
+            - ${VOLUME_BASE}/fdfs/g1s2/data:/fastdfs/storage/data
+            - ${VOLUME_BASE}/fdfs/g1s2/path:/fastdfs/store_path
+        networks:
+            in:
+                ipv4_address: 192.168.254.7
+        environment: 
+            GROUP_NUM: 1
+        depends_on: 
+            - fdfs_t1
+            - fdfs_t2
+
+        
+    fdfs_g2s1:
+        image: fastdfs:storage
+        volumes: 
+            - ${VOLUME_BASE}/fdfs/g2s1/data:/fastdfs/storage/data
+            - ${VOLUME_BASE}/fdfs/g2s1/path:/fastdfs/store_path
+        networks:
+            in:
+                ipv4_address: 192.168.254.8
+        environment: 
+            GROUP_NUM: 2
+        depends_on: 
+            - fdfs_t1
+            - fdfs_t2
+
+    fdfs_g2s2:
+        image: fastdfs:storage
+        volumes: 
+            - ${VOLUME_BASE}/fdfs/g2s2/data:/fastdfs/storage/data
+            - ${VOLUME_BASE}/fdfs/g2s2/path:/fastdfs/store_path
+        networks:
+            in:
+                ipv4_address: 192.168.254.9
+        environment: 
+            GROUP_NUM: 2
+        depends_on: 
+            - fdfs_t1
+            - fdfs_t2
+
+    solr1:
+        container_name: solr1
+        image: dockerproject1_solr
+        volumes:
+            - ${VOLUME_BASE}/solr_cloud/solr/solr1:/var/solr/
+        ports:
+            - "8981:8983"
+        networks:
+            in: 
+                ipv4_address: 192.168.254.10
+    solr2:
+        container_name: solr2
+        image: dockerproject1_solr
+        volumes:
+            - ${VOLUME_BASE}/solr_cloud/solr/solr2:/var/solr/
+        ports:
+            - "8982:8983"
+        networks:
+            in: 
+                ipv4_address: 192.168.254.11
+    solr3:
+        container_name: solr3
+        image: dockerproject1_solr
+        volumes:
+            - ${VOLUME_BASE}/solr_cloud/solr/solr3:/var/solr/
+        ports:
+            - "8984:8983"
+        networks:
+            in: 
+                ipv4_address: 192.168.254.12
+    solr4:
+        container_name: solr4
+        image: dockerproject1_solr
+        volumes:
+            - ${VOLUME_BASE}/solr_cloud/solr/solr4:/var/solr/
+        ports:
+            - "8985:8983"
+        networks:
+            in: 
+                ipv4_address: 192.168.254.13
+    mysql:
+        container_name: mysql
+        image: daocloud.io/mysql:latest
+        volumes: 
+            - ${VOLUME_BASE}/mysql:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        networks:
+            in:
+                ipv4_address: 192.168.254.14
+        environment: 
+            MYSQL_ROOT_PASSWORD: 123456789
+            MYSQL_USER: common
+            MYSQL_PASSWORD: 123456789
+
+networks:
+    in:
+        ipam:
+            driver: default
+            config:
+                - subnet: "192.168.254.0/24"
+                  gateway: "192.168.254.1"
+    
+

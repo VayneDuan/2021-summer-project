@@ -1,0 +1,17 @@
+<dataconfig>
+    <datasource driver="cdata.jdbc.mysql.MySQLDrive" url="jdbc:mysql:User=common;Password=1234567890;Database=;Server=192.168.254.14;Port=3306;">
+    </datasource>
+    <document>
+        <entity name="Orders" query="SELECT Id,MySQLColumn1,MySQLColumn2,MySQLColumn3,MySQLColumn4,MySQLColumn5,MySQLColumn6,MySQLColumn7,LastModifiedDate FROM Orders" deltaquery="SELECT Id FROM Orders where LastModifiedDate >= '${dataimporter.last_index_time}'" deltaimportquery="SELECT Id,MySQLColumn1,MySQLColumn2,MySQLColumn3,MySQLColumn4,MySQLColumn5,MySQLColumn6,MySQLColumn7,LastModifiedDate FROM Orders where Id=${dataimporter.delta.Id}">
+            <field column="Id" name="Id"></field>
+            <field column="MySQLColumn1" name="MySQLColumn1"></field>
+            <field column="MySQLColumn2" name="MySQLColumn2"></field>
+            <field column="MySQLColumn3" name="MySQLColumn3"></field>
+            <field column="MySQLColumn4" name="MySQLColumn4"></field>
+            <field column="MySQLColumn5" name="MySQLColumn5"></field>
+            <field column="MySQLColumn6" name="MySQLColumn6"></field>
+            <field column="MySQLColumn7" name="MySQLColumn7"></field>
+            <field column="LastModifiedDate" name="LastModifiedDate"></field>
+        </entity>
+    </document>
+</dataconfig>

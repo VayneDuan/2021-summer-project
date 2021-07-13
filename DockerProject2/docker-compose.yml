@@ -1,0 +1,44 @@
+version: '3.1'
+services:
+  # redis1配置
+  redis1:
+    image: daocloud.io/library/redis:6.0.4
+    network_mode: "host"
+    volumes:
+      - $VOLUME_BASE/redis/redis1:/usr/local/etc/redis
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+  # redis2配置
+  redis2:
+    image: daocloud.io/library/redis:6.0.4
+    network_mode: "host"
+    volumes:
+      - $VOLUME_BASE/redis/redis2:/usr/local/etc/redis
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+  # redis3配置
+  redis3:
+    image: daocloud.io/library/redis:6.0.4
+    network_mode: "host"
+    volumes:
+      - $VOLUME_BASE/redis/redis3:/usr/local/etc/redis
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+  # redis4配置
+  redis4:
+    image: daocloud.io/library/redis:6.0.4
+    network_mode: "host"
+    volumes:
+      - $VOLUME_BASE/redis/redis4/:/usr/local/etc/redis/
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+  # redis5配置
+  redis5:
+    image: daocloud.io/library/redis:6.0.4
+    network_mode: "host"
+    volumes:
+      - $VOLUME_BASE/redis/redis5:/usr/local/etc/redis
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+  # redis6配置
+  redis6:
+    image: daocloud.io/library/redis:6.0.4
+    network_mode: "host"
+    volumes:
+      - $VOLUME_BASE/redis/redis6:/usr/local/etc/redis
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
