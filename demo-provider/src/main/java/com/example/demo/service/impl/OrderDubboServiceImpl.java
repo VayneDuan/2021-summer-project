@@ -2,7 +2,7 @@ package com.example.demo.service.impl;
 
 import com.example.demo.result.RpcResult;
 import com.example.demo.service.OrderDubboService;
-import com.example.demo.domain.OrderDomain;
+import com.example.demo.pojo.OrderDomain;
 import org.apache.dubbo.config.annotation.Service;
 
 import java.time.LocalDateTime;

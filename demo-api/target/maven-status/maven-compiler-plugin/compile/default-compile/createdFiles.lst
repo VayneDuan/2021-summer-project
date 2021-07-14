@@ -1,0 +1,5 @@
+com\example\demo\service\OrderDubboService.class
+com\example\demo\pojo\OrderDomain.class
+com\example\demo\result\ResultCodeEnum.class
+com\example\demo\result\RpcResult.class
+com\example\demo\pojo\Member.class
