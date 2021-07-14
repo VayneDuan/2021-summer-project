@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    username: root
+    password: 123456789
+    url: jdbc:mysql://192.168.3.1:3306/403forbidden?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis:
+  mapper-locations: classpath:com/example/demo/mapper/*.xml
+  type-aliases-package: com.example.demo.pojo
+logging:
+  level:
+    com:
+      example:
+        demo:
+          mapper: debug
