@@ -24,7 +24,7 @@ public class VideoController {
         //* 1. 前端传入member_id, video_id
         //* 2. 通过member_id, 查DB拿到card_id (member_id可能不合法,报错 / 没开VIP的话, card_id可能不存在,返回提示开通VIP )
         //* 3. 通过card_id, 查DB拿到video_id_list, 遍历list, 看是否有和传入的video_id相同的id
-        //*     3.1 如果存在, 通过这个video_id 查DB拿到url & name 等信息, 返回给前端
+        //*     3.1 如果存在, 通过这个video_id 查DB拿到url & name 等信息, 返回给前端, 是否返回整个页面还未确定, 需要和阳一鸣沟通
         //*     3.2 如果不存在, 返回: 权限不够, 请买课/买VIP
 
     //! 以下是旧代码, 不管
