@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.VipMapper">
+
+    <insert id="add" parameterType="com.example.demo.pojo.Card">
+        insert into gym_card values (#{id},#{beginTime},#{endTime},#{if_times},#{card_level},#{amount})
+    </insert>
+    <update id="updateVipStatus" parameterType="com.example.demo.pojo.MemberCard">
+        update gym_member
+        set card_id = #{card_id}
+        where id=#{member_id}
+    </update>
+</mapper>
