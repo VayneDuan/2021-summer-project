@@ -1,11 +1,11 @@
-package com.dysy.alipay.service.impl;
+package com.example.demo.alipay.service.impl;
 
 import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.kernel.util.ResponseChecker;
 import com.alipay.easysdk.payment.common.models.AlipayTradeQueryResponse;
 import com.alipay.easysdk.payment.page.models.AlipayTradePagePayResponse;
-import com.dysy.alipay.service.AlipayService;
-import com.dysy.alipay.util.JSONUtils;
+import com.example.demo.alipay.service.AlipayService;
+import com.example.demo.alipay.util.JSONUtils;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

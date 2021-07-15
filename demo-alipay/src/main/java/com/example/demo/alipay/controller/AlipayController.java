@@ -1,7 +1,7 @@
-package com.dysy.alipay.controller;
+package com.example.demo.alipay.controller;
 
 import com.alipay.easysdk.factory.Factory;
-import com.dysy.alipay.service.AlipayService;
+import com.example.demo.alipay.service.AlipayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

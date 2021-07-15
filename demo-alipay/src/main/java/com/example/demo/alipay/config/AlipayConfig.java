@@ -1,8 +1,8 @@
-package com.dysy.alipay.config;
+package com.example.demo.alipay.config;
 
 import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.kernel.Config;
-import com.dysy.alipay.util.FileUtils;
+import com.example.demo.alipay.util.FileUtils;
 import org.springframework.stereotype.Component;
 
 @Component

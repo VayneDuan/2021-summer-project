@@ -1,4 +1,4 @@
-package com.dysy.alipay.util;
+package com.example.demo.alipay.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
