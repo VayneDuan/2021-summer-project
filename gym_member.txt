@@ -1,0 +1,24 @@
+-- auto-generated definition
+create table gym_member
+(
+    id              varchar(255) not null
+        primary key,
+    sex             char(10)     null,
+    age             int          null,
+    height          double       null,
+    weight          double       null,
+    imgUrl          varchar(255) null,
+    gym_member_name varchar(255) null,
+    phone           varchar(255) null,
+    card_id         varchar(255) null,
+    coach_id        int          null,
+    locker_id       int          null,
+    passwd          varchar(50)  null
+)
+    comment 'card_id：会员卡id（gym_card中主键，一一对应，即每个会员拥有唯一且不重复的会员卡）coach_id&locker_id：由会员卡等级定义，level1没有私教没有固定储物柜，level2有私教但没有固定储物柜，level3拥有私教以及固定储物柜';
+
+create index card_id
+    on gym_member (card_id);
+
+create index coach_id
+    on gym_member (coach_id);

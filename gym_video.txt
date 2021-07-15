@@ -1,0 +1,10 @@
+-- auto-generated definition
+create table gym_video
+(
+    id             bigint unsigned auto_increment
+        primary key,
+    videoUrl       varchar(255) null,
+    gym_video_name varchar(255) null,
+    price          double       null
+);
+

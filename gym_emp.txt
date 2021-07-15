@@ -1,0 +1,15 @@
+-- auto-generated definition
+create table gym_emp
+(
+    id           bigint       not null
+        primary key,
+    sex          char(10)     null,
+    age          int          null,
+    height       double       null,
+    weight       double       null,
+    imgUrl       varchar(255) null,
+    gym_emp_name varchar(255) null,
+    major        varchar(255) null,
+    address      varchar(255) null,
+    phone        varchar(255) null
+);

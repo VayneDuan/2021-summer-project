@@ -1,0 +1,11 @@
+-- auto-generated definition
+create table gym_lockers
+(
+    id                   bigint       not null
+        primary key,
+    gym_lockers_location varchar(255) null,
+    beginTime            date         null,
+    endTime              date         null
+)
+    comment 'gym_lockers_location：储物柜位置';
+

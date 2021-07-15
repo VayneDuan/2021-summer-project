@@ -1,0 +1,12 @@
+-- auto-generated definition
+create table gym_orders
+(
+    id           varchar(255) null,
+    class_video  int          null,
+    card_id      varchar(255) null,
+    create_time  date         null,
+    price        int          null,
+    preferential int          null
+)
+    comment '其中class_video字段表示该订单购买产品是线下课程或是线上视频；card_id表示购买者卡号；price表示原价；preferential表示优惠，假设level2 9.8折，level3 9.5折；';
+

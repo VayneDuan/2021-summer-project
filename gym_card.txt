@@ -1,0 +1,16 @@
+-- auto-generated definition
+create table gym_card
+(
+    id         varchar(255) not null
+        primary key,
+    beginTime  date         null,
+    endTime    date         null,
+    if_times   int          null,
+    card_level int          null,
+    amount     double       null
+)
+    comment 'begin&endTime：会员卡办理及过期时间    if_times：是否是次卡/年卡，1表示是次卡    amount：剩余次数，当if_times字段为1时该字段可用，否则置为-1（年卡没有次数限制）';
+
+create index card_level
+    on gym_card (card_level);
+

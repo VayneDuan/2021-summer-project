@@ -1,0 +1,7 @@
+-- auto-generated definition
+create table card_video
+(
+    card_id  varchar(255) null,
+    video_id bigint       null
+)
+    comment '该表记录某个用户可用的视频';

@@ -1,0 +1,7 @@
+-- auto-generated definition
+create table card_class
+(
+    card_id  varchar(255) not null,
+    class_id bigint       not null
+)
+    comment '该表记录某个用户可用的课程';
