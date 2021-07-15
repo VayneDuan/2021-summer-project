@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>register</title>
+</head>
+<body>
+<div align="center">
+  <br><br><h1>注册界面</h1><br><br>
+  <form method="get" action="/toRegisterSuccess">
+    性别:<input type="text" name="sex" placeholder="性别" required/><br><br>
+    年龄:<input type="text" name="age" placeholder="年龄" required/><br><br>
+    身高:<input type="text" name="height" placeholder="身高" required/><br><br>
+    体重:<input type="text" name="weight" placeholder="体重" required/><br><br>
+    电话号码:<input type="text" name="phone" placeholder="电话号码" required/><br><br>
+    用户名:<input type="text" name="gym_member_name" placeholder="请输入用户名" required/><br><br>
+    密码：<input type="text" name="passwd" placeholder="请输入密码" required/><br><br>
+    确认密码：<input type="text" name="passwd2" placeholder="请再次输入密码" required/><br><br>
+    <input type="submit" value="注册">
+  </form>
+</div>
+</body>
+</html>
