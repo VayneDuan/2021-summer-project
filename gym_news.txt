@@ -1,0 +1,15 @@
+-- auto-generated definition
+create table gym_news
+(
+    id        bigint        not null,
+    news_date date          null,
+    writer    varchar(50)   null,
+    image_url varchar(255)  null,
+    title     varchar(255)  null,
+    content   varchar(1000) null,
+    constraint gym_news_id_uindex
+        unique (id)
+);
+
+alter table gym_news
+    add primary key (id);

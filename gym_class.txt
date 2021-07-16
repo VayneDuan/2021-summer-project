@@ -3,11 +3,17 @@ create table gym_class
 (
     id             bigint unsigned auto_increment
         primary key,
-    gym_class_name varchar(255) null,
-    class_week     int          null,
-    beginTime      time         null,
-    endTime        time         null,
-    emp_id         bigint       null,
-    imgUrl         varchar(255) null
+    gym_class_name varchar(255)  null,
+    details        varchar(1000) null,
+    choose_reason  varchar(1000) null,
+    class_week     int           null,
+    beginTime      time          null,
+    endTime        time          null,
+    emp_id         bigint        null,
+    img1Url        varchar(255)  null,
+    img2Url        varchar(255)  null,
+    img3Url        varchar(255)  null,
+    img4Url        varchar(255)  null
 )
     comment 'classweek：上课时间(星期几)    emp_id：教练id    ps：所有表id字段为bigint则顺序增加(class、video、equipment、emp)，为varchar(255)则用uuid唯一表示(member、card、orders)';
+
