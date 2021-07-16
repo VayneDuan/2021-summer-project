@@ -1,0 +1,16 @@
+.evenB {
+    background-color: lightgrey;
+}
+
+.oddB {
+    background-color: white;
+}
+
+table{
+    font-size: large;
+    text-align: center;
+}
+
+table tr td{
+    margin-top: 200px;
+}
