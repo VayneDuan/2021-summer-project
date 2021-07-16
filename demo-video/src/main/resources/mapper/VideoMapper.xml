@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.VideoMapper">
+    <!--
+        需要有如下的SQL:
+            1. 给member id , 查 gym_member表, 拿到 card_id
+            2. 给card_id , 查 gym_card, 拿到card信息: 用于校验 次数 or 会员是否过期
+            3. 给card_id , 查 card_calss, 拿到class_id : 用于 校验前端给的课程是否可以看 ? 待定, 还不太清楚class 和 video 的关系
+            4. 给card_id , 查 card_video, 拿到video_id : 用于 校验前端给的video是否可以看
+            5. 给video_id , 查 gym_video, 拿到video信息(包括url, name 等) : 用于返回给前端
+        下面都是旧的 , 暂时不管
+    -->
+    <insert id="add" parameterType="com.example.demo.pojo.Card">
+        insert into gym_card values (#{id},#{beginTime},#{endTime},#{if_times},#{card_level},#{amount})
+    </insert>
+    <update id="updateVipStatus" parameterType="com.example.demo.pojo.MemberCard">
+        update gym_member
+        set card_id = #{card_id}
+        where id=#{member_id}
+    </update>
+</mapper>
