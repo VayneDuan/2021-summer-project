@@ -21,13 +21,13 @@ public class Card implements Serializable {
     public Date getBeginTim() {
         return beginTime;
     }
-    public void setBeginTime(String beginTime) {
+    public void setBeginTime(Date beginTime) {
         this.beginTime = beginTime;
     }
     public Date getEndTim() {
         return endTime;
     }
-    public void setEndTime(String endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 

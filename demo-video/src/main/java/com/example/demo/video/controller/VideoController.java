@@ -17,7 +17,7 @@ import java.util.GregorianCalendar;
 @Controller
 public class VideoController {
     @Autowired
-    VideoService VideoService;
+    VideoService videoService;
 
     //TODO
     //* 实现思路:

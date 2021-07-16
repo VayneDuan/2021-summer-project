@@ -25,7 +25,7 @@ public class MemberCard implements Serializable {
     public String toString() {
         return "MemberCard{" +
                 "member_id=" + member_id +
-                ", card_id='" + card+id +
+                ", card_id='" + card_id +
                 '}';
     }
 }

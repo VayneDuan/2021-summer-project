@@ -17,7 +17,7 @@ import java.util.GregorianCalendar;
 @Controller
 public class VipController {
     @Autowired
-    VipService VipService;
+    VipService vipService;
 
     //! 支付宝返回支付成功, 跳转到 buyVipSuccess
     @RequestMapping("/buyVipSuccess")
@@ -48,13 +48,16 @@ public class VipController {
         }
 
 
+        Card card = new Card();
+
+
         //! 根据 if_times 判断是不是次卡, 设置amount, 生成endTime
         //! 在video 服务, 根据if_times 来判断 校验对象是 endTime or amount
         if(if_times==1){
             //! 是次卡的话, endTime 是100年后
             calendar1.add(Calendar.YEAR, 100); //把日期往后增加 100 年，整数往后推，负数往前移
             endDate = calendar1.getTime();
-            card.setAmount = amount;
+            card.setAmount(amount);
         }else if(if_times==0){
             //! 年卡
             calendar1.add(Calendar.YEAR, 1); //把日期往后增加 1 年，整数往后推，负数往前移
@@ -63,12 +66,12 @@ public class VipController {
 
 
 
-        Card card = new Card();
+
         //! 生成随机card_id (随机数字字符串)
         String card_id = RandomStringUtils.randomNumeric(10); //! 10位
 
         //! 设置card, 准备写DB
-        card.setCard_id(card_id);
+        card.setId(card_id);
         card.setBeginTime(beginDate);
         card.setEndTime(endDate);
         card.setIf_times(if_times);
@@ -79,10 +82,10 @@ public class VipController {
         int add = vipService.add(card);
 
         //! card_id -> gym_member , 更新db
-        MemberCard mc = new MemberCard; //! 貌似Mybatis 不支持多参数, 只能封装一下了
+        MemberCard mc = new MemberCard(); //! 貌似Mybatis 不支持多参数, 只能封装一下了
         mc.setMember_id(member_id);
         mc.setCard_id(card_id);
-        int updateVipStatus = vipService.updateVipStatus(member_id,card_id);
+        int updateVipStatus = vipService.updateVipStatus(mc);
 
         System.out.println("插入VIP数据成功");
         model.addAttribute("data","购买VIP成功! 会员ID:"+card_id);
