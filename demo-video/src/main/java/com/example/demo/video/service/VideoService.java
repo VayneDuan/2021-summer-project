@@ -12,4 +12,10 @@ public interface VideoService {
     //public int add(Card card);
     // update gym_member
     //public int updateVipStatus(MemberCard mc);
+    public String getMemberID(String member_id);
+    public String getCardID(String member_id);
+    public List<long> getVideoList(String card_id);
+    public String getVideoUrl(long video_id);
+    public double getVideoPrice(long video_id);
+    public Video getVideo(long video_id);
 }

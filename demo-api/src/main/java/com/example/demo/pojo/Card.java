@@ -1,7 +1,7 @@
 package com.example.demo.pojo;
 
 import java.io.Serializable;
-
+import java.util.Date;
 public class Card implements Serializable {
     private String id;
     private Date beginTime;
@@ -18,13 +18,13 @@ public class Card implements Serializable {
         this.id = id;
     }
 
-    public Date getBeginTim() {
+    public Date getBeginTime() {
         return beginTime;
     }
     public void setBeginTime(Date beginTime) {
         this.beginTime = beginTime;
     }
-    public Date getEndTim() {
+    public Date getEndTime() {
         return endTime;
     }
     public void setEndTime(Date endTime) {

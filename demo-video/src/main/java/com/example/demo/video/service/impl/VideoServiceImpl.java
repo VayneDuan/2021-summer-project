@@ -14,7 +14,35 @@ public class VideoServiceImpl implements VideoService {
     @Autowired
     VideoMapper videoMapper;
 
+    @Override
+    public String getMemberID(String member_id){
+        return  videoMapper.getMemberID(member_id);
+    }
 
+    @Override
+    public String getCardID(String member_id){
+        return videoMapper.getCardId(member_id);
+    }
+
+    @Override
+    public List<long> getVideoList(String card_id){
+        return videoMapper.getVideoList(card_id);
+    }
+
+    @Override
+    public String getVideoUrl(long video_id){
+        return videoMapper.getVideoUrl(video_id);
+    }
+
+    @Override
+    public double getVideoPrice(long video_id){
+        return videoMapper.getVideoPrice(video_id);
+    }
+
+    @Override
+    public Video getVideo(long video_id){
+        return videoMapper.getVideo(video_id);
+    }
     // //添加 VIP
     // @Override
     // public int add(Card card) {

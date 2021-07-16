@@ -26,74 +26,67 @@ public class VideoController {
         //* 3. 通过card_id, 查DB拿到video_id_list, 遍历list, 看是否有和传入的video_id相同的id
         //*     3.1 如果存在, 通过这个video_id 查DB拿到url & name 等信息, 返回给前端, 是否返回整个页面还未确定, 需要和阳一鸣沟通
         //*     3.2 如果不存在, 返回: 权限不够, 请买课/买VIP
+    @RequestMapping("/getVideo")
+    public String getVideo(Model model,long video_id,String member_id="null"){
+        boolean has_video = false;
+        if(member_id!="null") {
+            //验证用户是否存在
+            String mem_id = videoService.getMemberID(member_id);
+            if (mem_id == "-1") {
+                model.addAttribute("user_error", "no such a user");
+                System.out.println("user_error : no such a user");
+                return "getVideo";
+            }
 
-    //! 以下是旧代码, 不管
-    // @RequestMapping("/buyVipSuccess")
-    // public String buyVipSuccess(Model model, String member_id,Integer if_times,Integer card_level,Double amount) { //! 传入 member_id & Card 相关信息
-    //     //! Card -> gym_card
+            //判断是否为vip
+            String card_id = videoService.getCardID(member_id);
+            if (card_id == "-1") {
+                model.addAttribute("vip_error", "you are not vip");
+                System.out.println("vip_error : you are not vip");
+                return "getVideo";
+            }
 
-    //     //! 生成card_id
+            //查询VIP的video list
+            if (videoService.getVideoList(card_id) == -1) {
+                model.addAttribute("video_warnning", "no video provided");
+                System.out.println("video_warnning : no video provided");
+                return "getVideo";
+            }
+            List<long> video_list = videoService.getVideoList(card_id);
 
-    //     //! 生成当前时间
-    //     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    //     Date beginDate = new Date();
-    //     Calendar calendar = new GregorianCalendar();
-    //     calendar.setTime(beginDate);
-    //     beginDate = calendar.getTime();
+            //查询请求的视频是否可观看
+            for (int i = 0; i < video_list.size(); i++) {
+                if (video_id == video_list.get(i)) {
+                    has_video = true;
+                    break;
+                }
+            }
+            if (!has_video) {
+                model.addAttribute("video_forbidden", "yes");
+                System.out.println("video_forbidden : yes");
+                return "getVideo";
+            }
+        }
+        //获取video信息
+        try {
+            Video select_video = videoService.getVideo(video_id);
+            if(select_video.price==0  || has_video){//视频免费(登录与否都可看) or 用户有VIP
+                model.addAttribute("video_name", select_video.gym_video_name);
+                model.addAttribute("video_url", select_video.videoUrl);
+                return "Video";  //暂时未实现
+            }
+            else if(select_video.price!=0 and !has_video){ //非vip看付费视频
+                model.addAttribute("video_forbidden", "yes");
+                System.out.println("video_forbidden : yes");
+                return "getVideo";
+            }
 
-    //     //! 生成endTime
-    //     Date endDate = new Date();
-    //     Calendar calendar1 = new GregorianCalendar();
-    //     calendar1.setTime(beginDate);
-
-
-    //     //! level 1,2,3     if_times 0,1
-    //     if(amount<0 || card_level<1 || card_level>3 || (if_times!=1 && if_times!=0)){
-    //         //! 参数错误
-    //         System.out.println("[ERROR] arg wrong");
-    //         model.addAttribute("data","参数错误");
-    //         return "login"; //TODO 应该返回到 错误提示(重试)页面, 这种参数错误一般不会发生, 因为是前端生成的
-    //     }
-
-
-    //     //! 根据 if_times 判断是不是次卡, 设置amount, 生成endTime
-    //     //! 在video 服务, 根据if_times 来判断 校验对象是 endTime or amount
-    //     if(if_times==1){
-    //         //! 是次卡的话, endTime 是100年后
-    //         calendar1.add(Calendar.YEAR, 100); //把日期往后增加 100 年，整数往后推，负数往前移
-    //         endDate = calendar1.getTime();
-    //         card.setAmount = amount;
-    //     }else if(if_times==0){
-    //         //! 年卡
-    //         calendar1.add(Calendar.YEAR, 1); //把日期往后增加 1 年，整数往后推，负数往前移
-    //         endDate = calendar1.getTime();
-    //     }
-
+        }
+        catch (Exception e){
+            model.addAttribute("video_warnning", "no video provided");
+            System.out.println("video_warnning : no video provided");
+        }
+    }
 
 
-    //     Card card = new Card();
-    //     //! 生成随机card_id (随机数字字符串)
-    //     String card_id = RandomStringUtils.randomNumeric(10); //! 10位
-
-    //     //! 设置card, 准备写DB
-    //     card.setCard_id(card_id);
-    //     card.setBeginTime(beginDate);
-    //     card.setEndTime(endDate);
-    //     card.setIf_times(if_times);
-    //     card.setCard_level(card_level);
-    //     card.setAmount(amount);
-
-    //     //! 写db
-    //     int add = vipService.add(card);
-
-    //     //! card_id -> gym_member , 更新db
-    //     MemberCard mc = new MemberCard; //! 貌似Mybatis 不支持多参数, 只能封装一下了
-    //     mc.setMember_id(member_id);
-    //     mc.setCard_id(card_id);
-    //     int updateVipStatus = vipService.updateVipStatus(member_id,card_id);
-
-    //     System.out.println("插入VIP数据成功");
-    //     model.addAttribute("data","购买VIP成功! 会员ID:"+card_id);
-    //     return "login"; //TODO 应该返回到用户个人中心, 有待修改
-    // }
 }

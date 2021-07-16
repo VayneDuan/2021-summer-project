@@ -10,12 +10,31 @@
             5. 给video_id , 查 gym_video, 拿到video信息(包括url, name 等) : 用于返回给前端
         下面都是旧的 , 暂时不管
     -->
-    <insert id="add" parameterType="com.example.demo.pojo.Card">
-        insert into gym_card values (#{id},#{beginTime},#{endTime},#{if_times},#{card_level},#{amount})
-    </insert>
-    <update id="updateVipStatus" parameterType="com.example.demo.pojo.MemberCard">
-        update gym_member
-        set card_id = #{card_id}
-        where id=#{member_id}
-    </update>
+
+    <select id = "getMemberID" paramterType = "Object.lang.String" resultType = "Object.lang.String">
+        select ifnull(id,"-1") from gym_member where id = #{member_id}
+    </select>
+
+    <select id = "getCardID" paramterType="Object.lang.String" resultType="Object.lang.String">
+        select ifnull(card_id,"-1") from gym_member where id = #{member_id}
+    </select>
+
+    <select id = "getVideoList" paramterType="Object.lang.String" resultType="long">
+        select ifnull(video_id,-1) from card_video where card_id = #{card_id}
+    </select>
+
+    <select id = "getVideoUrl" paramterType="long" resultType="Object.lang.String">
+        select videoUrl from gym_video where id = #{video_id}
+    </select>
+
+    <select id = "getVideoPrice" paramterType="long" resultType="double">
+        select price from gym_video where id = #{video_id}
+    </select>
+
+    <select id = "getVideo" paramterType="long" resultType="com.example.demo.pojo.Video">
+        select id,videoUrl,gym_video_name,price from  gym_video where id = #{video_id}
+    </select>
+
+
+
 </mapper>
