@@ -1,0 +1,64 @@
+server:
+  port: 9002
+dubbo:
+  application:
+    name: redis-service
+  registry:
+    #注册中心地址
+    #指定超时时间,单位毫秒
+#    timeout: 5000
+    address: zookeeper://192.168.3.1:2181
+#    address: zookeeper://192.168.2.51:2181?backup=192.168.2.52:2181,192.168.2.53:2181 #zookeeper集群
+    #配置元数据中心 --> 用于存储服务的元数据,消费者在消费服务的时候只需要注册中心提供某个服务的关键数据即可,
+    #将服务本身必须要但是消费者不需要的数据存放到元数据中心,这样可以提供性能和服务调度的效率
+#    simplified: true #注册到注册中心的URL是否采用精简模式的 （与低版本兼容）
+#  metadata-report:
+#    address: zookeeper://192.168.2.51:2181?backup=192.168.2.52:2181,192.168.2.53:2181
+  #协议
+  protocol:
+    name: dubbo
+    port: 20889  #通过dubbo协议远程调用该服务时候使用的端口号,20880端口已经在user-service模块中被占用,此处更换端口
+  #制定扫描的基础包
+  scan:
+    base-packages: com.example.service.impl
+#  provider:
+#    timeout: 50000
+#配置springboot热部署
+spring:
+  thymeleaf:
+    cache: false
+  application:
+    name: redis-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.3.1:3306/403forbidden?serverTimezone=GMT%2B8&useSSL=true
+    username: root
+    password: 123456789
+  devtools:
+    livereload:
+      port: 35731
+#    restart:
+#      enabled: true
+#      #设置重启目录
+#      additional-paths: src/main/java
+#      exclude: WEB-INF/**
+#  freemarker:
+#    cache: false  #页面不加载缓存,修改及时生效
+  #配置redis
+  redis:
+    database: 0
+    host: 192.168.3.1
+    port: 6379
+    cluster:
+      nodes: 192.168.3.1:6379,192.168.3.1:6380,192.168.3.1:6381,192.168.3.1:6382,192.168.3.1:6383,192.168.3.1:6384
+      max-redirects: 3
+    password:
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+  session:
+    store-type: redis
+    timeout: PT30M

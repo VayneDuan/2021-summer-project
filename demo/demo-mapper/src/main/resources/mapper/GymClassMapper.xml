@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.GymClassMapper">
+  <resultMap id="BaseResultMap" type="com.example.pojo.GymClass">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="gym_class_name" jdbcType="VARCHAR" property="gymClassName" />
+    <result column="details" jdbcType="VARCHAR" property="details" />
+    <result column="choose_reason" jdbcType="VARCHAR" property="chooseReason" />
+    <result column="class_week" jdbcType="INTEGER" property="classWeek" />
+    <result column="beginTime" jdbcType="TIME" property="begintime" />
+    <result column="endTime" jdbcType="TIME" property="endtime" />
+    <result column="emp_id" jdbcType="BIGINT" property="empId" />
+    <result column="img1Url" jdbcType="VARCHAR" property="img1url" />
+    <result column="img2Url" jdbcType="VARCHAR" property="img2url" />
+    <result column="img3Url" jdbcType="VARCHAR" property="img3url" />
+    <result column="img4Url" jdbcType="VARCHAR" property="img4url" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, gym_class_name, details, choose_reason, class_week, beginTime, endTime, emp_id, 
+    img1Url, img2Url, img3Url, img4Url
+  </sql>
+  <select id="selectByExample" parameterType="com.example.pojo.GymClassExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from gym_class
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from gym_class
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from gym_class
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.pojo.GymClassExample">
+    delete from gym_class
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.pojo.GymClass">
+    insert into gym_class (id, gym_class_name, details, 
+      choose_reason, class_week, beginTime, 
+      endTime, emp_id, img1Url, 
+      img2Url, img3Url, img4Url
+      )
+    values (#{id,jdbcType=BIGINT}, #{gymClassName,jdbcType=VARCHAR}, #{details,jdbcType=VARCHAR}, 
+      #{chooseReason,jdbcType=VARCHAR}, #{classWeek,jdbcType=INTEGER}, #{begintime,jdbcType=TIME}, 
+      #{endtime,jdbcType=TIME}, #{empId,jdbcType=BIGINT}, #{img1url,jdbcType=VARCHAR}, 
+      #{img2url,jdbcType=VARCHAR}, #{img3url,jdbcType=VARCHAR}, #{img4url,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.pojo.GymClass">
+    insert into gym_class
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="gymClassName != null">
+        gym_class_name,
+      </if>
+      <if test="details != null">
+        details,
+      </if>
+      <if test="chooseReason != null">
+        choose_reason,
+      </if>
+      <if test="classWeek != null">
+        class_week,
+      </if>
+      <if test="begintime != null">
+        beginTime,
+      </if>
+      <if test="endtime != null">
+        endTime,
+      </if>
+      <if test="empId != null">
+        emp_id,
+      </if>
+      <if test="img1url != null">
+        img1Url,
+      </if>
+      <if test="img2url != null">
+        img2Url,
+      </if>
+      <if test="img3url != null">
+        img3Url,
+      </if>
+      <if test="img4url != null">
+        img4Url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="gymClassName != null">
+        #{gymClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="details != null">
+        #{details,jdbcType=VARCHAR},
+      </if>
+      <if test="chooseReason != null">
+        #{chooseReason,jdbcType=VARCHAR},
+      </if>
+      <if test="classWeek != null">
+        #{classWeek,jdbcType=INTEGER},
+      </if>
+      <if test="begintime != null">
+        #{begintime,jdbcType=TIME},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=TIME},
+      </if>
+      <if test="empId != null">
+        #{empId,jdbcType=BIGINT},
+      </if>
+      <if test="img1url != null">
+        #{img1url,jdbcType=VARCHAR},
+      </if>
+      <if test="img2url != null">
+        #{img2url,jdbcType=VARCHAR},
+      </if>
+      <if test="img3url != null">
+        #{img3url,jdbcType=VARCHAR},
+      </if>
+      <if test="img4url != null">
+        #{img4url,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.pojo.GymClassExample" resultType="java.lang.Long">
+    select count(*) from gym_class
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update gym_class
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.gymClassName != null">
+        gym_class_name = #{record.gymClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.details != null">
+        details = #{record.details,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chooseReason != null">
+        choose_reason = #{record.chooseReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classWeek != null">
+        class_week = #{record.classWeek,jdbcType=INTEGER},
+      </if>
+      <if test="record.begintime != null">
+        beginTime = #{record.begintime,jdbcType=TIME},
+      </if>
+      <if test="record.endtime != null">
+        endTime = #{record.endtime,jdbcType=TIME},
+      </if>
+      <if test="record.empId != null">
+        emp_id = #{record.empId,jdbcType=BIGINT},
+      </if>
+      <if test="record.img1url != null">
+        img1Url = #{record.img1url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.img2url != null">
+        img2Url = #{record.img2url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.img3url != null">
+        img3Url = #{record.img3url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.img4url != null">
+        img4Url = #{record.img4url,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update gym_class
+    set id = #{record.id,jdbcType=BIGINT},
+      gym_class_name = #{record.gymClassName,jdbcType=VARCHAR},
+      details = #{record.details,jdbcType=VARCHAR},
+      choose_reason = #{record.chooseReason,jdbcType=VARCHAR},
+      class_week = #{record.classWeek,jdbcType=INTEGER},
+      beginTime = #{record.begintime,jdbcType=TIME},
+      endTime = #{record.endtime,jdbcType=TIME},
+      emp_id = #{record.empId,jdbcType=BIGINT},
+      img1Url = #{record.img1url,jdbcType=VARCHAR},
+      img2Url = #{record.img2url,jdbcType=VARCHAR},
+      img3Url = #{record.img3url,jdbcType=VARCHAR},
+      img4Url = #{record.img4url,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.pojo.GymClass">
+    update gym_class
+    <set>
+      <if test="gymClassName != null">
+        gym_class_name = #{gymClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="details != null">
+        details = #{details,jdbcType=VARCHAR},
+      </if>
+      <if test="chooseReason != null">
+        choose_reason = #{chooseReason,jdbcType=VARCHAR},
+      </if>
+      <if test="classWeek != null">
+        class_week = #{classWeek,jdbcType=INTEGER},
+      </if>
+      <if test="begintime != null">
+        beginTime = #{begintime,jdbcType=TIME},
+      </if>
+      <if test="endtime != null">
+        endTime = #{endtime,jdbcType=TIME},
+      </if>
+      <if test="empId != null">
+        emp_id = #{empId,jdbcType=BIGINT},
+      </if>
+      <if test="img1url != null">
+        img1Url = #{img1url,jdbcType=VARCHAR},
+      </if>
+      <if test="img2url != null">
+        img2Url = #{img2url,jdbcType=VARCHAR},
+      </if>
+      <if test="img3url != null">
+        img3Url = #{img3url,jdbcType=VARCHAR},
+      </if>
+      <if test="img4url != null">
+        img4Url = #{img4url,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.pojo.GymClass">
+    update gym_class
+    set gym_class_name = #{gymClassName,jdbcType=VARCHAR},
+      details = #{details,jdbcType=VARCHAR},
+      choose_reason = #{chooseReason,jdbcType=VARCHAR},
+      class_week = #{classWeek,jdbcType=INTEGER},
+      beginTime = #{begintime,jdbcType=TIME},
+      endTime = #{endtime,jdbcType=TIME},
+      emp_id = #{empId,jdbcType=BIGINT},
+      img1Url = #{img1url,jdbcType=VARCHAR},
+      img2Url = #{img2url,jdbcType=VARCHAR},
+      img3Url = #{img3url,jdbcType=VARCHAR},
+      img4Url = #{img4url,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

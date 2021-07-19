@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: mapper
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.3.1:3306/403forbidden?serverTimezone=GMT%2B8&useSSL=true
+    username: root
+    password: 123456789
+mybatis:
+  type-aliases-package: com.example.pojo
+  mapper-locations: classpath:mapper/*.xml
