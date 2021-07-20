@@ -3,30 +3,33 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>403forbidden</groupId>
-        <artifactId>hhr_project</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.5.2</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <artifactId>dataimport</artifactId>
+    <packaging>pom</packaging>
+    <groupId>403forbidden</groupId>
+    <artifactId>hhr_project</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>dataimport</name>
-    <description>import data from mysql db and insert into solr</description>
+    <name>hhr_project</name>
     <properties>
         <java.version>11</java.version>
     </properties>
-    <packaging>jar</packaging>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
-
     </dependencies>
+    <modules>
+        <module>dataimport</module>
+    </modules>
 
     <build>
         <plugins>
