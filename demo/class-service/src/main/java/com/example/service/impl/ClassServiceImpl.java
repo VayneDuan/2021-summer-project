@@ -5,6 +5,7 @@ import com.example.mapper.GymClassMapper;
 import com.example.pojo.CardClass;
 import com.example.pojo.GymClass;
 import com.example.pojo.GymClassExample;
+import com.example.pojo.GymNewsExample;
 import com.example.service.ClassService;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,14 @@ public class ClassServiceImpl implements ClassService {
         } catch (Exception e) {
             return -1;
         }
+    }
+
+    @Override
+    public List<GymClass> findAll() {
+        GymClassExample example = new GymClassExample();
+        example.createCriteria().getAllCriteria();
+        example.setOrderByClause("beginTime");
+        return gymClassMapper.selectByExample(example);
     }
 
 }

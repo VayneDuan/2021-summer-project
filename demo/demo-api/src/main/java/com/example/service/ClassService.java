@@ -11,4 +11,6 @@ public interface ClassService {
     GymClass findById(long id);
 
     int updateCardClass(String card_id, long class_id);
+
+    List<GymClass> findAll();
 }

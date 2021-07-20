@@ -35,6 +35,27 @@ public class ClassController {
         return data;
     }
 
+    @RequestMapping("all")
+    public Map<String, Object> findAllOrderedByDays() {
+        Map<String, Object> data = new HashMap<>();
+        Map<Integer, List<GymClass>> classesOrderedByDays = new HashMap<>();
+        for (int i=1;i<=7;i++) {
+            classesOrderedByDays.put(i, new ArrayList<GymClass>());
+        }
+        try {
+            List<GymClass> classes = classService.findAll();
+            for (GymClass gymClass : classes) {
+                classesOrderedByDays.get(gymClass.getClassWeek()).add(gymClass);
+            }
+        } catch (Exception e) {
+            data.put("error_msg", e.getMessage());
+            data.put("all_class", null);
+            return data;
+        }
+        data.put("all_class", classesOrderedByDays);
+        return data;
+    }
+
     @RequestMapping("/buy")
     public Map<String, Object> buyClass(@RequestBody GymClass gymClass, HttpServletRequest request) {
         String phone = request.getParameter("phone");
