@@ -12,7 +12,7 @@
     <artifactId>dataimport</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>dataimport</name>
-    <description>Demo project for Spring Boot</description>
+    <description>import data from mysql db and insert into solr</description>
     <properties>
         <java.version>11</java.version>
     </properties>
