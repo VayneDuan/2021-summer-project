@@ -2,10 +2,11 @@ package com.example.service;
 
 import com.example.pojo.GymOrders;
 
-import java.util.Map;
+import java.util.List;
 
 public interface AlipayService {
     String pay(String outTradeNo, String amount, String return_url) throws Exception;
 
-    String refund(GymOrders order);
+    public String refund(GymOrders order);
+//    String refund(GymOrders order);
 }

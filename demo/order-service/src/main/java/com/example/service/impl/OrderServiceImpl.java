@@ -38,20 +38,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean insertOrders(List<GymOrders> orders, long cv_id, String card_id) {
+    public boolean insertOrders(GymOrders order) {
         try {
-            for (GymOrders order : orders) {
-                order.setId(UUID.randomUUID().toString());
-                order.setCvId(cv_id);
-                order.setCardId(card_id);
-                Date beginDate = new Date();
-                Calendar calendar = new GregorianCalendar();
-                calendar.setTime(beginDate);
-                beginDate = calendar.getTime();
-                order.setCreateTime(beginDate);
-                order.setIfUsed(1);
-                gymOrdersMapper.insert(order);
-            }
+//            order.setId(UUID.randomUUID().toString());
+            Date beginDate = new Date();
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTime(beginDate);
+            beginDate = calendar.getTime();
+            order.setCreateTime(beginDate);
+            order.setIfUsed(1);
+            gymOrdersMapper.insert(order);
             return true;
         } catch (Exception e) {
             return false;

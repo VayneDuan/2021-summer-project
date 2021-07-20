@@ -23,14 +23,21 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public int changeMemberName(String phone, String newName) {
+    public void changeMemberName(String phone, String newName) {
         GymMember member = findByPhone(phone);
         member.setGymMemberName(newName);
-        return gymMemberMapper.updateByPrimaryKey(member);
+        gymMemberMapper.updateByPrimaryKey(member);
     }
 
     @Override
     public GymMember findById(String id) {
         return gymMemberMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void updateCoach(String phone, Long coach_id) {
+        GymMember member = findByPhone(phone);
+        member.setCoachId(coach_id);
+        gymMemberMapper.updateByPrimaryKey(member);
     }
 }

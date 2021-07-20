@@ -9,7 +9,7 @@ public class GymVideo implements Serializable {
 
     private String gymVideoName;
 
-    private Double price;
+    private Integer price;
 
     public Long getId() {
         return id;
@@ -35,11 +35,11 @@ public class GymVideo implements Serializable {
         this.gymVideoName = gymVideoName == null ? null : gymVideoName.trim();
     }
 
-    public Double getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 }

@@ -10,6 +10,7 @@
     <result column="beginTime" jdbcType="TIME" property="begintime" />
     <result column="endTime" jdbcType="TIME" property="endtime" />
     <result column="emp_id" jdbcType="BIGINT" property="empId" />
+    <result column="price" jdbcType="INTEGER" property="price" />
     <result column="img1Url" jdbcType="VARCHAR" property="img1url" />
     <result column="img2Url" jdbcType="VARCHAR" property="img2url" />
     <result column="img3Url" jdbcType="VARCHAR" property="img3url" />
@@ -75,7 +76,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, gym_class_name, details, choose_reason, class_week, beginTime, endTime, emp_id, 
-    img1Url, img2Url, img3Url, img4Url
+    price, img1Url, img2Url, img3Url, img4Url
   </sql>
   <select id="selectByExample" parameterType="com.example.pojo.GymClassExample" resultMap="BaseResultMap">
     select
@@ -110,14 +111,14 @@
   <insert id="insert" parameterType="com.example.pojo.GymClass">
     insert into gym_class (id, gym_class_name, details, 
       choose_reason, class_week, beginTime, 
-      endTime, emp_id, img1Url, 
-      img2Url, img3Url, img4Url
-      )
+      endTime, emp_id, price, 
+      img1Url, img2Url, img3Url, 
+      img4Url)
     values (#{id,jdbcType=BIGINT}, #{gymClassName,jdbcType=VARCHAR}, #{details,jdbcType=VARCHAR}, 
       #{chooseReason,jdbcType=VARCHAR}, #{classWeek,jdbcType=INTEGER}, #{begintime,jdbcType=TIME}, 
-      #{endtime,jdbcType=TIME}, #{empId,jdbcType=BIGINT}, #{img1url,jdbcType=VARCHAR}, 
-      #{img2url,jdbcType=VARCHAR}, #{img3url,jdbcType=VARCHAR}, #{img4url,jdbcType=VARCHAR}
-      )
+      #{endtime,jdbcType=TIME}, #{empId,jdbcType=BIGINT}, #{price,jdbcType=INTEGER}, 
+      #{img1url,jdbcType=VARCHAR}, #{img2url,jdbcType=VARCHAR}, #{img3url,jdbcType=VARCHAR}, 
+      #{img4url,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.example.pojo.GymClass">
     insert into gym_class
@@ -145,6 +146,9 @@
       </if>
       <if test="empId != null">
         emp_id,
+      </if>
+      <if test="price != null">
+        price,
       </if>
       <if test="img1url != null">
         img1Url,
@@ -183,6 +187,9 @@
       </if>
       <if test="empId != null">
         #{empId,jdbcType=BIGINT},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=INTEGER},
       </if>
       <if test="img1url != null">
         #{img1url,jdbcType=VARCHAR},
@@ -231,6 +238,9 @@
       <if test="record.empId != null">
         emp_id = #{record.empId,jdbcType=BIGINT},
       </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=INTEGER},
+      </if>
       <if test="record.img1url != null">
         img1Url = #{record.img1url,jdbcType=VARCHAR},
       </if>
@@ -258,6 +268,7 @@
       beginTime = #{record.begintime,jdbcType=TIME},
       endTime = #{record.endtime,jdbcType=TIME},
       emp_id = #{record.empId,jdbcType=BIGINT},
+      price = #{record.price,jdbcType=INTEGER},
       img1Url = #{record.img1url,jdbcType=VARCHAR},
       img2Url = #{record.img2url,jdbcType=VARCHAR},
       img3Url = #{record.img3url,jdbcType=VARCHAR},
@@ -290,6 +301,9 @@
       <if test="empId != null">
         emp_id = #{empId,jdbcType=BIGINT},
       </if>
+      <if test="price != null">
+        price = #{price,jdbcType=INTEGER},
+      </if>
       <if test="img1url != null">
         img1Url = #{img1url,jdbcType=VARCHAR},
       </if>
@@ -314,6 +328,7 @@
       beginTime = #{begintime,jdbcType=TIME},
       endTime = #{endtime,jdbcType=TIME},
       emp_id = #{empId,jdbcType=BIGINT},
+      price = #{price,jdbcType=INTEGER},
       img1Url = #{img1url,jdbcType=VARCHAR},
       img2Url = #{img2url,jdbcType=VARCHAR},
       img3Url = #{img3url,jdbcType=VARCHAR},

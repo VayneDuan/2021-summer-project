@@ -2,6 +2,10 @@ package com.example.controller;
 
 import com.example.pojo.GymCard;
 import com.example.pojo.GymMember;
+import com.example.pojo.GymOrders;
+import com.example.service.AlipayService;
+import com.example.service.MemberService;
+import com.example.service.OrderService;
 import com.example.service.VipService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.dubbo.config.annotation.Reference;
@@ -20,9 +24,15 @@ import java.util.*;
 public class VipController {
     @Reference(version = "1.0.0", url = "dubbo://localhost:20890?version=1.0.0")
     private VipService vipService;
+    @Reference(version = "1.0.0", url = "dubbo://localhost:20894?version=1.0.0")
+    private AlipayService alipayService;
+    @Reference(version = "1.0.0", url = "dubbo://localhost:20888?version=1.0.0")
+    private MemberService memberService;
+    @Reference(version = "1.0.0", url = "dubbo://localhost:20893?version=1.0.0")
+    private OrderService orderService;
 
     @RequestMapping("buy")
-    public Map<String, Object> buyVip(@RequestBody GymMember member, @RequestBody GymCard card) throws IOException {
+    public Map<String, Object> buyVip(@RequestBody GymCard card, HttpServletRequest request) {
         // 前端可以传这个吗？
 //        String member_id = request.getParameter("member_id");
 //        Integer if_times = Integer.parseInt(request.getParameter("if_times"));
@@ -68,6 +78,18 @@ public class VipController {
             card.setAmount(-1.);
         }
 
+        String phone = request.getParameter("phone");
+        Integer price = Integer.parseInt(request.getParameter("price"));
+        GymMember member = memberService.findByPhone(phone);
+        // 创建订单
+        GymOrders order = new GymOrders();
+        String tradeNo = UUID.randomUUID().toString();
+        order.setId(tradeNo+"@"+System.currentTimeMillis());
+        order.setClassVideo(2);
+        order.setCreateTime(beginDate);
+        order.setPrice(price);
+        order.setIfUsed(1);
+        orderService.insertOrders(order);
         //! 写db
         try {
             vipService.add(card);

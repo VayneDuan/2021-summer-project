@@ -30,6 +30,11 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
+    public GymClass findById(long id) {
+        return gymClassMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
     public int updateCardClass(String card_id, long class_id) {
         CardClass cc = new CardClass();
         cc.setClassId(class_id);

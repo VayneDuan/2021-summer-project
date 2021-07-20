@@ -1,8 +1,11 @@
 package com.example.controller;
 
 import com.example.pojo.GymMember;
+import com.example.pojo.GymOrders;
 import com.example.pojo.GymVideo;
+import com.example.service.AlipayService;
 import com.example.service.MemberService;
+import com.example.service.OrderService;
 import com.example.service.VideoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.dubbo.config.annotation.Reference;
@@ -13,9 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/videos")
@@ -25,6 +26,8 @@ public class VideoController {
     private VideoService videoService;
     @Reference(version = "1.0.0", url = "dubbo://localhost:20888?version=1.0.0")
     private MemberService memberService;
+    @Reference(version = "1.0.0", url = "dubbo://localhost:20894?version=1.0.0")
+    private AlipayService alipayService;
 
     //TODO
     //* 实现思路:
@@ -35,7 +38,7 @@ public class VideoController {
     //*     3.2 如果不存在, 返回: 权限不够, 请买课/买VIP
 
     @RequestMapping("/get")
-    public Map<String, Object> getVideo(@RequestBody String member_id, @RequestBody long video_id) throws IOException {
+    public Map<String, Object> getVideo(String member_id, long video_id) {
 //        long video_id = Long.parseLong(request.getParameter("video_id"));
 //        String member_id = request.getParameter("member_id");
         Map<String, Object> msg = new HashMap<>();
@@ -43,7 +46,7 @@ public class VideoController {
         if (member_id != null) {
             //验证用户是否存在
             GymMember member = memberService.findById(member_id);
-            if (member != null) {
+            if (member == null) {
                 msg.put("video", "error");
                 System.out.println("user_error : no such a user");
                 return msg;
@@ -51,7 +54,7 @@ public class VideoController {
 
             //判断是否为vip
             String card_id = member.getCardId();
-            if (card_id != null) {
+            if (card_id == null) {
                 msg.put("video", "error");
                 System.out.println("vip_error : you are not vip");
                 return msg;
@@ -98,7 +101,12 @@ public class VideoController {
     }
 
     @RequestMapping("buy")
-    public Map<String,Object> buyVideo(@RequestBody GymMember member, @RequestBody GymVideo video) {
+    public Map<String,Object> buyVideo(@RequestBody GymVideo video, HttpServletRequest request) {
+        String phone = request.getParameter("phone");
+        GymMember member = memberService.findByPhone(phone);
+        Date createTime = new Date();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(createTime);
         //! 写db
         try {
             videoService.updateCardVideo(member.getCardId(), video.getId());

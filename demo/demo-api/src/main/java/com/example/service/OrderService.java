@@ -9,7 +9,7 @@ public interface OrderService {
 
     boolean deleteOrderById(GymOrders order);
 
-    boolean insertOrders(List<GymOrders> orders, long cv_id, String card_id);
+    boolean insertOrders(GymOrders order);
 
     // 判断订单内容（视频，课程）是否使用
     boolean ifOrderUsed(GymOrders order);

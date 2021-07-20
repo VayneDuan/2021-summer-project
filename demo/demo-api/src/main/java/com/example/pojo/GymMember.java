@@ -21,7 +21,7 @@ public class GymMember implements Serializable {
 
     private String cardId;
 
-    private Integer coachId;
+    private Long coachId;
 
     private Integer lockerId;
 
@@ -99,11 +99,11 @@ public class GymMember implements Serializable {
         this.cardId = cardId == null ? null : cardId.trim();
     }
 
-    public Integer getCoachId() {
+    public Long getCoachId() {
         return coachId;
     }
 
-    public void setCoachId(Integer coachId) {
+    public void setCoachId(Long coachId) {
         this.coachId = coachId;
     }
 

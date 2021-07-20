@@ -20,6 +20,8 @@ public class GymClass implements Serializable {
 
     private Long empId;
 
+    private Integer price;
+
     private String img1url;
 
     private String img2url;
@@ -90,6 +92,14 @@ public class GymClass implements Serializable {
 
     public void setEmpId(Long empId) {
         this.empId = empId;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
     public String getImg1url() {

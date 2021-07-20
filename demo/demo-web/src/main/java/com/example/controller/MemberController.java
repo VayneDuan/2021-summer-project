@@ -21,7 +21,6 @@ public class MemberController {
     @Reference(version = "1.0.0", url = "dubbo://localhost:20889?version=1.0.0")
     private RedisService redisService;
 
-    // @RequestMapping("/select/{phone}") 不支持
     @RequestMapping("/selectByPhone")
     @ResponseBody
     public Map<String, Object> findByPhone(String phone) {

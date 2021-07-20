@@ -8,6 +8,10 @@ import com.example.pojo.GymOrders;
 import com.example.service.AlipayService;
 import org.apache.dubbo.config.annotation.Service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Service(version ="1.0.0")
 public class AlipayServiceImpl implements AlipayService {
     @Override
@@ -23,16 +27,21 @@ public class AlipayServiceImpl implements AlipayService {
 
     @Override
     public String refund(GymOrders order) {
-        try {
-            AlipayTradeRefundResponse response = Factory.Payment.Common()
-                    .refund(order.getId(), order.getPrice().toString());
-            if (ResponseChecker.success(response)) {
-                return "success";
-            } else {
-                return "failed";
-            }
-        } catch (Exception e) {
-            return "failed";
-        }
+        return "refund_success";
     }
+
+//    @Override
+//    public String refund(GymOrders order) {
+//        try {
+//            AlipayTradeRefundResponse response = Factory.Payment.Common()
+//                    .refund(order.getId(), order.getPrice().toString());
+//            if (ResponseChecker.success(response)) {
+//                return "success";
+//            } else {
+//                return "failed";
+//            }
+//        } catch (Exception e) {
+//            return "failed";
+//        }
+//    }
 }
