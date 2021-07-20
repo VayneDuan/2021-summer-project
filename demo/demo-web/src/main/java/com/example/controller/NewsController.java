@@ -7,17 +7,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/news")
 public class NewsController {
-    @Reference
+    @Reference(version = "1.0.0", url = "dubbo://localhost:20888?version=1.0.0")
     private NewsService newsService;
 
     @RequestMapping("/all")
     @ResponseBody
-    public List<GymNews> findAll() {
-        return newsService.findAll();
+    public Map<String, Object> findAll() {
+        Map<String,Object> data = new HashMap<>();
+        data.put("all_news", newsService.findAll());
+        return data;
     }
 }

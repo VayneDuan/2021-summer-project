@@ -8,7 +8,7 @@ import com.example.service.VipService;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Service
+@Service(version ="1.0.0")
 public class VipServiceImpl implements VipService {
     @Autowired
     private GymCardMapper gymCardMapper;

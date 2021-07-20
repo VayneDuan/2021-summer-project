@@ -1,8 +1,9 @@
 package com.example.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class GymNews {
+public class GymNews implements Serializable {
     private Long id;
 
     private Date newsDate;

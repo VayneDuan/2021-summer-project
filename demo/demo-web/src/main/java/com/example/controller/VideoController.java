@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import com.example.pojo.GymClass;
 import com.example.pojo.GymMember;
 import com.example.pojo.GymVideo;
 import com.example.service.MemberService;
@@ -14,16 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/videos")
 public class VideoController {
     private final ObjectMapper objectMapper = new ObjectMapper();
-    @Reference
+    @Reference(version = "1.0.0", url = "dubbo://localhost:20891?version=1.0.0")
     private VideoService videoService;
-    @Reference
+    @Reference(version = "1.0.0", url = "dubbo://localhost:20888?version=1.0.0")
     private MemberService memberService;
 
     //TODO
@@ -35,41 +35,33 @@ public class VideoController {
     //*     3.2 如果不存在, 返回: 权限不够, 请买课/买VIP
 
     @RequestMapping("/get")
-    public String getVideo(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        long video_id = Long.parseLong(request.getParameter("video_id"));
-        String member_id = request.getParameter("member_id");
+    public Map<String, Object> getVideo(@RequestBody String member_id, @RequestBody long video_id) throws IOException {
+//        long video_id = Long.parseLong(request.getParameter("video_id"));
+//        String member_id = request.getParameter("member_id");
+        Map<String, Object> msg = new HashMap<>();
         boolean has_video = false;
         if (member_id != null) {
             //验证用户是否存在
             GymMember member = memberService.findById(member_id);
             if (member != null) {
-                Map<String, Object> add_success = new HashMap<>();
-                add_success.put("video_error", "no such a user");
-                response.setContentType("application/json;charset=utf-8");
-                response.getWriter().write(objectMapper.writeValueAsString(add_success));
+                msg.put("video", "error");
                 System.out.println("user_error : no such a user");
-                return "getVideo";
+                return msg;
             }
 
             //判断是否为vip
             String card_id = member.getCardId();
             if (card_id != null) {
-                Map<String, Object> add_success = new HashMap<>();
-                add_success.put("video_error", "you are not vip");
-                response.setContentType("application/json;charset=utf-8");
-                response.getWriter().write(objectMapper.writeValueAsString(add_success));
+                msg.put("video", "error");
                 System.out.println("vip_error : you are not vip");
-                return "getVideo";
+                return msg;
             }
 
             //查询VIP的video list
             if (videoService.getVideoList(card_id).size() == 0) {
-                Map<String, Object> add_success = new HashMap<>();
-                add_success.put("video_error", "no video provided");
-                response.setContentType("application/json;charset=utf-8");
-                response.getWriter().write(objectMapper.writeValueAsString(add_success));
+                msg.put("video", "error");
                 System.out.println("video_warning : no video provided");
-                return "getVideo";
+                return msg;
             }
             List<Long> video_list = videoService.getVideoList(card_id);
 
@@ -81,40 +73,28 @@ public class VideoController {
                 }
             }
             if (!has_video) {
-                Map<String, Object> add_success = new HashMap<>();
-                add_success.put("video_error", "video forbidden");
-                response.setContentType("application/json;charset=utf-8");
-                response.getWriter().write(objectMapper.writeValueAsString(add_success));
+                msg.put("video", "error");
                 System.out.println("video_forbidden : yes");
-                return "getVideo";
+                return msg;
             }
         }
         //获取video信息
         try {
             GymVideo select_video = videoService.getVideo(video_id);
             if (select_video.getPrice() == 0 || has_video) { // 视频免费(登录与否都可看) or 用户有VIP
-                Map<String, Object> add_success = new HashMap<>();
-                add_success.put("video", select_video);
-                response.setContentType("application/json;charset=utf-8");
-                response.getWriter().write(objectMapper.writeValueAsString(add_success));
-                return "video";  // 暂时未实现
+                msg.put("video", "success");
+                msg.put("data", select_video.getVideourl());
             } else if (select_video.getPrice() != 0 && !has_video) { //非vip看付费视频
-                Map<String, Object> add_success = new HashMap<>();
-                add_success.put("video_error", "video forbidden");
-                response.setContentType("application/json;charset=utf-8");
-                response.getWriter().write(objectMapper.writeValueAsString(add_success));
+                msg.put("video", "error");
                 System.out.println("video_forbidden : yes");
-                return "getVideo";
+                return msg;
             }
         } catch (Exception e) {
-            Map<String, Object> add_success = new HashMap<>();
-            add_success.put("video_error", "no video provided");
-            response.setContentType("application/json;charset=utf-8");
-            response.getWriter().write(objectMapper.writeValueAsString(add_success));
+            msg.put("video", "error");
             System.out.println("video_warning : no video provided");
-            return "getVideo";
+            return msg;
         }
-        return "getVideo";
+        return msg;
     }
 
     @RequestMapping("buy")
@@ -124,12 +104,12 @@ public class VideoController {
             videoService.updateCardVideo(member.getCardId(), video.getId());
         } catch (Exception e) {
             Map<String,Object> add_error = new HashMap<>();
-            add_error.put("vip_error", "发生未知错误，添加数据库失败");
-            add_error.put("address", "vip");
+            add_error.put("video", "error");
+            System.out.println("video_exception : 发生未知错误，添加数据库失败");
             return add_error;
         }
         Map<String,Object> add_success = new HashMap<>();
-        add_success.put("vip_data", "\"购买VIP成功! 会员ID:\" + card_id");
+        add_success.put("video", "success");
         add_success.put("address", "home");
         return add_success;
     }

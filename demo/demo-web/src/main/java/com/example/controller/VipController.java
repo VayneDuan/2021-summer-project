@@ -5,6 +5,7 @@ import com.example.pojo.GymMember;
 import com.example.service.VipService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.dubbo.config.annotation.Reference;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,20 +18,12 @@ import java.util.*;
 @RestController
 @RequestMapping("/vip")
 public class VipController {
-    private final ObjectMapper objectMapper = new ObjectMapper();
-    @Reference
+    @Reference(version = "1.0.0", url = "dubbo://localhost:20890?version=1.0.0")
     private VipService vipService;
 
-    @RequestMapping("/")
-    public String buyVip() {
-        return "vip";
-    }
-
     @RequestMapping("buy")
-    public Map<String, Object> buyVip(HttpServletRequest request) throws IOException {
+    public Map<String, Object> buyVip(@RequestBody GymMember member, @RequestBody GymCard card) throws IOException {
         // 前端可以传这个吗？
-         GymMember member = (GymMember) request.getAttribute("member");
-         GymCard card = (GymCard) request.getAttribute("card");
 //        String member_id = request.getParameter("member_id");
 //        Integer if_times = Integer.parseInt(request.getParameter("if_times"));
 //        Integer card_level = Integer.parseInt(request.getParameter("card_level"));

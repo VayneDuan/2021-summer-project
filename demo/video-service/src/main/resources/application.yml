@@ -1,13 +1,13 @@
 server:
   #  address: 192.168.3.1
-  port: 9006
+  port: 9004
 dubbo:
   application:
     name: video-service
   registry:
     #注册中心地址
     #制定超时时间,单位毫秒
-    #    timeout: 5000
+    timeout: 5000
     address: zookeeper://192.168.3.1:2181   #单机zookeeper注册中心配置情况
     #    address: zookeeper://192.168.2.51:2181?backup=192.168.2.52:2181,192.168.2.53:2181 #zookeeper集群
     #配置元数据中心 --> 用于存储服务的元数据,消费者在消费服务的时候只需要注册中心提供某个服务的关键数据即可,
@@ -23,8 +23,12 @@ dubbo:
   #制定扫描的基础包
   scan:
     base-packages: com.example.service.impl
+  provider:
+    timeout: 50000
 #配置springboot热部署
 spring:
+  thymeleaf:
+    cache: false
   application:
     name: video-service
   datasource:

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-@Service
+@Service(version ="1.0.0")
 public class EmpServiceImpl implements EmpService {
     @Autowired
     private GymEmpMapper gymEmpMapper;
@@ -19,6 +19,14 @@ public class EmpServiceImpl implements EmpService {
         GymEmpExample example = new GymEmpExample();
         // 模糊查询
         example.createCriteria().andMajorLike("%"+major+"%");
+        return gymEmpMapper.selectByExample(example);
+    }
+
+    @Override
+    public List<GymEmp> findByName(String name) {
+        GymEmpExample example = new GymEmpExample();
+        // 模糊查询
+        example.createCriteria().andGymEmpNameLike("%"+name+"%");
         return gymEmpMapper.selectByExample(example);
     }
 }

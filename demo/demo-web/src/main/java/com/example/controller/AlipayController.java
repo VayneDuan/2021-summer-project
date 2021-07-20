@@ -17,11 +17,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/orders")
 public class AlipayController {
-    @Reference
+    @Reference(version = "1.0.0", url = "dubbo://localhost:20894?version=1.0.0")
     private AlipayService alipayService;
-    @Reference
+    @Reference(version = "1.0.0", url = "dubbo://localhost:20893?version=1.0.0")
     private OrderService orderService;
-    @Reference
+    @Reference(version = "1.0.0", url = "dubbo://localhost:20888?version=1.0.0")
     private MemberService memberService;
 
     @RequestMapping("/pay")

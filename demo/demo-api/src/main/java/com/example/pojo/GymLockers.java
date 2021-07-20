@@ -1,6 +1,8 @@
 package com.example.pojo;
 
-public class GymLockers {
+import java.io.Serializable;
+
+public class GymLockers implements Serializable {
     private Long id;
 
     private String gymLockersLocation;

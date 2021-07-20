@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface EmpService {
     List<GymEmp> findByMajor(String major);
+
+    List<GymEmp> findByName(String name);
 }

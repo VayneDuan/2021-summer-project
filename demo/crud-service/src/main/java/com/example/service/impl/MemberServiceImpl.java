@@ -7,7 +7,7 @@ import com.example.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.apache.dubbo.config.annotation.Service;
 
-@Service
+@Service(version ="1.0.0")
 public class MemberServiceImpl implements MemberService {
     @Autowired
     private GymMemberMapper gymMemberMapper;

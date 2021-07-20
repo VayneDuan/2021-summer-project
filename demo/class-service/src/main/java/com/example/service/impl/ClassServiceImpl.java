@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-@Service
+@Service(version ="1.0.0")
 public class ClassServiceImpl implements ClassService {
     @Autowired
     private GymClassMapper gymClassMapper;

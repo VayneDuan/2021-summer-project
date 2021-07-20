@@ -9,7 +9,7 @@ import org.apache.dubbo.config.annotation.Service;
 
 import java.util.List;
 
-@Service
+@Service(version ="1.0.0")
 public class NewsServiceImpl implements NewsService {
     @Autowired
     private GymNewsMapper gymNewsMapper;

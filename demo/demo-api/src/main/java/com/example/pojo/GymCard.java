@@ -1,8 +1,9 @@
 package com.example.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class GymCard {
+public class GymCard implements Serializable {
     private String id;
 
     private Date begintime;

@@ -1,6 +1,8 @@
 package com.example.pojo;
 
-public class GymVideo {
+import java.io.Serializable;
+
+public class GymVideo implements Serializable {
     private Long id;
 
     private String videourl;

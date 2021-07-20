@@ -8,7 +8,7 @@ import org.springframework.util.CollectionUtils;
 import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
-@Service
+@Service(version ="1.0.0")
 public class RedisServiceImpl implements RedisService {
     @Resource
     private RedisTemplate<String, Object> redisTemplate;

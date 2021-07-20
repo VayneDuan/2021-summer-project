@@ -11,7 +11,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Service
+@Service(version ="1.0.0")
 public class LoginServiceImpl implements LoginService {
     @Autowired
     private GymMemberMapper gymMemberMapper;

@@ -6,11 +6,13 @@ import com.example.pojo.CardVideo;
 import com.example.pojo.CardVideoExample;
 import com.example.pojo.GymVideo;
 import com.example.service.VideoService;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service(version ="1.0.0")
 public class VideoServiceImpl implements VideoService {
     @Autowired
     GymVideoMapper gymVideoMapper;

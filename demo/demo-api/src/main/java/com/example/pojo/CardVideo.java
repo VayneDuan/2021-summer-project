@@ -1,6 +1,8 @@
 package com.example.pojo;
 
-public class CardVideo {
+import java.io.Serializable;
+
+public class CardVideo implements Serializable {
     private String cardId;
 
     private Long videoId;

@@ -16,17 +16,19 @@ import java.util.Map;
 @RestController
 @RequestMapping("/classes")
 public class ClassController {
-    @Reference
+    @Reference(version = "1.0.0", url = "dubbo://localhost:20892?version=1.0.0")
     private ClassService classService;
 
     @RequestMapping("/selectByName")
     @ResponseBody
-    public List<GymClass> findByName(String className) {
-        return classService.findByName(className);
+    public Map<String, Object> findByName(String className) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("class_list", classService.findByName(className));
+        return data;
     }
 
     @RequestMapping("/buy")
-    public Map<String,Object> buyClass(@RequestBody GymMember member, @RequestBody GymClass gymClass) {
+    public Map<String, Object> buyClass(@RequestBody GymMember member, @RequestBody GymClass gymClass) {
         // 前端可以传这个吗？
 //        String member_id = request.getParameter("member_id");
 //        Integer if_times = Integer.parseInt(request.getParameter("if_times"));
@@ -37,13 +39,13 @@ public class ClassController {
         try {
             classService.updateCardClass(member.getCardId(), gymClass.getId());
         } catch (Exception e) {
-            Map<String,Object> add_error = new HashMap<>();
+            Map<String, Object> add_error = new HashMap<>();
             add_error.put("vip_error", "发生未知错误，添加数据库失败");
             add_error.put("address", "vip");
             return add_error;
         }
 
-        Map<String,Object> add_success = new HashMap<>();
+        Map<String, Object> add_success = new HashMap<>();
         add_success.put("vip_data", "\"购买VIP成功! 会员ID:\" + card_id");
         add_success.put("address", "home");
         return add_success;

@@ -19,57 +19,55 @@ import java.util.Map;
 
 @RestController
 public class LoginController {
-    @Reference
+    @Reference(version = "1.0.0", url = "dubbo://localhost:20887?version=1.0.0")
     private LoginService loginService;
-    @Reference
+    @Reference(version = "1.0.0", url = "dubbo://localhost:20888?version=1.0.0")
     private MemberService memberService;
-    @Reference
+    @Reference(version = "1.0.0", url = "dubbo://localhost:20889?version=1.0.0")
     private RedisService redisService;
 
-    @RequestMapping("/")
-    public String index(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Map<String,Object> data = new HashMap<>();
-        // 先检验是否有cookie
-        Cookie[] cookies = request.getCookies();
-        for(Cookie cookie : cookies) {
-            if (cookie.getName().split("@")[0].equals("gymMember")) {
-                String phone = cookie.getName().split("@")[1];
-                GymMember member = memberService.findByPhone(phone);
-                if (member != null) {
-                    data.put("member", member);
-                    response.setContentType("application/json;charset=utf-8");
-                    ObjectMapper objectMapper = new ObjectMapper();
-                    response.getWriter().write(objectMapper.writeValueAsString(data));
-                }
-                break;
-            }
+    @RequestMapping("/check")
+    public Map<String, Object> check(@RequestBody String phone) throws IOException {
+        Map<String, Object> data = new HashMap<>();
+        GymMember member = memberService.findByPhone(phone);
+        if (member != null) {
+            data.put("member", member);
+            return data;
         }
-        return "index";
+        data.put("member", null);
+        return data;
     }
 
     @RequestMapping("/register")
-    public String register(@RequestBody GymMember member, HttpServletResponse response) {
+    public Map<String, Object> register(@RequestBody GymMember member, HttpServletResponse response) {
+        Map<String, Object> data = new HashMap<>();
         if (loginService.register(member, response)) {
-            redisService.set("gymMember"+"@"+member.getPhone(), member.getPasswd());
-            return "index";
+            redisService.set("gymMember" + "@" + member.getPhone(), member.getPasswd());
+            data.put("address", "index");
         } else {
-            return "register";
+            data.put("address", "register");
         }
+        return data;
     }
 
     @RequestMapping("/login")
-    public String login(HttpServletRequest request, HttpServletResponse response) {
+    public Map<String, Object> login(HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Object> data = new HashMap<>();
         if (loginService.login(request, response)) {
-            redisService.set("gymMember"+"@"+request.getParameter("phone"), request.getParameter("passwd"));
-            return "index";
-        } else
-            return "login";
+            redisService.set("gymMember" + "@" + request.getParameter("phone"), request.getParameter("passwd"));
+            data.put("address", "index");
+        } else {
+            data.put("address", "login");
+        }
+        return data;
     }
 
     @RequestMapping("/logout")
-    public String logout(String phone, HttpServletRequest request, HttpServletResponse response) {
+    public Map<String, Object> logout(String phone, HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Object> data = new HashMap<>();
         loginService.logout(phone, request, response);
-        redisService.del("gymMember"+"@"+phone);
-        return "index";
+        redisService.del("gymMember" + "@" + phone);
+        data.put("address", "index");
+        return data;
     }
 }

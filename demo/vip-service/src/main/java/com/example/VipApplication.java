@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @EnableDubbo
 public class VipApplication {
-    public static void main( String[] args ) {
+    public static void main(String[] args) {
         SpringApplication.run(VipApplication.class, args);
     }
 }

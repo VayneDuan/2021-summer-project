@@ -4,10 +4,12 @@ import com.example.mapper.GymOrdersMapper;
 import com.example.pojo.GymOrders;
 import com.example.pojo.GymOrdersExample;
 import com.example.service.OrderService;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
 
+@Service(version ="1.0.0")
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private GymOrdersMapper gymOrdersMapper;

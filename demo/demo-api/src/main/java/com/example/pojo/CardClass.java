@@ -1,8 +1,9 @@
 package com.example.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class CardClass {
+public class CardClass implements Serializable {
     private String cardId;
 
     private Long classId;
