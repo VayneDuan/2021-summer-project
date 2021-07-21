@@ -30,6 +30,13 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public void changePasswd(String phone, String newPasswd) {
+        GymMember member = findByPhone(phone);
+        member.setPasswd(newPasswd);
+        gymMemberMapper.updateByPrimaryKey(member);
+    }
+
+    @Override
     public GymMember findById(String id) {
         return gymMemberMapper.selectByPrimaryKey(id);
     }

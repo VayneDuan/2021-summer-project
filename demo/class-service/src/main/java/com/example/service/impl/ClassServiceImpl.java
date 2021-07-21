@@ -56,11 +56,8 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public List<GymClass> findAll() {
-        GymClassExample example = new GymClassExample();
-        example.createCriteria().getAllCriteria();
-        example.setOrderByClause("beginTime");
-        return gymClassMapper.selectByExample(example);
+    public List<GymClass> findAllWithCoach() {
+        return gymClassMapper.selectAllAddCoachName();
     }
 
 }

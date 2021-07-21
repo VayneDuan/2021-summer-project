@@ -30,9 +30,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public boolean login(HttpServletRequest request, HttpServletResponse response) {
-        String phone = request.getParameter("phone");
-        String passwd = request.getParameter("passwd");
+    public boolean login(String phone, String passwd, HttpServletResponse response) {
         GymMemberExample example = new GymMemberExample();
         example.createCriteria().andPhoneEqualTo(phone);
         GymMember member = gymMemberMapper.selectByExample(example).get(0);

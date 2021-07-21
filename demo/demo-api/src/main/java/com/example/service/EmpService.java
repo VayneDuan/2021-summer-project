@@ -8,4 +8,8 @@ public interface EmpService {
     List<GymEmp> findByMajor(String major);
 
     List<GymEmp> findByName(String name);
+
+    List<GymEmp> findAll();
+
+    GymEmp findById(Long id);
 }

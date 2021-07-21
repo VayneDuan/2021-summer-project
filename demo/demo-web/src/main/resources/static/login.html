@@ -35,10 +35,6 @@
                 <div class="row"> 
                     <span class="col-xs-12 col-sm-3 logo"><a href="index.html"><img src="images/logo.png" class="main img-responsive" alt="Fitness Gym"><img src="images/logo-fix.png" class="fix img-responsive" alt="Fitness Gym"></a></span>
                     <div class="col-xs-12 col-sm-9 header-right">
-                        <div class="header_search_outer">
-                            <span class="icon-search-icon"></span>
-                            <input type="text" value="" placeholder="Search" class="header_search"/>
-                        </div>
                         <!-- Start Navigation -->
                         <nav class="navbar navbar-expand-md navbar-dark navbar-custom">
                             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown">
@@ -50,7 +46,7 @@
                                         <a class="nav-link" href="index.html">首页</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="about-us.html">关于</a>
+                                        <a class="nav-link" href="cart.html">购买</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="classes.html">课程</a>
@@ -107,10 +103,10 @@
                             <h3>登录</h3>
                             <form action="/loginController" method="post" id="contactform" name="loginForm">
                                 <div class="row input-row col-sm-12">
-                                    <input type="text" placeholder="请输入账号" ng-model="user.id" required>
+                                    <input type="text" placeholder="请输入账号" ng-model="user.phone" required>
                                 </div>
                                 <div class="row input-row col-sm-12">
-                                    <input type="password" placeholder="请输入密码" ng-model="user.password" required>
+                                    <input type="password" placeholder="请输入密码" ng-model="user.passwd" required>
                                 </div>
                                 <div class="row input-row col-sm-12" >
                                     <input type="text" placeholder="验证码" ng-model="user.checkCode" style="width: 60%" required>
@@ -172,17 +168,16 @@
         <script src="js/custom.js"></script>
         <!--Angular JS-->
         <script src="js/angular-1.5.5/angular.js"></script>
-        <script src="js/login.js"></script>
+        <srcipt src="js/gverify.js"></srcipt>
         <script>
             var app = angular.module("MyApp", []);
             app.controller("login_controller", function ($scope, $http) {
                 $scope.user = {
-                    "id": '',
-                    "password": '',
-                    "checkCode": ''
+                    "phone": '',
+                    "passwd": '',
                 };
                 $scope.login = function () {
-                    $http.post("http://localhost:8080/check", $scope.user).success(function (response) {
+                    $http.post("http://localhost:8080/login", $scope.user).success(function (response) {
                         $scope.flag = response.flag
                         if ($scope.flag){
                             window.sessionStorage.setItem("isLogin","true");

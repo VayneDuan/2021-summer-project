@@ -28,10 +28,9 @@ public class ClassController {
     private AlipayService alipayService;
 
     @RequestMapping("/selectByName")
-    @ResponseBody
-    public Map<String, Object> findByName(String className) {
+    public Map<String, Object> findByName(@RequestBody Map<String, Object> req) {
         Map<String, Object> data = new HashMap<>();
-        data.put("class_list", classService.findByName(className));
+        data.put("class_list", classService.findByName((String) req.get("className")));
         return data;
     }
 
@@ -43,12 +42,12 @@ public class ClassController {
             classesOrderedByDays.put(i, new ArrayList<GymClass>());
         }
         try {
-            List<GymClass> classes = classService.findAll();
+            List<GymClass> classes = classService.findAllWithCoach();
             for (GymClass gymClass : classes) {
                 classesOrderedByDays.get(gymClass.getClassWeek()).add(gymClass);
             }
         } catch (Exception e) {
-            data.put("error_msg", e.getMessage());
+            data.put("msg", e.getMessage());
             data.put("all_class", null);
             return data;
         }
@@ -56,26 +55,28 @@ public class ClassController {
         return data;
     }
 
-    @RequestMapping("/buy")
-    public Map<String, Object> buyClass(@RequestBody GymClass gymClass, HttpServletRequest request) {
-        String phone = request.getParameter("phone");
-        GymMember member = memberService.findByPhone(phone);
-        Date createTime = new Date();
-        Calendar calendar = new GregorianCalendar();
-        calendar.setTime(createTime);
-        //! 写db
-        try {
-            classService.updateCardClass(member.getCardId(), gymClass.getId());
-        } catch (Exception e) {
-            Map<String, Object> add_error = new HashMap<>();
-            add_error.put("vip_error", "发生未知错误，添加数据库失败");
-            add_error.put("address", "vip");
-            return add_error;
-        }
+//    @RequestMapping("/buy")
+//    public Map<String, Object> buyClass(@RequestBody Map<String, Object> req) {
+//        String phone = (String) req.get("phone");
+//        GymClass gymClass = (GymClass) req.get("gymClass");
+//        GymMember member = memberService.findByPhone(phone);
+//        Date createTime = new Date();
+//        Calendar calendar = new GregorianCalendar();
+//        calendar.setTime(createTime);
+//        //! 写db
+//        try {
+//            classService.updateCardClass(member.getCardId(), gymClass.getId());
+//        } catch (Exception e) {
+//            Map<String, Object> add_error = new HashMap<>();
+//            add_error.put("vip_error", "发生未知错误，添加数据库失败");
+//            add_error.put("address", "localhost:8080/vip");
+//            return add_error;
+//        }
+//
+//        Map<String, Object> add_success = new HashMap<>();
+//        add_success.put("vip_data", "购买VIP成功! 会员ID: " + member.getCardId());
+//        add_success.put("address", "home");
+//        return add_success;
+//    }
 
-        Map<String, Object> add_success = new HashMap<>();
-        add_success.put("vip_data", "购买VIP成功! 会员ID: " + member.getCardId());
-        add_success.put("address", "home");
-        return add_success;
-    }
 }

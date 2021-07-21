@@ -31,13 +31,13 @@
         <!-- Start Header -->
         <header> 
             <!-- Start Header Sec -->
-            <div class="container header-sec">
+            <div class="container header-sec" ng-controller="header_data">
                 <div class="row"> 
                     <span class="col-xs-12 col-sm-3 logo"><a href="index.html"><img src="images/logo.png" class="main img-responsive" alt="Fitness Gym"><img src="images/logo-fix.png" class="fix img-responsive" alt="Fitness Gym"></a></span>
                     <div class="col-xs-12 col-sm-9 header-right">
-                        <div class="header_search_outer" >
+                        <div class="header_search_outer">
                             <span class="icon-search-icon"></span>
-                            <input type="text" value="" placeholder="Search" class="header_search"/>
+                            <input type="text" placeholder="Search" ng-model="searchKW" ng-keyup="searchNews($event)" class="header_search"/>
                         </div>
                         <!-- Start Navigation -->
                         <nav class="navbar navbar-expand-md navbar-dark navbar-custom">
@@ -107,47 +107,9 @@
                             <ul class="post-detail">
                                 <li><span class="fa fa-user-o"></span> Jhon Doe</li>
                                 <li><span class="fa fa-calendar"></span> December 30, 2016</li>
-                                <li><span class="fa fa-comments-o"></span> Comments : 01</li>
                             </ul>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean et faucibus enim. Integer ultrices nisl in tellus mollis, sed pretium neque facilisis. Suspendisse euismod mollis neque eu feugiat. Pellentesque ut mollis lorem, nec convallis libero. Mauris nec orci feugiat, maximus elit quis, porta risus. Morbi nec dui lacus. Mauris fringilla tortor non ligula condimentum, eu consectetur quam faucibus. Aliquam et ullamcorper tortor, sed malesuada felis. Nam convallis lorem tempus mauris eleifend cursus. Proin sollicitudin elit sit amet nibh egestas gravida molestie in diam. Fusce metus ipsum, efficitur ut lacinia at, suscipit a elit.</p>
                             <p>Maecenas a elit non ex dictum volutpat ac et massa. Nunc mi nisi, imperdiet vitae posuere ac, iaculis a felis. Ut vitae tincidunt sapien, ac imperdiet odio. Proin blandit eros vitae porttitor pretium. Aliquam est orci, blandit in orci vel, sollicitudin pretium</p>
-
-                            <div class="comments-wrapper">
-                                <h3>2 Comments</h3>
-                                <ul class="row comments">
-                                    <li class="col-sm-12 clearfix">
-                                        <div class="com-img"><img src="images/coment-img1.png" class="img-circle" alt=""></div>
-                                        <div class="com-txt">
-                                            <h3>JASON ANDERSON <span>April 14, 2014 at 13:56</span></h3>
-                                            <p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                                            <a href="#"><span class="icon-reply-icon"></span>Reply</a> </div>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="form-wrapper">
-                                <h3>Leave Your Message!</h3>
-                                <form>
-                                    <div class="row input-row">
-                                        <div class="col-sm-6">
-                                            <input name="name" type="text" placeholder="First Name*" required>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <input name="phone" type="text" placeholder="Last Phone*" required>
-                                        </div>
-                                    </div>
-                                    <div class="row input-row">
-                                        <div class="col-sm-12">
-                                            <textarea name="message" placeholder="Message*"></textarea>
-                                        </div>        
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <input type="submit" name="submit" class="btn" value="Post Comment">
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
 
                         </div>
                     </div>
@@ -157,59 +119,6 @@
                                 <input name="Search" type="text" placeholder="Search here...">
                                 <button class="search"><span class="icon-search-icon"></span></button>
                             </div>
-                            <div class="category">
-                                <h3>Categories</h3>
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-long-arrow-right"></i> Fitness Classes </a></li>
-                                    <li><a href="#"><i class="fa fa-long-arrow-right"></i> Body Building </a></li>
-                                    <li><a href="#"><i class="fa fa-long-arrow-right"></i> Trainer </a></li>
-                                    <li><a href="#"><i class="fa fa-long-arrow-right"></i> Running </a></li>
-                                    <li><a href="#"><i class="fa fa-long-arrow-right"></i> Yoga </a></li>
-                                </ul>
-                            </div>
-                            <div class="archives">
-                                <h3>Archives</h3>
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-long-arrow-right"></i> February <span>2016(3)</span></a></li>
-                                    <li><a href="#"><i class="fa fa-long-arrow-right"></i> January <span>2016(3)</span></a></li>
-                                    <li><a href="#"><i class="fa fa-long-arrow-right"></i> March <span>2016(3)</span></a></li>
-                                    <li><a href="#"><i class="fa fa-long-arrow-right"></i> November <span>2016(3)</span></a></li>
-                                    <li><a href="#"><i class="fa fa-long-arrow-right"></i> December <span>2016(3)</span></a></li>
-                                </ul>
-                            </div>
-                            <div class="pouplar-news">
-                                <h3>Popular NEWS</h3>
-                                <ul>
-                                    <li class="clearfix"> <a href="#">
-                                            <div class="img-block"><img src="images/pn-thumb1.png" class="img-responsive" alt=""></div>
-                                            <div class="detail">
-                                                <h4>Lorem ipsum dolor sit amet</h4>
-                                                <p>Aliquam eu malesuada risus. Vivamus sagittis enim tempor eros consectetur...</p>
-                                                <span>April 1, 2014</span>
-                                            </div>
-                                        </a> </li>
-                                    <li class="clearfix"> <a href="#">
-                                            <div class="img-block"><img src="images/pn-thumb2.png" class="img-responsive" alt=""></div>
-                                            <div class="detail">
-                                                <h4>Lorem ipsum dolor sit amet</h4>
-                                                <p>Aliquam eu malesuada risus. Vivamus sagittis enim tempor eros consectetur...</p>
-                                                <span>April 1, 2014</span>
-                                            </div>
-                                        </a> </li>
-                                    <li class="clearfix"> <a href="#">
-                                            <div class="img-block"><img src="images/pn-thumb3.png" alt=""></div>
-                                            <div class="detail">
-                                                <h4>Lorem ipsum dolor sit amet</h4>
-                                                <p>Aliquam eu malesuada risus. Vivamus sagittis enim tempor eros consectetur...</p>
-                                                <span>April 1, 2014</span>
-                                            </div>
-                                        </a> 
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="news-adds">
-                                <figure><img src="images/news-adds.png" alt=""></figure>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -217,53 +126,7 @@
         </div>
         <!-- End News sec --> 
         <!-- Start Footer -->
-        <footer class="footer"> 
-            <!-- Start Footer top -->
-            <div class="footer-top">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-4 col-xs-12">
-                            <div class="contact-us">
-                                <h3>About</h3>
-                                <p>Lorem ipsum dolor sit amet, ei ubique fastidii vim. Elitr feugait complectitur eu pro, sea audire ponderum eleifend cu.</p>
-                                <p><i class="fa fa-map-marker" aria-hidden="true"></i>23 New Design Street, Melbourne</p>
-                                <a href="mailto:fitnessgym@gmail.com"><i class="fa fa-envelope" aria-hidden="true"></i>fitnessgym@gmail.com</a>
-                                <a href=""><i class="fa fa-phone" aria-hidden="true"></i>+880-123-456-7890</a>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 col-xs-12">
-                            <div class="newletter">
-                                <h3>NEWSLETTER</h3>
-                                <p>sign up for our mailing list to get latest updates and offers</p>
-                                <div class="search-block clearfix">
-                                    <input name="Search" type="text" placeholder="Enter Your Email">
-                                    <button class="search"><span class="fa fa-long-arrow-right"></span></button>
-                                </div>
-                                <ul class="follow-us clearfix">
-                                    <li><a href="#" class="fa fa-facebook"></a></li>
-                                    <li><a href="#" class="fa fa-twitter"></a></li>
-                                    <li><a href="#" class="fa fa-linkedin"></a></li>
-                                    <li><a href="#" class="fa fa-instagram"></a></li>
-                                    <li><a href="#" class="fa fa-youtube-play"></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 col-xs-12">
-                            <h3>Flickr Photos</h3>
-                            <ul class="flicker-box clearfix">
-                                <li><a href="images/flic1B.png"><img src="images/flic1.png" alt=""></a></li>
-                                <li><a href="images/flic2B.png"><img src="images/flic2.png" alt=""></a></li>
-                                <li><a href="images/flic3B.png"><img src="images/flic3.png" alt=""></a></li>
-                                <li><a href="images/flic4B.png"><img src="images/flic4.png" alt=""></a></li>
-                                <li><a href="images/flic5B.png"><img src="images/flic5.png" alt=""></a></li>
-                                <li><a href="images/flic6B.png"><img src="images/flic6.png" alt=""></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Footer top --> 
-
+        <footer class="footer">
             <!-- Copy Rights --> 
             <div class="copy-rights-section">
                 <div class="container">
@@ -298,5 +161,26 @@
         <script src="assets/counterup/waypoints.min.js"></script>
         <!-- Custom JS --> 
         <script src="js/custom.js"></script>
+        <!-- angular JS-->
+        <script src="js/angular-1.5.5/angular.js"></script>
+        <script>
+            var app = angular.module("MyApp", []);
+            app.controller('header_data', function ($scope, $http) {
+                $scope.searchNews = function (e) {
+                    var keycode = window.event?e.keyCode:e.which;
+                    if(keycode == 13){
+                        console.log($scope.searchKW);
+                        $http.post("http://localhost:8080/selectByName",{"keyWord":$scope.searchKW}).success(function () {
+                            $scope.courses = result.all_class;
+                        })
+                    }
+                }
+            })
+            app.controller('news_outer_data', function ($scope, $http) {
+                $http.get("http://localhost:8080/news/all").success(function (result) {
+                    $scope.newses = result.all_news;
+                })
+            })
+        </script>
     </body>
 </html>

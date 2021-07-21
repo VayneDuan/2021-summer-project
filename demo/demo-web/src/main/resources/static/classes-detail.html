@@ -32,13 +32,13 @@
         <!-- Start Header -->
         <header> 
             <!-- Start Header Sec -->
-            <div class="container header-sec">
+            <div class="container header-sec" ng-controller="header_data">
                 <div class="row"> 
                     <span class="col-xs-12 col-sm-3 logo"><a href="index.html"><img src="images/logo.png" class="main img-responsive" alt="Fitness Gym"><img src="images/logo-fix.png" class="fix img-responsive" alt="Fitness Gym"></a></span>
                     <div class="col-xs-12 col-sm-9 header-right">
                         <div class="header_search_outer">
                             <span class="icon-search-icon"></span>
-                            <input type="text" value="" placeholder="Search" class="header_search"/>
+                            <input type="text" placeholder="Search" ng-model="searchKW" ng-keyup="searchClass($event)" class="header_search"/>
                         </div>
                         <!-- Start Navigation -->
                         <nav class="navbar navbar-expand-md navbar-dark navbar-custom">
@@ -200,8 +200,19 @@
                 }
             }
             var app = angular.module("MyApp", []);
+            app.controller('header_data', function ($scope, $http) {
+                $scope.searchClass = function (e) {
+                    var keycode = window.event?e.keyCode:e.which;
+                    if(keycode == 13){
+                        $http.post("http://localhost:8080/selectByName",{"keyWord":$scope.searchKW}).success(function () {
+                            $scope.courses = result.all_class;
+                        })
+                    }
+                }
+            })
             app.controller('news_outer_data', function ($scope, $http) {
                 var id = GetQueryValue1("cname");
+                console.log(id)
                 $http({
                     method:'POST',
                     url:"http://localhost:8080/course",

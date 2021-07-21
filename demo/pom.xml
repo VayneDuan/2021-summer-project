@@ -23,6 +23,7 @@
     <module>class-service</module>
     <module>alipay-service</module>
     <module>order-service</module>
+    <module>picture-service</module>
   </modules>
 
   <!-- 父级引用 -->

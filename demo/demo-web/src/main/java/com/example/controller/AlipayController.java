@@ -65,20 +65,25 @@ public class AlipayController {
 //    }
 
     @RequestMapping("/pay")
-    public Map<String, Object> pay(String outTradeNo, String amount, String return_url, boolean if_vip) throws Exception {
+    public Map<String, Object> pay(@RequestBody Map<String, Object> req) throws Exception {
+        String outTradeNo = (String) req.get("outTradeNo");
+        String amount = (String) req.get("amount");
+        String return_url = (String) req.get("return_url");
+        boolean if_vip = (boolean) req.get("if_vip");
         Map<String, Object> payResult = new HashMap<>();
         if (if_vip) {
             payResult.put("address", "localhost:8080/vip/buy");
-//            alipayService.pay(outTradeNo, amount, "localhost:8080/vip/buy");
+            alipayService.pay(outTradeNo, amount, "localhost:8080/vip/buy");
         } else {
             payResult.put("address", return_url);
-//            alipayService.pay(outTradeNo, amount, return_url);
+            alipayService.pay(outTradeNo, amount, return_url);
         }
         return payResult;
     }
 
     @RequestMapping("/refund")
-    public String refund(GymOrders order) {
+    public String refund(@RequestBody Map<String, Object> req) {
+        GymOrders order = (GymOrders) req.get("order");
         return alipayService.refund(order);
     }
 

@@ -12,5 +12,5 @@ public interface ClassService {
 
     int updateCardClass(String card_id, long class_id);
 
-    List<GymClass> findAll();
+    List<GymClass> findAllWithCoach();
 }

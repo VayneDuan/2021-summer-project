@@ -32,7 +32,8 @@ public class VipController {
     private OrderService orderService;
 
     @RequestMapping("buy")
-    public Map<String, Object> buyVip(@RequestBody GymCard card, HttpServletRequest request) {
+    public Map<String, Object> buyVip(@RequestBody Map<String, Object> req) {
+        GymCard card = (GymCard) req.get("card");
         // 前端可以传这个吗？
 //        String member_id = request.getParameter("member_id");
 //        Integer if_times = Integer.parseInt(request.getParameter("if_times"));
@@ -51,7 +52,7 @@ public class VipController {
             System.out.println("[ERROR] arg wrong");
             Map<String,Object> data = new HashMap<>();
             data.put("vip_error", "参数错误");
-            data.put("address", "vip");
+            data.put("address", "localhost:8080/vip/buy");
             return data; // TODO 前端弹窗提示错误信息？或者跳转到错误页面
         }
 
@@ -78,8 +79,8 @@ public class VipController {
             card.setAmount(-1.);
         }
 
-        String phone = request.getParameter("phone");
-        Integer price = Integer.parseInt(request.getParameter("price"));
+        String phone = (String) req.get("phone");
+        Integer price = (Integer) req.get("price");
         GymMember member = memberService.findByPhone(phone);
         // 创建订单
         GymOrders order = new GymOrders();
@@ -96,7 +97,7 @@ public class VipController {
         } catch (Exception e) {
             Map<String,Object> add_error = new HashMap<>();
             add_error.put("vip_error", "发生未知错误，添加数据库失败");
-            add_error.put("address", "vip");
+            add_error.put("address", "localhost:8080/vip/buy");
             return add_error; // TODO 前端弹窗提示错误信息？或者跳转到错误页面
         }
 
@@ -106,7 +107,7 @@ public class VipController {
         System.out.println("插入VIP数据成功");
         Map<String,Object> add_success = new HashMap<>();
         add_success.put("vip_data", "\"购买VIP成功! 会员ID:\" + card_id");
-        add_success.put("address", "home");
+        add_success.put("address", "localhost:8080/home");
         return add_success; // TODO 返回到用户个人中心
     }
 }

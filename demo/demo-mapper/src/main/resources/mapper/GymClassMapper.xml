@@ -16,6 +16,16 @@
     <result column="img3Url" jdbcType="VARCHAR" property="img3url" />
     <result column="img4Url" jdbcType="VARCHAR" property="img4url" />
   </resultMap>
+  <resultMap id="BaseResultMap2" type="com.example.pojo.GymClass">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="gym_class_name" jdbcType="VARCHAR" property="gymClassName" />
+    <result column="class_week" jdbcType="INTEGER" property="classWeek" />
+    <result column="beginTime" jdbcType="TIME" property="begintime" />
+    <result column="endTime" jdbcType="TIME" property="endtime" />
+    <association property="gymEmp" javaType="com.example.pojo.GymEmp">
+      <result column="gym_emp_name" jdbcType="VARCHAR" property="gymEmpName" />
+    </association>
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -335,4 +345,9 @@
       img4Url = #{img4url,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="selectAllAddCoachName" resultMap="BaseResultMap2">
+    select gym_class.id, gym_class_name, class_week, beginTime, endTime, gym_emp.gym_emp_name
+    from gym_class, gym_emp
+    where gym_class.emp_id = gym_emp.id
+  </select>
 </mapper>

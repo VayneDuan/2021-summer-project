@@ -39,35 +39,39 @@ public class LoginController {
     }
 
     @RequestMapping("/register")
-    public Map<String, Object> register(@RequestBody GymMember member, HttpServletResponse response) {
+    public Map<String, Object> register(@RequestBody Map<String, Object> req, HttpServletResponse response) {
+        GymMember member = (GymMember) req.get("member");
         Map<String, Object> data = new HashMap<>();
         if (loginService.register(member, response)) {
             redisService.set("gymMember" + "@" + member.getPhone(), member.getPasswd());
-            data.put("address", "index");
+            data.put("address", "localhost:8080/index");
         } else {
-            data.put("address", "register");
+            data.put("address", "localhost:8080/register");
         }
         return data;
     }
 
     @RequestMapping("/login")
-    public Map<String, Object> login(HttpServletRequest request, HttpServletResponse response) {
+    public Map<String, Object> login(@RequestBody Map<String, Object> req, HttpServletResponse response) {
         Map<String, Object> data = new HashMap<>();
-        if (loginService.login(request, response)) {
-            redisService.set("gymMember" + "@" + request.getParameter("phone"), request.getParameter("passwd"));
-            data.put("address", "index");
+        String phone = (String) req.get("phone");
+        String passwd = (String) req.get("passwd");
+        if (loginService.login(phone, passwd, response)) {
+            redisService.set("gymMember" + "@" + req.get("phone"), req.get("passwd"));
+            data.put("address", "localhost:8080/index");
         } else {
-            data.put("address", "login");
+            data.put("address", "localhost:8080/login");
         }
         return data;
     }
 
     @RequestMapping("/logout")
-    public Map<String, Object> logout(String phone, HttpServletRequest request, HttpServletResponse response) {
+    public Map<String, Object> logout(@RequestBody Map<String, Object> req, HttpServletRequest request, HttpServletResponse response) {
+        String phone = (String) req.get("phone");
         Map<String, Object> data = new HashMap<>();
         loginService.logout(phone, request, response);
         redisService.del("gymMember" + "@" + phone);
-        data.put("address", "index");
+        data.put("address", "localhost:8080/index");
         return data;
     }
 }

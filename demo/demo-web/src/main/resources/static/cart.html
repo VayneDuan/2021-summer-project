@@ -27,7 +27,7 @@
   <!-- Custom Style -->
   <link href="css/custom.css" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body ng-app="MyApp">
 <!-- Start Header -->
 <header>
   <!-- Start Header Sec -->
@@ -45,7 +45,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="index.html">首页</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item  active">
                 <a class="nav-link" href="cart.html">购买</a>
               </li>
               <li class="nav-item">
@@ -60,7 +60,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="news.html">新闻</a>
               </li>
-              <li class="nav-item  active">
+              <li class="nav-item">
                 <a class="nav-link" href="login.html">登录</a>
               </li>
             </ul>
@@ -74,18 +74,19 @@
 </header>
 <!-- End Header -->
 
+
 <!-- Start Banner -->
 <div class="banner-outer inner-banner contact-us-banner">
   <span class="banner-shadow"></span>
   <div class="container">
     <div class="content" data-aos="fade-down">
-      <h1>注册</h1>
+      <h1>购买</h1>
       <div class="breadcrumbs_outer">
         <div class="container">
           <ul class="breadcrumbs">
             <li><a href="index.html">主页</a></li>
-            <li><a href="login.html">登录</a></li>
-            <li>注册</li>
+            <li>购物车</li>
+            <li><a href="cart-history.html">购物历史</a></li>
           </ul>
         </div>
       </div>
@@ -94,33 +95,40 @@
 </div>
 <!-- End Banner -->
 
-<!-- Start Contact sec -->
-<div class="contact-outer" ng-controller="login_controller">
+<!--购物车-->
+<div class="classSch-outer schedulePage" ng-controller="cartController">
   <div class="container">
-    <div class="row">
-      <div class="col-sm-7 col-xs-12" style="width: 100%">
-        <div class="form-wrapper">
-          <h3>注册</h3>
-          <form action="/loginController" method="post" id="contactform" name="loginForm">
-            <div class="row input-row col-sm-12">
-              <input type="text" placeholder="请输入账号" ng-model="user.id" required>
-            </div>
-            <div class="row input-row col-sm-12">
-              <input type="password" placeholder="请输入密码" ng-model="user.password" required>
-            </div>
-            <div class="row input-row col-sm-12">
-              <input type="password" placeholder="请重复密码" ng-model="user.password2" required>
-            </div>
-            <div class="row input-row col-sm-12">
-              <button class="btn" ng-click="register()">注册</button>
-            </div>
-          </form>
-        </div>
-      </div>
+    <div class="head">
+      <h3>购物清单</h3>
+      <table width="80%">
+        <tr class="table_head">
+          <td width="10%"><input type="checkbox" ng-click="selectAll()" ng-model="ckAll"></td>
+          <td width="40%">商品名</td>
+          <td width="15%">教练</td>
+          <td width="10%">数量</td>
+          <td width="10%">单价</td>
+        </tr>
+        <tr>
+          <td width="10%"><input type="checkbox" ng-model="ckVip"></td>
+          <td width="40%">月费会员</td>
+          <td width="15%">-----</td>
+          <td width="20%"><input type="number" ng-model="vipMonth" ng-bind="count()"></td>
+          <td width="15%">50</td>
+        </tr>
+        <tr ng-repeat="course in courses">
+          <td width="10%"><input type="checkbox" ng-model="course.ck"></td>
+          <td width="40%">{{course.name}}</td>
+          <td width="15%">{{course.trainer}}</td>
+          <td width="20%"><input type="number" ng-model="course.num" ng-bind="count()"></td>
+          <td width="15%">{{course.price}}</td>
+        </tr>
+      </table>
+      <button class="btn" ng-click="deleteItem()" style="float: left">删除</button>
+      <button class="btn" ng-click="payMoney()" style="float: left">提交</button>
+      <div style="float: right">总金额：{{sum}}</div>
     </div>
   </div>
 </div>
-<!-- End Contact sec -->
 
 
 
@@ -167,32 +175,76 @@
 <script src="js/custom.js"></script>
 <!--Angular JS-->
 <script src="js/angular-1.5.5/angular.js"></script>
-<!--Angular JS-->
-<script src="js/angular-1.5.5/angular.js"></script>
+<script src="js/login.js"></script>
 <script>
-  var app = angular.module("MyApp", []);
-  app.controller("login_controller", function ($scope, $http) {
-    $scope.passwd2 = "";
-    $scope.user = {
-      "phone": '',
-      "passwd": '',
-    };
-    $scope.register = function () {
-      if ($scope.user.passwd != $scope.passwd2){
-        alert("密码不一致");
-        return ;
+  var app = angular.module('MyApp', []);
+  app.controller('cartController', function ($scope, $http) {
+    $http.get("http://localhost:8080/cart").success(function (result) {
+      $scope.courses = result.arr;
+    })
+    $scope.vipMonth = 0;
+    $scope.sum = 0;
+
+    //计算总金额
+    $scope.count = function () {
+      $scope.sum = 0;
+      console.log("count");
+      if ($scope.ckVip == true){
+        $scope.sum = $scope.vipMonth * 50;
       }
-      $http.post("http://localhost:8080/register", $scope.user).success(function (response) {
-        $scope.flag = response.flag
-        if ($scope.flag){
-          // window.sessionStorage.setItem("isLogin","true");
-          // window.sessionStorage.setItem("id",$scope.user.id);
-          window.location = "login.html";
-        }else{
-          alert("请检查登录信息");
+      for(let i = 0; i < $scope.courses.length; i++){
+        if ($scope.courses[i].ck == true){
+          $scope.sum = $scope.sum + $scope.courses[i].num * $scope.courses[i].price;
         }
+      }
+    }
+
+    //全选,反选实现
+    $scope.selectAll = function () {
+      $scope.ckVip = $scope.ckAll;
+      for(let i = 0; i < $scope.courses.length; i++){
+        $scope.courses[i].ck = $scope.ckAll;
+      }
+    }
+
+    $scope.deleteItem = function () {
+      $scope.data = {
+        "course": [],
+        "num" : []
+      }
+      for(let i = 0; i < $scope.courses.length; i++){
+        if ($scope.courses[i].ck == true){
+          $scope.data.course.push($scope.courses[i].name);
+          $scope.data.num.push($scope.courses[i].num);
+        }
+      }
+      console.log($scope.data)
+      $http.post("http://localhost:8080/deleteItem", $scope.data).success(function (result) {
+        $scope.courses = result.arr;
       })
-    };
+    }
+
+    $scope.payMoney = function () {
+      $scope.data = {
+        "course": [],
+        "num" : []
+      }
+      if ($scope.ckVip == true){
+        $scope.data.course.push("VIP");
+        $scope.data.num.push($scope.vipMonth);
+      }
+      for(let i = 0; i < $scope.courses.length; i++){
+        if ($scope.courses[i].ck == true){
+          $scope.data.course.push($scope.courses[i].name);
+          $scope.data.num.push($scope.courses[i].num);
+        }
+      }
+      console.log($scope.data)
+      $http.post("http://localhost:8080/payMoney", $scope.data).success(function (result) {
+        $scope.courses = result.arr;
+      })
+    }
+
   })
 </script>
 </body>

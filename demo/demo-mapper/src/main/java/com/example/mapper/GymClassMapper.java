@@ -32,4 +32,6 @@ public interface GymClassMapper {
     int updateByPrimaryKeySelective(GymClass record);
 
     int updateByPrimaryKey(GymClass record);
+
+    List<GymClass> selectAllAddCoachName();
 }

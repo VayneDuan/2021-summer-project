@@ -44,14 +44,10 @@
         <!-- Start Header -->
         <header> 
             <!-- Start Header Sec -->
-            <div class="container header-sec">
+            <div class="container header-sec" ng-controller="header_data">
                 <div class="row"> 
                     <span class="col-xs-12 col-sm-3 logo"><a href="index.html"><img class="main" src="images/logo.png" alt="Fitness Gym"><img class="fix" src="images/logo-fix.png" alt="Fitness Gym"></a></span>
                     <div class="col-xs-12 col-sm-9 header-right">
-                        <div class="header_search_outer">
-                            <span class="icon-search-icon"></span>
-                            <input type="text" value="" placeholder="Search" class="header_search"/>
-                        </div>
                         <!-- Start Navigation -->
                         <nav class="navbar navbar-expand-md navbar-dark navbar-custom">
                             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown">
@@ -63,7 +59,7 @@
                                         <a class="nav-link" href="index.html">首页</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="about-us.html">关于</a>
+                                        <a class="nav-link" href="cart.html">购买</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="classes.html">课程</a>
@@ -78,7 +74,7 @@
                                         <a class="nav-link" href="news.html">新闻</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="login.html">登录</a>
+                                        <a class="nav-link" href="login.html">{{isLoginStr}}</a>
                                     </li>         
                                 </ul>
                             </div>
@@ -112,11 +108,27 @@
             <div class="container">
                 <div class="building-list">
                     <div class="row">
-                        <div class="col-sm-4 col-xs-12" ng-repeat="course in courses">
+                        <div class="col-sm-4 col-xs-12">
                             <div class="building-box">
-                                <figure><img src={{course.img_url}} alt=""></figure>
-                                <h4>{{course.cname}}</h4>
-                                <p>{{course.introduction}}</p>
+                                <figure><img src={{courses[1][0].img1url}} alt=""></figure>
+                                <h4>{{courses[1][0].gymClassName}}</h4>
+<!--                                <p>{{course.introduction}}</p>-->
+                                <a href="classes-detail.html" class="btn">详情</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-12">
+                            <div class="building-box">
+                                <figure><img src={{courses[2][0].img1url}} alt=""></figure>
+                                <h4>{{courses[2][0].gymClassName}}</h4>
+                                <!--                                <p>{{course.introduction}}</p>-->
+                                <a href="classes-detail.html" class="btn">详情</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-12">
+                            <div class="building-box">
+                                <figure><img src={{courses[3][0].img1url}} alt=""></figure>
+                                <h4>{{courses[3][0].gymClassName}}</h4>
+                                <!--                                <p>{{course.introduction}}</p>-->
                                 <a href="classes-detail.html" class="btn">详情</a>
                             </div>
                         </div>
@@ -137,13 +149,13 @@
                         <div class="item">
                             <div class="feature-box">
                                 <figure>
-                                    <img src={{courses[0].img_url}} alt="">
+                                    <img src={{courses[1][0].img_url}} alt="">
                                     <div class="time-box">
-                                        <span class="date"><span>{{courses[0].year}}</span></span>
-                                        <span class="time"><span>{{courses[0].start_time}}</span></span>
+                                        <span class="date"><span>{{courses[1][0].year}}</span></span>
+                                        <span class="time"><span>{{courses[1][0].start_time}}</span></span>
                                     </div>
                                 </figure>
-                                <h4><a href="classes-detail.html" class="btn">{{courses[0].cname}}</a></h4>
+                                <h4><a href="classes-detail.html" class="btn">{{courses[1][0].gymClassName}}</a></h4>
                             </div>
                         </div>
                         <div class="item">
@@ -155,7 +167,7 @@
                                         <span class="time"><span>{{courses[0].start_time}}</span></span>
                                     </div>
                                 </figure>
-                                <h4><a href="classes-detail.html" class="btn">{{courses[0].cname}}</a></h4>
+                                <h4><a href="classes-detail.html" class="btn">{{courses[2][0].gymClassName}}</a></h4>
                             </div>
                         </div>
                         <div class="item">
@@ -167,7 +179,7 @@
                                         <span class="time"><span>{{courses[1].start_time}}</span></span>
                                     </div>
                                 </figure>
-                                <h4><a href="classes-detail.html" class="btn">{{courses[1].cname}}</a></h4>
+                                <h4><a href="classes-detail.html" class="btn">{{courses[3][0].gymClassName}}</a></h4>
                             </div>
                         </div>
                         <div class="item">
@@ -179,7 +191,7 @@
                                         <span class="time"><span>{{courses[1].start_time}}</span></span>
                                     </div>
                                 </figure>
-                                <h4><a href="classes-detail.html" class="btn">{{courses[1].cname}}</a></h4>
+                                <h4><a href="classes-detail.html" class="btn">{{courses[4][0].gymClassName}}</a></h4>
                             </div>
                         </div>
                         <div class="item">
@@ -191,7 +203,7 @@
                                         <span class="time"><span>{{courses[2].start_time}}</span></span>
                                     </div>
                                 </figure>
-                                <h4><a href="classes-detail.html" class="btn">{{courses[2].cname}}</a></h4>
+                                <h4><a href="classes-detail.html" class="btn">{{courses[5][0].gymClassName}}</a></h4>
                             </div>
                         </div>
                         <div class="item">
@@ -203,7 +215,7 @@
                                         <span class="time"><span>{{courses[2].start_time}}</span></span>
                                     </div>
                                 </figure>
-                                <h4><a href="classes-detail.html" class="btn">{{courses[2].cname}}</a></h4>
+                                <h4><a href="classes-detail.html" class="btn">{{courses[6][0].gymClassName}}</a></h4>
                             </div>
                         </div>
                         <div class="item">
@@ -215,7 +227,7 @@
                                         <span class="time"><span>{{courses[2].start_time}}</span></span>
                                     </div>
                                 </figure>
-                                <h4><a href="classes-detail.html" class="btn">{{courses[2].cname}}</a></h4>
+                                <h4><a href="classes-detail.html" class="btn">{{courses[7][0].gymClassName}}</a></h4>
                             </div>
                         </div>
                     </div>
@@ -453,31 +465,38 @@
         <script src="js/angular-1.5.5/angular.js"></script>
         <script>
             var app = angular.module("MyApp", []);
+            app.controller('header_data', function ($scope, $http) {
+                $scope.isLoginStr = '登录';
+                $scope.cookie = document.cookie.split(/[@=]/);
+                $scope.user = {
+                    "phone": $scope.cookie[1],
+                    "passwd": $scope.cookie[2],
+                }
+                $http.post("http://localhost:8080/check", $scope.user).success(function (result) {
+                    if (result.member != null){
+                        $scope.isLoginStr = "个人中心"
+                    }
+                    else{
+                        $scope.isLoginStr = "登录"
+                    }
+                })
+
+            });
             app.controller('building_outer_data', function ($scope, $http) {
-                $http({
-                    method:'GET',
-                    url:"http://localhost:8080/courses"
+                $http.get("http://localhost:8080/classes/all").success(function (result) {
+                    $scope.courses = result.all_class;
                 })
-                .then(function success(result) {
-                    // console.log(result)
-                    $scope.courses = result.data;
+            });
+            app.controller('feature_outer_data', function ($scope, $http) {
+                $http.get("http://localhost:8080/classes/all").success(function (result) {
+                    $scope.courses = result.all_class;
                 })
-            })
-            .controller('feature_outer_data', function ($scope, $http) {
-                $http({
-                    method:'GET',
-                    url:"http://localhost:8080/courses"
-                }).then(function success(result) {
-                        // console.log(result)
-                        $scope.courses = result.data;
-                    })
-            })
-            .controller('trainers_outer_data', function ($scope, $http) {
+            });
+            app.controller('trainers_outer_data', function ($scope, $http) {
                 $http({
                     method:'GET',
                     url:"http://localhost:8080/trainers"
                 }).then(function success(result) {
-                    // console.log(result)
                     $scope.trainers = result.data;
                 })
             })

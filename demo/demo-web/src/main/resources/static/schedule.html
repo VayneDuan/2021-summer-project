@@ -35,10 +35,6 @@
                 <div class="row"> 
                     <span class="col-xs-12 col-sm-3 logo"><a href="index.html"><img src="images/logo.png" class="main img-responsive" alt="Fitness Gym"><img src="images/logo-fix.png" class="fix img-responsive" alt="Fitness Gym"></a></span>
                     <div class="col-xs-12 col-sm-9 header-right">
-                        <div class="header_search_outer">
-                            <span class="icon-search-icon"></span>
-                            <input type="text" value="" placeholder="Search" class="header_search"/>
-                        </div>
                         <!-- Start Navigation -->
                         <nav class="navbar navbar-expand-md navbar-dark navbar-custom">
                             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown">
@@ -50,7 +46,7 @@
                                         <a class="nav-link" href="index.html">首页</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="about-us.html">关于</a>
+                                        <a class="nav-link" href="cart.html">购买</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="classes.html">课程</a>
@@ -115,138 +111,66 @@
                 <div class="table-outer">
                     <table class="table tab_container" id="mon">
                         <tbody>
-                        <tr ng-repeat="course in courses">
-                            <td>{{course.cname}}</td>
-                            <td>{{course.start_time}} - {{course.end_time}}</td>
-                            <td>{{course.trainer}}</td>
-                            <td><a href="login.html" class="btn">Join Now</a></td>
+                        <tr ng-repeat="course in courses[1]">
+                            <td>{{course.gymClassName}}</td>
+                            <td>{{course.begintime}} - {{course.end_time}}</td>
+                            <td>{{course.empId}}</td>
+                            <td><a href="classes-detail.html?cname={{course.gymClassName}}" class="btn">Join Now</a></td>
                         </tr>
 
                     </tbody></table>
                     <table class="table tab_container" id="tus">
-                        <tbody><tr>
-                            <td>Yoga</td>
-                            <td>10.00 am - 12.00 pm</td>
-                            <td>Robert Smith</td>
-                            <td><a href="login.html" class="btn">Join Now</a></td>
-                        </tr>
-                        <tr>
-                            <td>Running</td>
-                            <td>09.00 am - 12.00 pm</td>
-                            <td>Lina John</td>
-                            <td><a href="login.html" class="btn">Join Now</a></td>
-                        </tr>
-                        <tr>
-                            <td>Gym</td>
-                            <td>10.00 am - 12.00 pm</td>
-                            <td>Michale Rose</td>
-                            <td><a href="login.html" class="btn">Join Now</a></td>
+                        <tbody>
+                        <tr ng-repeat="course in courses[2]">
+                            <td>{{course.gymClassName}}</td>
+                            <td>{{course.begintime}} - {{course.end_time}}</td>
+                            <td>{{course.empId}}</td>
+                            <td><a href="classes-detail.html?cname={{course.gymClassName}}" class="btn">Join Now</a></td>
                         </tr>
                     </tbody></table>
                     <table class="table tab_container" id="wed">
-                    	<tbody><tr>
-                            <td>Weight Lifting</td>
-                            <td>09.00 am - 12.00 pm</td>
-                            <td>Michal Khurp</td>
-                            <td><a href="login.html" class="btn">Join Now</a></td>
-                        </tr>
-                        <tr>
-                            <td>Yoga</td>
-                            <td>10.00 am - 12.00 pm</td>
-                            <td>Robert Smith</td>
-                            <td><a href="login.html" class="btn">Join Now</a></td>
-                        </tr>
-                        <tr>
-                            <td>Running</td>
-                            <td>09.00 am - 12.00 pm</td>
-                            <td>Lina John</td>
-                            <td><a href="login.html" class="btn">Join Now</a></td>
-                        </tr>
-                        <tr>
-                            <td>Gym</td>
-                            <td>10.00 am - 12.00 pm</td>
-                            <td>Michale Rose</td>
-                            <td><a href="login.html" class="btn">Join Now</a></td>
+                    	<tbody>
+                        <tr ng-repeat="course in courses[3]">
+                            <td>{{course.gymClassName}}</td>
+                            <td>{{course.begintime}} - {{course.end_time}}</td>
+                            <td>{{course.empId}}</td>
+                            <td><a href="classes-detail.html?cname={{course.gymClassName}}" class="btn">Join Now</a></td>
                         </tr>
                     </tbody></table>
                     <table class="table tab_container" id="thrus">
-                        <tbody><tr>
-                            <td>Running</td>
-                            <td>09.00 am - 12.00 pm</td>
-                            <td>Lina John</td>
-                            <td><a href="login.html" class="btn">Join Now</a></td>
-                        </tr>
-                        <tr>
-                            <td>Gym</td>
-                            <td>10.00 am - 12.00 pm</td>
-                            <td>Michale Rose</td>
-                            <td><a href="login.html" class="btn">Join Now</a></td>
+                        <tbody>
+                        <tr ng-repeat="course in courses[4]">
+                            <td>{{course.gymClassName}}</td>
+                            <td>{{course.begintime}} - {{course.end_time}}</td>
+                            <td>{{course.empId}}</td>
+                            <td><a href="classes-detail.html?cname={{course.gymClassName}}" class="btn">Join Now</a></td>
                         </tr>
                     </tbody></table>
                     <table class="table tab_container" id="friday">
-                        <tbody><tr>
-                            <td>Yoga</td>
-                            <td>10.00 am - 12.00 pm</td>
-                            <td>Robert Smith</td>
-                            <td><a href="login.html" class="btn">Join Now</a></td>
-                        </tr>
-                        <tr>
-                            <td>Running</td>
-                            <td>09.00 am - 12.00 pm</td>
-                            <td>Lina John</td>
-                            <td><a href="login.html" class="btn">Join Now</a></td>
-                        </tr>
-                        <tr>
-                            <td>Yoga</td>
-                            <td>10.00 am - 12.00 pm</td>
-                            <td>Mark Jinsed</td>
-                            <td><a href="login.html" class="btn">Join Now</a></td>
-                        </tr>
-                        <tr>
-                            <td>Weight Lifting</td>
-                            <td>09.00 am - 12.00 pm</td>
-                            <td>Michal Khurp</td>
-                            <td><a href="login.html" class="btn">Join Now</a></td>
+                        <tbody>
+                        <tr ng-repeat="course in courses[5]">
+                            <td>{{course.gymClassName}}</td>
+                            <td>{{course.begintime}} - {{course.end_time}}</td>
+                            <td>{{course.empId}}</td>
+                            <td><a href="classes-detail.html?cname={{course.gymClassName}}" class="btn">Join Now</a></td>
                         </tr>
                     </tbody></table>
                     <table class="table tab_container" id="sat">
-                        <tbody><tr>
-                            <td>Running</td>
-                            <td>09.00 am - 12.00 pm</td>
-                            <td>Lina John</td>
-                            <td><a href="login.html" class="btn">Join Now</a></td>
-                        </tr>
-                        <tr>
-                            <td>Yoga</td>
-                            <td>10.00 am - 12.00 pm</td>
-                            <td>Mark Jinsed</td>
-                            <td><a href="login.html" class="btn">Join Now</a></td>
-                        </tr>
-                        <tr>
-                            <td>Weight Lifting</td>
-                            <td>09.00 am - 12.00 pm</td>
-                            <td>Michal Khurp</td>
-                            <td><a href="login.html" class="btn">Join Now</a></td>
+                        <tbody>
+                        <tr ng-repeat="course in courses[6]">
+                            <td>{{course.gymClassName}}</td>
+                            <td>{{course.begintime}} - {{course.end_time}}</td>
+                            <td>{{course.empId}}</td>
+                            <td><a href="classes-detail.html?cname={{course.gymClassName}}" class="btn">Join Now</a></td>
                         </tr>
                     </tbody></table>
                     <table class="table tab_container" id="sun">
-                        <tbody><tr>
-                            <td>Yoga</td>
-                            <td>10.00 am - 12.00 pm</td>
-                            <td>Robert Smith</td>
-                            <td><a href="login.html" class="btn">Join Now</a></td>
-                        </tr>
-                        <tr>
-                            <td>Running</td>
-                            <td>09.00 am - 12.00 pm</td>
-                            <td>Lina John</td>
-                            <td><a href="login.html" class="btn">Join Now</a></td>
-                        </tr>
-                        <tr>
-                            <td>Weight Lifting</td>
-                            <td>09.00 am - 12.00 pm</td>
-                            <td>Michal Khurp</td>
-                            <td><a href="login.html" class="btn">Join Now</a></td>
+                        <tbody>
+                        <tr ng-repeat="course in courses[7]">
+                            <td>{{course.gymClassName}}</td>
+                            <td>{{course.begintime}} - {{course.end_time}}</td>
+                            <td>{{course.empId}}</td>
+                            <td><a href="classes-detail.html?cname={{course.gymClassName}}" class="btn">Join Now</a></td>
                         </tr>
                     </tbody></table>
                 </div>
@@ -293,16 +217,11 @@
         <!--Angular JS-->
         <script src="js/angular-1.5.5/angular.js"></script>
         <script>
-            var app = angular.module("MyApp", []);
+            var app = angular.module("MyApp",[]);
             app.controller('classSch_outer_data', function ($scope, $http) {
-                $http({
-                    method:'GET',
-                    url:"http://localhost:8080/courses"
+                $http.get("http://localhost:8080/classes/all").success(function (result) {
+                    $scope.courses = result.all_class;
                 })
-                    .then(function success(result) {
-                        // console.log(result)
-                        $scope.courses = result.data;
-                    })
             })
         </script>
     </body>

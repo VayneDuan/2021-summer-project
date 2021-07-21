@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.pojo.GymEmp;
 import com.example.service.EmpService;
 import org.apache.dubbo.config.annotation.Reference;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +20,8 @@ public class EmpController {
 
     @RequestMapping("/selectByMajor")
     @ResponseBody
-    public Map<String, Object> findByMajor(String major) {
+    public Map<String, Object> findByMajor(@RequestBody Map<String, Object> req) {
+        String major = (String) req.get("major");
         Map<String, Object> data = new HashMap<>();
         data.put("emp_list", empService.findByMajor(major));
         return data;
@@ -27,9 +29,18 @@ public class EmpController {
 
     @RequestMapping("/selectByName")
     @ResponseBody
-    public Map<String, Object> findByName(String name) {
+    public Map<String, Object> findByName(@RequestBody Map<String, Object> req) {
+        String name = (String) req.get("name");
         Map<String, Object> data = new HashMap<>();
         data.put("emp_list", empService.findByName(name));
+        return data;
+    }
+
+    @RequestMapping("/selectAll")
+    @ResponseBody
+    public Map<String, Object> findAll(@RequestBody Map<String, Object> req) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("emp_list", empService.findAll());
         return data;
     }
 }

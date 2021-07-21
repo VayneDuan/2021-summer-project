@@ -22,6 +22,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<GymOrders> findOrdersByStatus(String phone, Integer s) {
+        GymOrdersExample example = new GymOrdersExample();
+        example.createCriteria()
+                .andIdLike("%"+phone+"%")
+                .andIfUsedEqualTo(s);
+        return gymOrdersMapper.selectByExample(example);
+    }
+
+    @Override
     public boolean deleteOrderById(GymOrders orders) {
         GymOrdersExample example = new GymOrdersExample();
         example.createCriteria()
@@ -52,6 +61,11 @@ public class OrderServiceImpl implements OrderService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @Override
+    public int updateOrders(GymOrders order) {
+        return gymOrdersMapper.updateByPrimaryKey(order);
     }
 
     @Override

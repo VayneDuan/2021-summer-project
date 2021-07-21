@@ -38,7 +38,9 @@ public class VideoController {
     //*     3.2 如果不存在, 返回: 权限不够, 请买课/买VIP
 
     @RequestMapping("/get")
-    public Map<String, Object> getVideo(String member_id, long video_id) {
+    public Map<String, Object> getVideo(@RequestBody Map<String, Object> req) {
+        String member_id = (String) req.get("member_id");
+        long video_id = (long) req.get("video_id");
 //        long video_id = Long.parseLong(request.getParameter("video_id"));
 //        String member_id = request.getParameter("member_id");
         Map<String, Object> msg = new HashMap<>();
@@ -100,26 +102,26 @@ public class VideoController {
         return msg;
     }
 
-    @RequestMapping("buy")
-    public Map<String,Object> buyVideo(@RequestBody GymVideo video, HttpServletRequest request) {
-        String phone = request.getParameter("phone");
-        GymMember member = memberService.findByPhone(phone);
-        Date createTime = new Date();
-        Calendar calendar = new GregorianCalendar();
-        calendar.setTime(createTime);
-        //! 写db
-        try {
-            videoService.updateCardVideo(member.getCardId(), video.getId());
-        } catch (Exception e) {
-            Map<String,Object> add_error = new HashMap<>();
-            add_error.put("video", "error");
-            System.out.println("video_exception : 发生未知错误，添加数据库失败");
-            return add_error;
-        }
-        Map<String,Object> add_success = new HashMap<>();
-        add_success.put("video", "success");
-        add_success.put("address", "home");
-        return add_success;
-    }
+//    @RequestMapping("buy")
+//    public Map<String,Object> buyVideo(@RequestBody GymVideo video, HttpServletRequest request) {
+//        String phone = request.getParameter("phone");
+//        GymMember member = memberService.findByPhone(phone);
+//        Date createTime = new Date();
+//        Calendar calendar = new GregorianCalendar();
+//        calendar.setTime(createTime);
+//        //! 写db
+//        try {
+//            videoService.updateCardVideo(member.getCardId(), video.getId());
+//        } catch (Exception e) {
+//            Map<String,Object> add_error = new HashMap<>();
+//            add_error.put("video", "error");
+//            System.out.println("video_exception : 发生未知错误，添加数据库失败");
+//            return add_error;
+//        }
+//        Map<String,Object> add_success = new HashMap<>();
+//        add_success.put("video", "success");
+//        add_success.put("address", "home");
+//        return add_success;
+//    }
 
 }

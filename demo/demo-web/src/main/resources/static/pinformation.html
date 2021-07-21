@@ -36,6 +36,10 @@
         <div class="row">
             <span class="col-xs-12 col-sm-3 logo"><a href="index.html"><img src="images/logo.png" class="main img-responsive" alt="Fitness Gym"><img src="images/logo-fix.png" class="fix img-responsive" alt="Fitness Gym"></a></span>
             <div class="col-xs-12 col-sm-9 header-right">
+                <div class="header_search_outer">
+                    <span class="icon-search-icon"></span>
+                    <input type="text" value="" placeholder="Search" class="header_search"/>
+                </div>
                 <!-- Start Navigation -->
                 <nav class="navbar navbar-expand-md navbar-dark navbar-custom">
                     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown">
@@ -88,41 +92,142 @@
 </div>
 <!-- End Banner -->
 
-<!--购物车-->
-<div class="classSch-outer schedulePage" ng-controller="cartController">
-    <div class="container">
-        <div class="head">
-            <h3>购物清单</h3>
-            <table width="80%">
-                <tr class="table_head">
-                    <td width="10%"><input type="checkbox" ng-click="selectAll()"></td>
-                    <td width="40%">商品名</td>
-                    <td width="15%">教练</td>
-                    <td width="10%">数量</td>
-                    <td width="10%">单价</td>
-                </tr>
-                <tr>
-                    <td width="10%"><input type="checkbox"></td>
-                    <td width="40%">月费会员</td>
-                    <td width="15%">-----</td>
-                    <td width="20%"><input type="number" ng-model="vipMonth" ng-bind="count()"></td>
-                    <td width="15%">50</td>
-                </tr>
-                <tr ng-repeat="course in courses">
-                    <td width="10%"><input type="checkbox"></td>
-                    <td width="40%">{{course.name}}</td>
-                    <td width="15%">{{course.trainer}}</td>
-                    <td width="20%"><input type="number" ng-model="course.num" ng-bind="count()"></td>
-                    <td width="15%">{{course.price}}</td>
-                </tr>
-            </table>
-            <button class="btn" ng-click="deleteItem()" style="float: left">删除</button>
-            <button class="btn" ng-click="payMoney()" style="float: left">提交</button>
-            <div style="float: right">总金额：{{sum}}</div>
-        </div>
+<!--个人信息-->
+<div style="margin-left: 40%;margin-top: 3%;">
+    <hr style="position: relative;top: 80%;left: -33%">
+    <div style="margin-left:9%;width:150px; height:150px; border-radius:100%;overflow:hidden; ">
+        <img src="./images/about-fig.png";quality="100" ;alt="编辑头像";id = "img-show" onclick="clickImg()">
+        <span>编辑头像</span>
+        <input type="file" style="display: none;" id="img-upload" onchange="uploadimg()" >
     </div>
-</div>
+    <br/>
+    <br/>
+   
+    <p style="color: black;font-size: medium"><span style="color:red">*</span>用户名   ：{{ username }} 
+    </p>
+    <br />
+    <p style="color: black;font-size: medium">
+        性别： <input type="radio" name="boy" checked="checked">男   <input type="radio" name="girl" >女       
+    </p>     
+    <br />
+    <p style="color: black;font-size: medium">年龄    ：{{ age }}</p>
+    <br />
+    <p style="color: black;font-size: medium"><span style="color:red">*</span>手机号    ：{{ telephone }}
+        <input type="text"  id="telephone" placeholder={{telephone}} name="telephone"></p>
+    <br />
+    <p style="color: black;font-size: medium"><span style="color:red">*</span>储物柜ID    ：{{ storeID }}</p>
+    <br />
+    <p style="margin-left: 3%;">
+        <input type="submit" value="修改密码" onclick="showall()" style = "width: 100px;height: 30px;">
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="submit" value="保存"  style = "width: 100px;height: 30px;">
+    </p>
+    <br/>
+    <form action="user.html" method="post">
 
+        <p style="margin-left: 5%;"><input type="password" style="display: none" id="old_pwd" placeholder="请输入原来的密码" name="pwd0"></p>
+        <br/>
+        <p style="margin-left: 5%;" ><input type="password" style="display: none" id="new_pwd1" placeholder="请输入修改后的密码" name="pwd1"></p>
+        <br/>
+        <p style="margin-left: 5%;" ><input type="password" style="display: none" id="new_pwd2" placeholder="请确认修改后的密码" name="pwd2"></p>
+        <br/>
+        <p style="margin-left: 9%;">
+            <button type="submit"  id='confirm' style="width: 100px;height: 30px;display: none;font-size: medium;" onclick="success()"> 确认</button>
+        </p>
+    </form>
+
+</div>
+<hr style="position: relative;top: 80%;left: -33%">
+
+<script>
+  
+    function clickImg(){
+        $('#img-upload').click();
+    }
+    function uploadimg() {
+      var img_file = $('#img-upload')[0].files[0];
+ 
+     
+      var reader_file = new FileReader();
+     
+      reader_file.readAsDataURL(img_file);
+      reader_file.onload = function (ev) {
+        $('#img-show').attr('src', ev.target.result);
+       
+        var formdata = new FormData();
+        document.write(img_file.name);
+        document.write(img_file);
+        
+        formdata.append('img_name', img_file.name);
+        formdata.append('img_file', img_file);
+       
+        $.ajax({
+          url: '',
+          type: 'POST',
+          data: formdata,
+        
+          processData: false,
+         
+          contentType: false,
+          success: function(data, status) {
+            alert(data);
+          }
+        });
+     
+      }
+    }
+  </script>
+   
+
+
+<script type="text/javascript">
+    function show(ID) {
+        var value = document.getElementById(ID).style.display;
+        if (value == "none") {
+            document.getElementById(ID).style.display = "block";
+        } else
+            document.getElementById(ID).style.display = "none";
+    }
+
+</script>
+
+<script>
+    function success() {
+        var reg = /^(?=.*[a-zA-Z])(?=.*\d).{8,16}$/;
+        var passwordNumber1 = document.getElementById('new_pwd1').value;
+        var passwordNumber2 = document.getElementById('new_pwd2').value;
+
+
+        if (reg.test(passwordNumber1) == false) {
+            location.href = "";
+            alert("密码格式不正确，请重新输入！", location.href);
+            show("confirm");
+            show("old_pwd");
+            show("new_pwd1");
+            show("new_pwd2");
+            return false;
+        } else if (passwordNumber1 != passwordNumber2) {
+            location.href = "";
+            alert("两次输入的密码不一致，请重新输入！", location.href);
+            show("confirm");
+            show("old_pwd");
+            show("new_pwd1");
+            show("new_pwd2");
+            return false;
+        }
+    }
+</script>
+
+<script>
+    function showall() {
+        show("confirm");
+        show("old_pwd");
+        show("new_pwd1");
+        show("new_pwd2");
+    }
+</script>
+
+  
 <!-- Start Footer -->
 <footer class="footer">
     <!-- Copy Rights -->

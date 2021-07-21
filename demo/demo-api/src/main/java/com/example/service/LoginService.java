@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 public interface LoginService {
     boolean register(GymMember member, HttpServletResponse response);
 
-    boolean login(HttpServletRequest request, HttpServletResponse response);
+    boolean login(String phone, String passwd, HttpServletResponse response);
 
     void logout(String phone, HttpServletRequest request, HttpServletResponse response);
 }

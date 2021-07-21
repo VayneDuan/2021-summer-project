@@ -23,24 +23,65 @@ public class OrderController {
     private ClassService classService;
     @Reference(version = "1.0.0", url = "dubbo://localhost:20891?version=1.0.0")
     private VideoService videoService;
+    @Reference(version = "1.0.0", url = "dubbo://localhost:20888?version=1.0.0")
+    private EmpService empService;
 
-    @RequestMapping("/pay")
-    public Map<String, Object> payOrders(@RequestBody List<GymOrders> orders, HttpServletRequest request) {
-        Map<String, Object> pay_orders = new HashMap<>();
-        Integer sumPrice = 0;
-        String phone = request.getParameter("phone");
+    @RequestMapping("/add")
+    public Map<String, Object> addOrders(@RequestBody Map<String, Object> req) {
+        GymOrders order = (GymOrders) req.get("order");
+        Map<String, Object> add_orders = new HashMap<>();
+        String phone = (String) req.get("phone");
         String tradeNo = UUID.randomUUID().toString();
         GymMember member = memberService.findByPhone(phone);
         Date createTime = new Date();
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(createTime);
+        // 通过System.currentTimeMillis()来获取一个当前时间毫秒数的long型数字
+        order.setId(tradeNo+"@"+System.currentTimeMillis()+"@"+member.getPhone());
+        order.setCardId(member.getCardId());
+        order.setCreateTime(createTime);
+        order.setIfUsed(2);
+        try {
+            orderService.insertOrders(order);
+            add_orders.put("add_order", "success");
+        } catch (Exception e) {
+            add_orders.put("add_order", "failure");
+        }
+        return add_orders;
+    }
+
+    @RequestMapping("/get")
+    // 教练名，课程名，单价
+    public Map<String, Object> getOrders(@RequestBody Map<String, Object> req) {
+        Map<String, Object> get_orders = new HashMap<>();
+        String phone = (String) req.get("phone");
+        List<GymOrders> orders = orderService.findOrdersByStatus(phone, 2);
+        List<List<String>> orders_info = new ArrayList<>();
+        for (GymOrders order : orders) {
+            Long cv_id = order.getCvId();
+            List<String> order_info = new ArrayList<>();
+            GymClass gymClass = classService.findById(cv_id);
+            order_info.add(gymClass.getGymClassName());
+            order_info.add(empService.findById(gymClass.getEmpId()).getGymEmpName());
+            order_info.add(gymClass.getPrice().toString());
+            orders_info.add(order_info);
+        }
+        get_orders.put("data", orders_info);
+        return get_orders;
+    }
+
+    @RequestMapping("/pay")
+    public Map<String, Object> payOrders(@RequestBody Map<String, Object> req) {
+        List<GymOrders> orders = (List<GymOrders>) req.get("orders");
+        Map<String, Object> pay_orders = new HashMap<>();
+        Integer sumPrice = 0;
+        String phone = (String) req.get("phone");
+        GymMember member = memberService.findByPhone(phone);
+        String tradeNo = orders.get(0).getId().split("@")[0];
         for (GymOrders order : orders) {
             // 通过System.currentTimeMillis()来获取一个当前时间毫秒数的long型数字
-            order.setId(tradeNo+"@"+System.currentTimeMillis());
-            order.setCardId(member.getCardId());
-            order.setCreateTime(createTime);
             order.setIfUsed(1);
-            orderService.insertOrders(order);
+            orderService.updateOrders(order);
             sumPrice += order.getPrice();
             if (order.getClassVideo() == 0) {
                 classService.updateCardClass(member.getCardId(), order.getCvId());
@@ -54,9 +95,9 @@ public class OrderController {
                 return pay_orders;
             }
         }
-        pay_orders.put("tradNo", tradeNo);
+        pay_orders.put("tradeNo", tradeNo);
         pay_orders.put("sumPrice", sumPrice);
-        pay_orders.put("address", "pay");
+        pay_orders.put("address", "localhost:8080/pay");
         return pay_orders;
     }
 }
