@@ -26,9 +26,9 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.solr</groupId>
-            <artifactId>solr-solrj</artifactId>
-            <version>8.6.0</version>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-solr</artifactId>
+            <version>4.3.10</version>
         </dependency>
     </dependencies>
 

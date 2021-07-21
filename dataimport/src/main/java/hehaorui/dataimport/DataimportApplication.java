@@ -1,5 +1,6 @@
 package hehaorui.dataimport;
 
+import org.apache.solr.client.solrj.impl.CloudSolrClient;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.boot.CommandLineRunner;
@@ -16,15 +17,18 @@ public class DataimportApplication {
     }
 
     @Bean
-    public CommandLineRunner test(VideoRepository repo){
+    public CommandLineRunner test(VideoRepository repo, CloudSolrClient client){
         return args -> {
-            log.info("All of the videos");
-            log.info("--------------------------");
-            for(Video v:repo.findAll()){
-                log.info(v.toString());
+            log.info("start inserting data into solr");
+            for(Video v: repo.findAll()){
+                log.info("insert item: "+v);
+                client.addBean(v);
             }
-            log.info("--------------------------");
-            log.info("END OF LIST");
+            client.commit();
+            log.info("insert finished");
+            log.info(client.getById("knee").toString());
+            log.info("END OF OPERATION");
+
         };
     }
 

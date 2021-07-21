@@ -1,5 +1,8 @@
 package hehaorui.dataimport;
 
+import org.apache.solr.client.solrj.beans.Field;
+import org.springframework.data.solr.core.mapping.SolrDocument;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,13 +10,21 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="gym_video")
+@SolrDocument(collection = "mycollection")
 public class Video {
     @Id
+    @Field("videoid")
     private Long id;
+
+    @Field("videourl")
     @Column(name = "videourl")
     private String url;
+
+    @Field("videoname")
     @Column(name = "gym_video_name")
     private String name;
+
+    @Field("price")
     private Double price;
 
     public Long getId() {
