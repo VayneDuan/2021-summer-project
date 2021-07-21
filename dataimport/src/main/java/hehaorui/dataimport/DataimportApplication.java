@@ -17,16 +17,16 @@ public class DataimportApplication {
     }
 
     @Bean
-    public CommandLineRunner test(VideoRepository repo, CloudSolrClient client){
+    public CommandLineRunner test(NewsRepository repo, CloudSolrClient client){
         return args -> {
             log.info("start inserting data into solr");
-            for(Video v: repo.findAll()){
-                log.info("insert item: "+v);
-                client.addBean(v);
+            for(News news: repo.findAll()){
+                log.info("insert item: "+news);
+                client.addBean(news);
             }
             client.commit();
             log.info("insert finished");
-            log.info(client.getById("knee").toString());
+            log.info(client.getById("1").toString());
             log.info("END OF OPERATION");
 
         };

@@ -11,7 +11,7 @@ import java.util.Optional;
 @Configuration
 public class SolrConfig {
     private List<String> zkHosts = new ArrayList<String>();
-    private String defaultCollection="mycollection";
+    private String defaultCollection="newscollection";
 
     @Bean
     public CloudSolrClient solrClient(){
