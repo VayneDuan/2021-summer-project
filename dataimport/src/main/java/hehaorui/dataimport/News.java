@@ -20,7 +20,7 @@ public class News {
     private String date;
 
     @Column(name = "writer")
-    @Field("newswirter")
+    @Field("newswriter")
     private String writer;
 
     @Column(name = "image_url")
@@ -28,7 +28,7 @@ public class News {
     private String url;
 
     @Column(name="title")
-    @Field("newswriter")
+    @Field("newstitle")
     private String title;
 
     @Column(name="content")
