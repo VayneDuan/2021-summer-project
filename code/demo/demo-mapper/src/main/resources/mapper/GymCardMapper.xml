@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.GymCardMapper">
+  <resultMap id="BaseResultMap" type="com.example.pojo.GymCard">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="beginTime" jdbcType="DATE" property="begintime" />
+    <result column="endTime" jdbcType="DATE" property="endtime" />
+    <result column="if_times" jdbcType="INTEGER" property="ifTimes" />
+    <result column="card_level" jdbcType="INTEGER" property="cardLevel" />
+    <result column="amount" jdbcType="DOUBLE" property="amount" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, beginTime, endTime, if_times, card_level, amount
+  </sql>
+  <select id="selectByExample" parameterType="com.example.pojo.GymCardExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from gym_card
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from gym_card
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from gym_card
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.pojo.GymCardExample">
+    delete from gym_card
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.pojo.GymCard">
+    insert into gym_card (id, beginTime, endTime, 
+      if_times, card_level, amount
+      )
+    values (#{id,jdbcType=VARCHAR}, #{begintime,jdbcType=DATE}, #{endtime,jdbcType=DATE}, 
+      #{ifTimes,jdbcType=INTEGER}, #{cardLevel,jdbcType=INTEGER}, #{amount,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.pojo.GymCard">
+    insert into gym_card
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="begintime != null">
+        beginTime,
+      </if>
+      <if test="endtime != null">
+        endTime,
+      </if>
+      <if test="ifTimes != null">
+        if_times,
+      </if>
+      <if test="cardLevel != null">
+        card_level,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="begintime != null">
+        #{begintime,jdbcType=DATE},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=DATE},
+      </if>
+      <if test="ifTimes != null">
+        #{ifTimes,jdbcType=INTEGER},
+      </if>
+      <if test="cardLevel != null">
+        #{cardLevel,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.pojo.GymCardExample" resultType="java.lang.Long">
+    select count(*) from gym_card
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update gym_card
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.begintime != null">
+        beginTime = #{record.begintime,jdbcType=DATE},
+      </if>
+      <if test="record.endtime != null">
+        endTime = #{record.endtime,jdbcType=DATE},
+      </if>
+      <if test="record.ifTimes != null">
+        if_times = #{record.ifTimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.cardLevel != null">
+        card_level = #{record.cardLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.amount != null">
+        amount = #{record.amount,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update gym_card
+    set id = #{record.id,jdbcType=VARCHAR},
+      beginTime = #{record.begintime,jdbcType=DATE},
+      endTime = #{record.endtime,jdbcType=DATE},
+      if_times = #{record.ifTimes,jdbcType=INTEGER},
+      card_level = #{record.cardLevel,jdbcType=INTEGER},
+      amount = #{record.amount,jdbcType=DOUBLE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.pojo.GymCard">
+    update gym_card
+    <set>
+      <if test="begintime != null">
+        beginTime = #{begintime,jdbcType=DATE},
+      </if>
+      <if test="endtime != null">
+        endTime = #{endtime,jdbcType=DATE},
+      </if>
+      <if test="ifTimes != null">
+        if_times = #{ifTimes,jdbcType=INTEGER},
+      </if>
+      <if test="cardLevel != null">
+        card_level = #{cardLevel,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.pojo.GymCard">
+    update gym_card
+    set beginTime = #{begintime,jdbcType=DATE},
+      endTime = #{endtime,jdbcType=DATE},
+      if_times = #{ifTimes,jdbcType=INTEGER},
+      card_level = #{cardLevel,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

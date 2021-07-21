@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <title>Kuntosala Template</title>
+    <!-- Reset CSS -->
+    <link href="css/reset.css" rel="stylesheet" type="text/css">
+    <!-- Bootstrap -->
+    <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- Font Awesome -->
+    <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Iconmoon -->
+    <link href="assets/iconmoon/css/iconmoon.css" rel="stylesheet" type="text/css">
+    <!-- Lightbox CSS -->
+    <link href="assets/lightbox/css/lightbox.css" rel="stylesheet" type="text/css">
+    <!-- Owl Carousel -->
+    <link href="assets/owl-carousel/css/owl.carousel.min.css" rel="stylesheet" type="text/css">
+    <!-- Animate -->
+    <link href="css/animate.css" rel="stylesheet" type="text/css">
+    <!-- Aos -->
+    <link href="assets/aos/aos.css" rel="stylesheet" type="text/css">
+    <!-- Custom Style -->
+    <link href="css/custom.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/cart.css" type="text/css">
+</head>
+<body ng-app="MyApp">
+<!-- Start Header -->
+<header>
+    <!-- Start Header Sec -->
+    <div class="container header-sec" ng-controller="userHeader">
+        <div class="row">
+            <span class="col-xs-12 col-sm-3 logo"><a href="index.html"><img src="images/logo.png" class="main img-responsive" alt="Fitness Gym"><img src="images/logo-fix.png" class="fix img-responsive" alt="Fitness Gym"></a></span>
+            <div class="col-xs-12 col-sm-9 header-right">
+                <div class="header_search_outer">
+                    <span class="icon-search-icon"></span>
+                    <input type="text" value="" placeholder="Search" class="header_search"/>
+                </div>
+                <!-- Start Navigation -->
+                <nav class="navbar navbar-expand-md navbar-dark navbar-custom">
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html">首页</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="about-us.html">关于</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="classes.html">课程</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="schedule.html">日程</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="trainers.html">教练</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="news.html">新闻</a>
+                            </li>
+                            <li class="nav-item  active">
+                                <a class="nav-link" href="user.html">welcome：{{username}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <!-- End Navigation -->
+            </div>
+        </div>
+    </div>
+    <!-- End Header Sec -->
+</header>
+<!-- End Header -->
+
+<!-- Start Banner -->
+<div class="banner-outer inner-banner contact-us-banner" style="height: 200px">
+    <span class="banner-shadow"></span>
+    <div class="container">
+        <div class="content" data-aos="fade-down">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Banner -->
+
+<!--个人信息-->
+<div style="margin-left: 40%;margin-top: 3%;">
+    <hr style="position: relative;top: 80%;left: -33%">
+    <div style="margin-left:9%;width:150px; height:150px; border-radius:100%;overflow:hidden; ">
+        <img src="./images/about-fig.png";quality="100" ;alt="编辑头像";id = "img-show" onclick="clickImg()">
+        <span>编辑头像</span>
+        <input type="file" style="display: none;" id="img-upload" onchange="uploadimg()" >
+    </div>
+    <br/>
+    <br/>
+   
+    <p style="color: black;font-size: medium"><span style="color:red">*</span>用户名   ：{{ username }} 
+    </p>
+    <br />
+    <p style="color: black;font-size: medium">
+        性别： <input type="radio" name="boy" checked="checked">男   <input type="radio" name="girl" >女       
+    </p>     
+    <br />
+    <p style="color: black;font-size: medium">年龄    ：{{ age }}</p>
+    <br />
+    <p style="color: black;font-size: medium"><span style="color:red">*</span>手机号    ：{{ telephone }}
+        <input type="text"  id="telephone" placeholder={{telephone}} name="telephone"></p>
+    <br />
+    <p style="color: black;font-size: medium"><span style="color:red">*</span>储物柜ID    ：{{ storeID }}</p>
+    <br />
+    <p style="margin-left: 3%;">
+        <input type="submit" value="修改密码" onclick="showall()" style = "width: 100px;height: 30px;">
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="submit" value="保存"  style = "width: 100px;height: 30px;">
+    </p>
+    <br/>
+    <form action="user.html" method="post">
+
+        <p style="margin-left: 5%;"><input type="password" style="display: none" id="old_pwd" placeholder="请输入原来的密码" name="pwd0"></p>
+        <br/>
+        <p style="margin-left: 5%;" ><input type="password" style="display: none" id="new_pwd1" placeholder="请输入修改后的密码" name="pwd1"></p>
+        <br/>
+        <p style="margin-left: 5%;" ><input type="password" style="display: none" id="new_pwd2" placeholder="请确认修改后的密码" name="pwd2"></p>
+        <br/>
+        <p style="margin-left: 9%;">
+            <button type="submit"  id='confirm' style="width: 100px;height: 30px;display: none;font-size: medium;" onclick="success()"> 确认</button>
+        </p>
+    </form>
+
+</div>
+<hr style="position: relative;top: 80%;left: -33%">
+
+<script>
+  
+    function clickImg(){
+        $('#img-upload').click();
+    }
+    function uploadimg() {
+      var img_file = $('#img-upload')[0].files[0];
+ 
+     
+      var reader_file = new FileReader();
+     
+      reader_file.readAsDataURL(img_file);
+      reader_file.onload = function (ev) {
+        $('#img-show').attr('src', ev.target.result);
+       
+        var formdata = new FormData();
+        document.write(img_file.name);
+        document.write(img_file);
+        
+        formdata.append('img_name', img_file.name);
+        formdata.append('img_file', img_file);
+       
+        $.ajax({
+          url: '',
+          type: 'POST',
+          data: formdata,
+        
+          processData: false,
+         
+          contentType: false,
+          success: function(data, status) {
+            alert(data);
+          }
+        });
+     
+      }
+    }
+  </script>
+   
+
+
+<script type="text/javascript">
+    function show(ID) {
+        var value = document.getElementById(ID).style.display;
+        if (value == "none") {
+            document.getElementById(ID).style.display = "block";
+        } else
+            document.getElementById(ID).style.display = "none";
+    }
+
+</script>
+
+<script>
+    function success() {
+        var reg = /^(?=.*[a-zA-Z])(?=.*\d).{8,16}$/;
+        var passwordNumber1 = document.getElementById('new_pwd1').value;
+        var passwordNumber2 = document.getElementById('new_pwd2').value;
+
+
+        if (reg.test(passwordNumber1) == false) {
+            location.href = "";
+            alert("密码格式不正确，请重新输入！", location.href);
+            show("confirm");
+            show("old_pwd");
+            show("new_pwd1");
+            show("new_pwd2");
+            return false;
+        } else if (passwordNumber1 != passwordNumber2) {
+            location.href = "";
+            alert("两次输入的密码不一致，请重新输入！", location.href);
+            show("confirm");
+            show("old_pwd");
+            show("new_pwd1");
+            show("new_pwd2");
+            return false;
+        }
+    }
+</script>
+
+<script>
+    function showall() {
+        show("confirm");
+        show("old_pwd");
+        show("new_pwd1");
+        show("new_pwd2");
+    }
+</script>
+
+  
+<!-- Start Footer -->
+<footer class="footer">
+    <!-- Copy Rights -->
+    <div class="copy-rights-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <p>© 2018 - All rights <a href="http://www.17sucai.com/" title="17sucai">Reserved</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Copy Rights -->
+</footer>
+<!-- End Footer -->
+
+<!-- Scroll to top -->
+<a href="#" class="scroll-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<!-- Lightbox JS -->
+<script src="assets/lightbox/js/lightbox.js"></script>
+<!-- Owl Carousal JS -->
+<script src="assets/isotope/js/isotope.min.js"></script>
+<!-- Owl Carousal JS -->
+<script src="assets/owl-carousel/js/owl.carousel.min.js"></script>
+<!-- Aos JS -->
+<script src="assets/aos/aos.js"></script>
+<!-- Jquery Validate JS -->
+<script src="assets/validate/jquery.validate.min.js"></script>
+<!-- CounterUp JS -->
+<script src="assets/counterup/counterup.min.js"></script>
+<!-- Waypoint JS -->
+<script src="assets/counterup/waypoints.min.js"></script>
+<!-- Custom JS -->
+<script src="js/custom.js"></script>
+<!--Angular JS-->
+<script src="js/angular-1.5.5/angular.js"></script>
+<script>
+    var app = angular.module('MyApp', []);
+        app.controller('userHeader', function ($scope, $http) {
+            $http({
+                method:'GET',
+                url:"http://localhost:8080/cart"
+            })
+            .then(function success(result) {
+                $scope.username = result.data.name;
+                console.log(result)
+            })
+        });
+        app.controller('cartController', function ($scope, $http) {
+            $http.get("http://localhost:8080/cart").success(function (result) {
+                $scope.courses = result.arr;
+            })
+            $scope.vipMonth = 0;
+            $scope.sum = 0;
+            $scope.count = function () {
+                console.log( $scope.vipMonth)
+                $scope.sum = $scope.vipMonth * 50;
+                for(let i = 0; i < $scope.courses.length; i++){
+                    console.log($scope.courses[i].price*$scope.courses[i].num)
+                    $scope.sum = $scope.sum + $scope.courses[i].num * $scope.courses[i].price;
+                }
+            }
+        })
+</script>
+</body>
+</html>
