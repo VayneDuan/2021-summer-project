@@ -72,10 +72,10 @@ public class AlipayController {
         boolean if_vip = (boolean) req.get("if_vip");
         Map<String, Object> payResult = new HashMap<>();
         if (if_vip) {
-            payResult.put("address", "localhost:8080/vip/buy");
+//            payResult.put("address", "localhost:8080/vip/buy");
             alipayService.pay(outTradeNo, amount, "localhost:8080/vip/buy");
         } else {
-            payResult.put("address", return_url);
+//            payResult.put("address", return_url);
             alipayService.pay(outTradeNo, amount, return_url);
         }
         return payResult;

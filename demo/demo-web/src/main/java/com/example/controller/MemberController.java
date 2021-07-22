@@ -49,7 +49,7 @@ public class MemberController {
                     // cookie被修改，需要重新登录
                     if (!val.equals(member.getPasswd())) {
                         data.put("change_name", "error");
-                        data.put("address", "login");
+                        data.put("address", "localhost:8080/login");
                     } else {
                         memberService.changeMemberName(phone, name);
                         data.put("change_name", "success");
@@ -60,7 +60,7 @@ public class MemberController {
             }
         }
         data.put("change_name", "error");
-        data.put("address", "login");
+        data.put("address", "localhost:8080/login");
         return data;
     }
 
@@ -73,7 +73,7 @@ public class MemberController {
             memberService.changePasswd(phone, newPasswd);
             data.put("msg", "success");
         } catch (Exception e) {
-            data.put("msg", "failure");
+            data.put("msg", "error");
         }
         return data;
     }
@@ -81,13 +81,13 @@ public class MemberController {
     @RequestMapping("/uploadPic")
     public Map<String, Object> uploadPic(@RequestBody Map<String, Object> req) {
         Map<String, Object> data = new HashMap<>();
-        String picUrl = (String) req.get("pic_url");
-        try {
-            String fastUrl = pictureService.uploadPic(picUrl);
-            data.put("fast_url", fastUrl);
-        } catch (Exception e) {
-            data.put("fast_url", null);
-        }
+//        String picUrl = (String) req.get("pic_url");
+//        try {
+//            String fastUrl = pictureService.uploadPic(picUrl);
+//            data.put("fast_url", fastUrl);
+//        } catch (Exception e) {
+//            data.put("fast_url", null);
+//        }
         return data;
     }
 }

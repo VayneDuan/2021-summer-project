@@ -23,7 +23,7 @@ spring:
     password: 123456789
   devtools:
     livereload:
-      port: 35737
+      port: 35738
 #    restart:
 #      enabled: true
 #      #设置重启目录

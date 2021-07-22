@@ -45,7 +45,7 @@ public class OrderController {
             orderService.insertOrders(order);
             add_orders.put("add_order", "success");
         } catch (Exception e) {
-            add_orders.put("add_order", "failure");
+            add_orders.put("add_order", "error");
         }
         return add_orders;
     }

@@ -106,7 +106,7 @@ public class VipController {
 
         System.out.println("插入VIP数据成功");
         Map<String,Object> add_success = new HashMap<>();
-        add_success.put("vip_data", "\"购买VIP成功! 会员ID:\" + card_id");
+        add_success.put("vip_data", "购买VIP成功! 会员ID: " + card_id);
         add_success.put("address", "localhost:8080/home");
         return add_success; // TODO 返回到用户个人中心
     }

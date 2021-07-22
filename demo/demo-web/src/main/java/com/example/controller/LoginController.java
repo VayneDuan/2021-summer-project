@@ -27,8 +27,9 @@ public class LoginController {
     private RedisService redisService;
 
     @RequestMapping("/check")
-    public Map<String, Object> check(@RequestBody String phone) throws IOException {
+    public Map<String, Object> check(@RequestBody Map<String, Object> req) throws IOException {
         Map<String, Object> data = new HashMap<>();
+        String phone = (String) req.get("phone");
         GymMember member = memberService.findByPhone(phone);
         if (member != null) {
             data.put("member", member);
@@ -40,7 +41,8 @@ public class LoginController {
 
     @RequestMapping("/register")
     public Map<String, Object> register(@RequestBody Map<String, Object> req, HttpServletResponse response) {
-        GymMember member = (GymMember) req.get("member");
+        String phone = (String) req.get("phone");
+        GymMember member = memberService.findByPhone(phone);
         Map<String, Object> data = new HashMap<>();
         if (loginService.register(member, response)) {
             redisService.set("gymMember" + "@" + member.getPhone(), member.getPasswd());
