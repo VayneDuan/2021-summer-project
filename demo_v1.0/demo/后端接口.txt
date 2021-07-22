@@ -1,0 +1,163 @@
+# 接口地址前均省略 localhost:8080
+AlipayController:
+    /pay: 支付
+    /refund: 退款
+
+ClassController:
+    /classes
+        /selectByName: 根据课程名查找课程
+            return:
+            {
+                "class_list": List<GymClass>
+            }
+        /all: 查找所有课程
+            return:
+            {
+                "all_class": Map<Integer, List<GymClass>>(succeed) / null(fail)
+                "msg": "failed msg"(fail)
+            }
+
+EmpController:
+    /emp
+        /selectByMajor: 根据专业查找教练
+            return
+            {
+                "emp_list": List<GymEmp>
+            }
+        /selectByName: 根据专业查找教练
+            return
+            {
+                "emp_list": List<GymEmp>
+            }
+        /selectAll: 查找所有教练（根据major排序）
+            return
+            {
+                "emp_list": List<GymEmp>
+            }
+
+LoginController:
+    /check: 第一次访问index时调用
+        req
+        {
+            "phone": member phone number
+        }
+        return
+        {
+            "member": member(succeed) / null(fail)
+        }
+    /register:
+        req
+        {
+            "phone": member phone number
+        }
+        return
+        {
+            "address": "localhost:8080/index"(succeed) / "localhost:8080/register"(fail)
+        }
+    /login:
+        req
+        {
+            "phone": member phone number
+            "passwd": password
+        }
+        return
+        {
+            "address": "localhost:8080/index"(succeed) / "localhost:8080/login"(fail)
+        }
+    /logout:
+        req
+        {
+            "phone": member phone number
+            "passwd": password
+        }
+        return
+        {
+            "address": "localhost:8080/index"
+        }
+
+MemberController:
+    /members
+        /selectByPhone:
+            req
+            {
+                "phone": member phone number
+            }
+            return
+            {
+                "member": GymMember
+            }
+        /updateName:
+            req
+            {
+                "name": new name
+            }
+            return
+            {
+                "change_name": "success" / "error"
+                "address": "localhost:8080/login"(fail)
+                "data": GymMember(succeed)
+            }
+        /updatePasswd:
+            req
+            {
+                "phone": member phone number
+                "newPasswd": new password
+            }
+            return
+            {
+                "msg": "success" / "error"
+            }
+        /uploadPic:
+
+NewsController:
+
+OrderController:
+    /orders
+        /add: 用户添加购物车时调用
+        req
+        {
+            "order": GymOrders
+            "phone": phone number
+        }
+        return
+        {
+            "add_order": "success" / "error"
+        }
+        /get: 进入购物车界面时调用
+        req
+        {
+            "phone": phone number
+        }
+        return
+        {
+            "data": List<List<String>>([[教练名，课程名，单价], ...])
+        }
+        /pay: 用户购买课程
+        req
+        {
+            "orders": List<GymOrders>
+            "phone": phone number
+        }
+        return
+        {
+            "address": "localhost:8080/pay"(跳转到alipay支付接口)
+        }
+
+VideoController:
+    /videos
+        /get:
+
+VipController:
+    /vip
+        /buy: 购买会员接口
+        req
+        {
+            "card": GymCard
+            "phone": phone
+            "price": price
+        }
+        return
+        {
+            "vip_data": "购买VIP成功! 会员ID: ..."
+            "address": "localhost:8080/home"
+        }

@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <title>Kuntosala Template</title>
+    <!-- Reset CSS -->
+    <link href="css/reset.css" rel="stylesheet" type="text/css">
+    <!-- Bootstrap -->
+    <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- Font Awesome -->
+    <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Iconmoon -->
+    <link href="assets/iconmoon/css/iconmoon.css" rel="stylesheet" type="text/css">
+    <!-- Lightbox CSS -->
+    <link href="assets/lightbox/css/lightbox.css" rel="stylesheet" type="text/css">
+    <!-- Owl Carousel -->
+    <link href="assets/owl-carousel/css/owl.carousel.min.css" rel="stylesheet" type="text/css">
+    <!-- Animate -->
+    <link href="css/animate.css" rel="stylesheet" type="text/css">
+    <!-- Aos -->
+    <link href="assets/aos/aos.css" rel="stylesheet" type="text/css">
+    <!-- Custom Style -->
+    <link href="css/custom.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/cart.css" type="text/css">
+</head>
+<body ng-app="MyApp">
+<!-- Start Header -->
+<header>
+    <!-- Start Header Sec -->
+    <div class="container header-sec" ng-controller="userHeader">
+        <div class="row">
+            <span class="col-xs-12 col-sm-3 logo"><a href="index.html"><img src="images/logo.png" class="main img-responsive" alt="Fitness Gym"><img src="images/logo-fix.png" class="fix img-responsive" alt="Fitness Gym"></a></span>
+            <div class="col-xs-12 col-sm-9 header-right">
+                <!-- Start Navigation -->
+                <nav class="navbar navbar-expand-md navbar-dark navbar-custom">
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html">首页</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="about-us.html">关于</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="classes.html">课程</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="schedule.html">日程</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="trainers.html">教练</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="news.html">新闻</a>
+                            </li>
+                            <li class="nav-item  active">
+                                <a class="nav-link" href="user.html">welcome：{{username}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <!-- End Navigation -->
+            </div>
+        </div>
+    </div>
+    <!-- End Header Sec -->
+</header>
+<!-- End Header -->
+
+<!-- Start Banner -->
+<div class="banner-outer inner-banner contact-us-banner" style="height: 200px">
+    <span class="banner-shadow"></span>
+    <div class="container">
+        <div class="content" data-aos="fade-down">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Banner -->
+
+<!--购物车-->
+<div class="classSch-outer schedulePage" ng-controller="cartController">
+    <div class="container">
+        <div class="head">
+            <h3>购物清单</h3>
+            <table width="80%">
+                <tr class="table_head">
+                    <td width="10%"><input type="checkbox" ng-click="selectAll()"></td>
+                    <td width="40%">商品名</td>
+                    <td width="15%">教练</td>
+                    <td width="10%">数量</td>
+                    <td width="10%">单价</td>
+                </tr>
+                <tr>
+                    <td width="10%"><input type="checkbox"></td>
+                    <td width="40%">月费会员</td>
+                    <td width="15%">-----</td>
+                    <td width="20%"><input type="number" ng-model="vipMonth" ng-bind="count()"></td>
+                    <td width="15%">50</td>
+                </tr>
+                <tr ng-repeat="course in courses">
+                    <td width="10%"><input type="checkbox"></td>
+                    <td width="40%">{{course.name}}</td>
+                    <td width="15%">{{course.trainer}}</td>
+                    <td width="20%"><input type="number" ng-model="course.num" ng-bind="count()"></td>
+                    <td width="15%">{{course.price}}</td>
+                </tr>
+            </table>
+            <button class="btn" ng-click="deleteItem()" style="float: left">删除</button>
+            <button class="btn" ng-click="payMoney()" style="float: left">提交</button>
+            <div style="float: right">总金额：{{sum}}</div>
+        </div>
+    </div>
+</div>
+
+<!-- Start Footer -->
+<footer class="footer">
+    <!-- Copy Rights -->
+    <div class="copy-rights-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <p>© 2018 - All rights <a href="http://www.17sucai.com/" title="17sucai">Reserved</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Copy Rights -->
+</footer>
+<!-- End Footer -->
+
+<!-- Scroll to top -->
+<a href="#" class="scroll-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<!-- Lightbox JS -->
+<script src="assets/lightbox/js/lightbox.js"></script>
+<!-- Owl Carousal JS -->
+<script src="assets/isotope/js/isotope.min.js"></script>
+<!-- Owl Carousal JS -->
+<script src="assets/owl-carousel/js/owl.carousel.min.js"></script>
+<!-- Aos JS -->
+<script src="assets/aos/aos.js"></script>
+<!-- Jquery Validate JS -->
+<script src="assets/validate/jquery.validate.min.js"></script>
+<!-- CounterUp JS -->
+<script src="assets/counterup/counterup.min.js"></script>
+<!-- Waypoint JS -->
+<script src="assets/counterup/waypoints.min.js"></script>
+<!-- Custom JS -->
+<script src="js/custom.js"></script>
+<!--Angular JS-->
+<script src="js/angular-1.5.5/angular.js"></script>
+<script>
+    var app = angular.module('MyApp', []);
+        app.controller('userHeader', function ($scope, $http) {
+            $http({
+                method:'GET',
+                url:"http://localhost:8080/cart"
+            })
+            .then(function success(result) {
+                $scope.username = result.data.name;
+                console.log(result)
+            })
+        });
+        app.controller('cartController', function ($scope, $http) {
+            $http.get("http://localhost:8080/cart").success(function (result) {
+                $scope.courses = result.arr;
+            })
+            $scope.vipMonth = 0;
+            $scope.sum = 0;
+            $scope.count = function () {
+                console.log( $scope.vipMonth)
+                $scope.sum = $scope.vipMonth * 50;
+                for(let i = 0; i < $scope.courses.length; i++){
+                    console.log($scope.courses[i].price*$scope.courses[i].num)
+                    $scope.sum = $scope.sum + $scope.courses[i].num * $scope.courses[i].price;
+                }
+            }
+        })
+</script>
+</body>
+</html>

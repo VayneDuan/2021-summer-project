@@ -1,0 +1,229 @@
+﻿<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+        <title>Kuntosala Template</title>
+        <!-- Reset CSS -->
+        <link href="css/reset.css" rel="stylesheet" type="text/css">
+        <!-- Bootstrap -->
+        <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <!-- Font Awesome -->
+        <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <!-- Iconmoon -->
+        <link href="assets/iconmoon/css/iconmoon.css" rel="stylesheet" type="text/css">
+        <!-- Lightbox CSS --> 
+        <link href="assets/lightbox/css/lightbox.css" rel="stylesheet" type="text/css">
+        <!-- Owl Carousel -->
+        <link href="assets/owl-carousel/css/owl.carousel.min.css" rel="stylesheet" type="text/css">
+        <!-- Animate -->
+        <link href="css/animate.css" rel="stylesheet" type="text/css">
+		<!-- Aos -->
+        <link href="assets/aos/aos.css" rel="stylesheet" type="text/css">
+        <!-- Custom Style -->
+        <link href="css/custom.css" rel="stylesheet" type="text/css">
+    </head>
+    <body ng-app="MyApp">
+        <!-- Start Header -->
+        <header> 
+            <!-- Start Header Sec -->
+            <div class="container header-sec">
+                <div class="row"> 
+                    <span class="col-xs-12 col-sm-3 logo"><a href="index.html"><img src="images/logo.png" class="main img-responsive" alt="Fitness Gym"><img src="images/logo-fix.png" class="fix img-responsive" alt="Fitness Gym"></a></span>
+                    <div class="col-xs-12 col-sm-9 header-right">
+                        <!-- Start Navigation -->
+                        <nav class="navbar navbar-expand-md navbar-dark navbar-custom">
+                            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="index.html">首页</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="cart.html">购买</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="classes.html">课程</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="schedule.html">日程</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="trainers.html">教练</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="news.html">新闻</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="login.html">登录</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                        <!-- End Navigation -->
+                    </div>
+                </div>
+            </div>
+            <!-- End Header Sec --> 
+        </header>
+        <!-- End Header --> 
+
+        <!-- Start Banner -->
+        <div class="banner-outer inner-banner schedule-banner">
+            <span class="banner-shadow"></span>
+            <div class="container">
+                <div class="content" data-aos="fade-down">
+                    <h1>日程</h1>
+                    <div class="breadcrumbs_outer">
+                        <div class="container">
+                            <ul class="breadcrumbs">
+                                <li><a href="index.html">主页</a></li>
+                                <li>日程</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Banner --> 
+
+        <!-- Start CLASS SCHEDULE sec -->
+        <div class="classSch-outer schedulePage" ng-controller="classSch_outer_data">
+            <div class="container">
+                <div class="head">
+                    <h3>日程表</h3>
+                </div>
+                <ul class="tabs">
+                    <li class="active"><a href="#mon">周一</a></li>
+                    <li><a href="#tus">周二</a></li>
+                    <li><a href="#wed">周三</a></li>
+                    <li><a href="#thrus">周四</a></li>
+                    <li><a href="#friday">周五</a></li>
+                    <li><a href="#sat">周六</a></li>
+                    <li><a href="#sun">周日</a></li>
+                </ul>
+                <div class="table-outer">
+                    <table class="table tab_container" id="mon">
+                        <tbody>
+                        <tr ng-repeat="course in courses[1]">
+                            <td>{{course.gymClassName}}</td>
+                            <td>{{coaches[1][$index][1]}} - {{coaches[1][$index][2]}}</td>
+                            <td>{{coaches[1][$index][0]}}</td>
+                            <td><a href="classes-detail.html?day=1&index={{$index}}" class="btn">Join Now</a></td>
+                        </tr>
+
+                    </tbody></table>
+                    <table class="table tab_container" id="tus">
+                        <tbody>
+                        <tr ng-repeat="course in courses[2]">
+                            <td>{{course.gymClassName}}</td>
+                            <td>{{coaches[2][$index][1]}} - {{coaches[1][$index][2]}}</td>
+                            <td>{{coaches[2][$index][0]}}</td>
+                            <td><a href="classes-detail.html?day=2&index={{$index}}" class="btn">Join Now</a></td>
+                        </tr>
+                    </tbody></table>
+                    <table class="table tab_container" id="wed">
+                    	<tbody>
+                        <tr ng-repeat="course in courses[3]">
+                            <td>{{course.gymClassName}}</td>
+                            <td>{{coaches[3][$index][1]}} - {{coaches[3][$index][2]}}</td>
+                            <td>{{coaches[3][$index][0]}}</td>
+                            <td><a href="classes-detail.html?day=3&index={{$index}}" class="btn">Join Now</a></td>
+                        </tr>
+                    </tbody></table>
+                    <table class="table tab_container" id="thrus">
+                        <tbody>
+                        <tr ng-repeat="course in courses[4]">
+                            <td>{{course.gymClassName}}</td>
+                            <td>{{coaches[4][$index][1]}} - {{coaches[4][$index][2]}}</td>
+                            <td>{{coaches[4][$index][0]}}</td>
+                            <td><a href="classes-detail.html?day=4&index={{$index}}" class="btn">Join Now</a></td>
+                        </tr>
+                    </tbody></table>
+                    <table class="table tab_container" id="friday">
+                        <tbody>
+                        <tr ng-repeat="course in courses[5]">
+                            <td>{{course.gymClassName}}</td>
+                            <td>{{coaches[5][$index][1]}} - {{coaches[5][$index][2]}}</td>
+                            <td>{{coaches[5][$index][0]}}</td>
+                            <td><a href="classes-detail.html?day=5&index={{$index}}" class="btn">Join Now</a></td>
+                        </tr>
+                    </tbody></table>
+                    <table class="table tab_container" id="sat">
+                        <tbody>
+                        <tr ng-repeat="course in courses[6]">
+                            <td>{{course.gymClassName}}</td>
+                            <td>{{coaches[6][$index][1]}} - {{coaches[6][$index][2]}}</td>
+                            <td>{{coaches[6][$index][0]}}</td>
+                            <td><a href="classes-detail.html?day=6&index={{$index}}" class="btn">Join Now</a></td>
+                        </tr>
+                    </tbody></table>
+                    <table class="table tab_container" id="sun">
+                        <tbody>
+                        <tr ng-repeat="course in courses[7]">
+                            <td>{{course.gymClassName}}</td>
+                            <td>{{coaches[7][$index][1]}} - {{coaches[7][$index][2]}}</td>
+                            <td>{{coaches[7][$index][0]}}</td>
+                            <td><a href="classes-detail.html?day=7&index={{$index}}" class="btn">Join Now</a></td>
+                        </tr>
+                    </tbody></table>
+                </div>
+            </div>
+        </div>
+        <!-- End CLASS SCHEDULE sec -->
+
+        <!-- Start Footer -->
+        <footer class="footer">
+            <!-- Copy Rights --> 
+            <div class="copy-rights-section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12">
+                            <p>© 2018 - All rights <a href="http://www.17sucai.com/" title="17sucai">Reserved</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Copy Rights --> 
+        </footer>
+        <!-- End Footer --> 
+
+        <!-- Scroll to top --> 
+        <a href="#" class="scroll-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a> 
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+        <script src="js/jquery.min.js"></script> 
+        <!-- Bootstrap JS --> 
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script> 
+        <!-- Lightbox JS --> 
+        <script src="assets/lightbox/js/lightbox.js"></script> 
+        <!-- Owl Carousal JS --> 
+        <script src="assets/isotope/js/isotope.min.js"></script> 
+        <!-- Owl Carousal JS --> 
+        <script src="assets/owl-carousel/js/owl.carousel.min.js"></script>
+		<!-- Aos JS --> 
+        <script src="assets/aos/aos.js"></script>
+		<!-- CounterUp JS --> 
+        <script src="assets/counterup/counterup.min.js"></script>
+        <script src="assets/counterup/waypoints.min.js"></script>
+        <!-- Custom JS --> 
+        <script src="js/custom.js"></script>
+        <!--Angular JS-->
+        <script src="js/angular-1.5.5/angular.js"></script>
+        <script>
+            var app = angular.module("MyApp",[]);
+            app.controller('classSch_outer_data', function ($scope, $http) {
+                $http.get("http://localhost:8080/classes/all").success(function (result) {
+                    $scope.courses = result.all_class;
+                    $scope.coaches = result.coaches;
+                })
+            })
+        </script>
+    </body>
+</html>

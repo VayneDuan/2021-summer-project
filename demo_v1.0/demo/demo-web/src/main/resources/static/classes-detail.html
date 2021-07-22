@@ -1,0 +1,273 @@
+﻿<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+        <title>Kuntosala Template</title>
+        <!-- Reset CSS -->
+        <link href="css/reset.css" rel="stylesheet" type="text/css">
+        <!-- Bootstrap -->
+        <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <!-- Font Awesome -->
+        <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <!-- Iconmoon -->
+        <link href="assets/iconmoon/css/iconmoon.css" rel="stylesheet" type="text/css">
+        <!-- Lightbox CSS --> 
+        <link href="assets/lightbox/css/lightbox.css" rel="stylesheet" type="text/css">
+        <!-- Owl Carousel -->
+        <link href="assets/owl-carousel/css/owl.carousel.min.css" rel="stylesheet" type="text/css">
+        <!-- Animate -->
+        <link href="css/animate.css" rel="stylesheet" type="text/css">
+		<!-- Aos -->
+        <link href="assets/aos/aos.css" rel="stylesheet" type="text/css">
+        <!-- Custom Style -->
+        <link href="css/custom.css" rel="stylesheet" type="text/css">
+    </head>
+    <body ng-app="MyApp">
+
+        <!-- Start Header -->
+        <header> 
+            <!-- Start Header Sec -->
+            <div class="container header-sec" ng-controller="header_data">
+                <div class="row"> 
+                    <span class="col-xs-12 col-sm-3 logo"><a href="index.html"><img src="images/logo.png" class="main img-responsive" alt="Fitness Gym"><img src="images/logo-fix.png" class="fix img-responsive" alt="Fitness Gym"></a></span>
+                    <div class="col-xs-12 col-sm-9 header-right">
+                        <div class="header_search_outer">
+                            <span class="icon-search-icon"></span>
+                            <input type="text" placeholder="Search" ng-model="searchKW" ng-keyup="searchClass($event)" class="header_search"/>
+                        </div>
+                        <!-- Start Navigation -->
+                        <nav class="navbar navbar-expand-md navbar-dark navbar-custom">
+                            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="index.html">首页</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="cart.html">购买</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="classes.html">课程</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="schedule.html">日程</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="trainers.html">教练</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="news.html">新闻</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="login.html">登录</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                        <!-- End Navigation -->
+                    </div>
+                </div>
+            </div>
+            <!-- End Header Sec --> 
+        </header>
+        <!-- End Header -->
+
+        <!-- Start Banner -->
+        <div class="banner-outer inner-banner classes-banner">
+            <span class="banner-shadow"></span>
+            <div class="container">
+                <div class="content" data-aos="fade-down">
+                    <h1 class="animated fadeIn">课程</h1>
+                    <div class="breadcrumbs_outer">
+                        <div class="container">
+                            <ul class="breadcrumbs">
+                                <li><a href="index.html">主页</a></li>
+                                <li><a href="classes.html">课程</a></li>
+                                <li>详情</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Banner -->
+
+        <!-- Start News sec -->
+        <div class="news-outer-pg p-b-0 pd classes-detail-page" ng-controller="news_outer_data">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-xs-12">
+                        <div class="news-left">
+                            <figure class="p-b-25">
+<!--                                <img src="http://192.168.3.1:18888/{{course.img1url}}" alt="">-->
+                                <video controls width="400px" height="300px" src="http://192.168.3.1:18888/group1/M00/00/01/wKj-BmDvqJSAexWJAFR-jGdD91I712.mp4">
+                                </video>
+                            </figure>
+                            <h2>{{course.gymClassName}}</h2>
+                            <ul class="post-detail">
+                                <li><span class="fa fa-calendar"></span> 课程时间 : {{coach[1]}} - {{coach[2]}}</li>
+                                <li><span class="fa fa-user-o"></span> {{coach[0]}}</li>
+                            </ul>
+<!--                            <p>训练步骤： sed malesuada felis. Nam convallis lorem tempus mauris eleifend cursus. Proin sollicitudin elit sit amet nibh egestas gravida molestie in diam. Fusce metus ipsum, efficitur ut lacinia at, suscipit a elit.</p>-->
+<!--                            <p>Maecenas a elit non ex dictum volutpat ac et massa. Nunc mi nisi, imperdiet vitae posuere ac, iaculis a felis. Ut vitae tincidunt sapien, ac imperdiet odio. Proin blandit eros vitae porttitor pretium. Aliquam est orci, blandit in orci vel, sollicitudin pretium ex.</p>-->
+                            <p>{{course.details}}</p>
+                            <div class="choose-building">
+                                <h4>训练目标</h4>
+<!--                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nstrud exercitation ullamco laboris. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nstrud exercitation ullamco laboris. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>-->
+                                <ul class="">
+                                    <li><i class="fa fa-check-square-o"></i> It’s Help your body balance</li>
+                                    <li><i class="fa fa-check-square-o"></i> Daily Work Freshness</li>
+                                    <li><i class="fa fa-check-square-o"></i> It’s Help your body balance</li>
+                                    <li><i class="fa fa-check-square-o"></i> Daily Work Freshness</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-xs-12">
+                        <div class="news-right">
+                            <div class="search-block clearfix">
+                                <input name="Search" type="text" placeholder="选择课程">
+                                <button class="search"><span class="icon-search-icon"></span></button>
+                            </div>
+                            <div class="category">
+                                <h3>课时</h3>
+                                <ul>
+                                    <li ng-repeat="video in videos">
+                                        <a href={{course.sub_course_url[$index]}}><i class="fa fa-long-arrow-right"></i> {{video.name}} </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End News sec -->
+
+        <!-- Start Footer -->
+        <footer class="footer">
+            <!-- Copy Rights --> 
+            <div class="copy-rights-section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12">
+                            <p>© 2018 - All rights <a href="http://www.17sucai.com/" title="17sucai">Reserved</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Copy Rights --> 
+        </footer>
+        <!-- End Footer --> 
+
+        <!-- Scroll to top --> 
+        <a href="#" class="scroll-top">
+            <i class="fa fa-chevron-up" aria-hidden="true"></i>
+        </a>
+
+        <a ng-controller="addToCart" href="" class="scroll-top" style="bottom:80px" >
+            <img class="scroll-top" src="images/购物车.png" ng-click="addOrder()" alt="">
+        </a>
+
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="js/jquery.min.js"></script>
+        <!-- Bootstrap JS --> 
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script> 
+        <!-- Lightbox JS --> 
+        <script src="assets/lightbox/js/lightbox.js"></script> 
+        <!-- Owl Carousal JS --> 
+        <script src="assets/isotope/js/isotope.min.js"></script> 
+        <!-- Owl Carousal JS --> 
+        <script src="assets/owl-carousel/js/owl.carousel.min.js"></script>
+		<!-- Aos JS --> 
+        <script src="assets/aos/aos.js"></script>
+		<!-- CounterUp JS --> 
+        <script src="assets/counterup/counterup.min.js"></script>
+        <script src="assets/counterup/waypoints.min.js"></script>
+        <!-- Custom JS --> 
+        <script src="js/custom.js"></script>
+        <!-- angular JS-->
+        <script src="js/angular-1.5.5/angular.js"></script>
+        <script>
+            <!--获取url中的参数-->
+            function GetQueryValue1(queryName) {
+                var reg = new RegExp("(^|&)" + queryName + "=([^&]*)(&|$)", "i");
+                var r = window.location.search.substr(1).match(reg);
+                if ( r != null ){
+                    return decodeURI(r[2]);
+                }else{
+                    return null;
+                }
+            }
+
+            var app = angular.module("MyApp", []);
+            app.controller('header_data', function ($scope, $http) {
+                $scope.searchClass = function (e) {
+                    var keycode = window.event?e.keyCode:e.which;
+                    if(keycode == 13){
+                        $http.post("http://localhost:8080/selectByName",{"keyWord":$scope.searchKW}).success(function () {
+                            $scope.courses = result.all_class;
+                        })
+                    }
+                }
+            })
+            app.controller('news_outer_data', function ($scope, $http) {
+                var day = GetQueryValue1("day");
+                var index = GetQueryValue1("index");
+                $http.get("http://localhost:8080/classes/all").success(function (result) {
+                    $scope.course = result.all_class[day][index];
+                    $scope.coach = result.coaches[day][index];
+                })
+                $http.get("http://localhost:8080/videos/getAll").success(function (result) {
+                    $scope.videos = result.data;
+                })
+            })
+            
+            app.controller('addToCart', function ($scope, $http) {
+                $scope.cookie = document.cookie.split(/[@=]/);
+                $scope.user = {
+                    "phone": $scope.cookie[1],
+                    "passwd": $scope.cookie[2]
+                }
+                var phone = ""
+                $http.post("http://localhost:8080/check", $scope.user).success(function (result) {
+                    if (result.member != null){
+                        $scope.phone = result.member.phone;
+                    }
+                })
+                var day = GetQueryValue1("day");
+                var index = GetQueryValue1("index");
+                $http.get("http://localhost:8080/classes/all").success(function (result) {
+                    $scope.course = result.all_class[day][index];
+                    $scope.id = $scope.course.id;
+                    $scope.price = $scope.course.price;
+                })
+
+
+                $scope.addOrder = function () {
+                    $scope.data = {
+                        "phone": $scope.phone,
+                        "cv_id": String($scope.id),
+                        "price": $scope.price,
+                        "class_video": 0,
+                        "class":$scope.course
+                    }
+                    console.log($scope.data);
+                    $http.post("http://localhost:8080/orders/add", $scope.data).success(function (result) {
+                        console.log(result)
+                    })
+                }
+
+
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+  <title>Kuntosala Template</title>
+  <!-- Reset CSS -->
+  <link href="css/reset.css" rel="stylesheet" type="text/css">
+  <!-- Bootstrap -->
+  <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <!-- Font Awesome -->
+  <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- Iconmoon -->
+  <link href="assets/iconmoon/css/iconmoon.css" rel="stylesheet" type="text/css">
+  <!-- Lightbox CSS -->
+  <link href="assets/lightbox/css/lightbox.css" rel="stylesheet" type="text/css">
+  <!-- Owl Carousel -->
+  <link href="assets/owl-carousel/css/owl.carousel.min.css" rel="stylesheet" type="text/css">
+  <!-- Animate -->
+  <link href="css/animate.css" rel="stylesheet" type="text/css">
+  <!-- Aos -->
+  <link href="assets/aos/aos.css" rel="stylesheet" type="text/css">
+  <!-- Custom Style -->
+  <link href="css/custom.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="css/cart.css" type="text/css">
+</head>
+<body ng-app="MyApp">
+<!-- Start Header -->
+<header>
+  <!-- Start Header Sec -->
+  <div class="container header-sec" ng-controller="userHeader">
+    <div class="row">
+      <span class="col-xs-12 col-sm-3 logo"><a href="index.html"><img src="images/logo.png" class="main img-responsive" alt="Fitness Gym"><img src="images/logo-fix.png" class="fix img-responsive" alt="Fitness Gym"></a></span>
+      <div class="col-xs-12 col-sm-9 header-right">
+        <div class="header_search_outer">
+          <span class="icon-search-icon"></span>
+          <input type="text" value="" placeholder="Search" class="header_search"/>
+        </div>
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-expand-md navbar-dark navbar-custom">
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">首页</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="about-us.html">关于</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="classes.html">课程</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="schedule.html">日程</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="trainers.html">教练</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="news.html">新闻</a>
+              </li>
+              <li class="nav-item  active">
+                <a class="nav-link" href="personalCenter.html">welcome：{{username}}</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <!-- End Navigation -->
+      </div>
+    </div>
+  </div>
+  <!-- End Header Sec -->
+</header>
+<!-- End Header -->
+
+<!-- Start Banner -->
+<div class="banner-outer inner-banner contact-us-banner" style="height: 200px">
+  <span class="banner-shadow"></span>
+  <div class="container">
+    <div class="content" data-aos="fade-down">
+
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<!-- End Banner -->
+
+<!--个人信息-->
+<div style="margin-left: 40%;margin-top: 3%;" ng-controller="selfInfo_data">
+  <hr style="position: relative;top: 80%;left: -33%">
+  <div style="margin-left:9%; ">
+    <img src={{photoUrl}} ;alt="头像" style=" width:150px; height:150px; border-radius:50%;">
+  </div>
+  <div><button style="margin-left: 12.5%; margin-top: 12px;width: 80px; height: 25px" ng-click="uploadimg()">更改头像</button></div>
+  <br/>
+
+  <p style="color: black;font-size: medium">
+    <span style="color:red">*</span>昵称&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp：<input type="text" ng-model="info.gymMemberName">
+  </p>
+  <br />
+
+  <p style="color: black;font-size: medium">
+    &nbsp&nbsp性别&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp：{{chineseWord}}
+  </p>
+  <br />
+
+  <p style="color: black;font-size: medium">
+    &nbsp&nbsp年龄&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp：{{ info.age }}
+  </p>
+  <br />
+
+  <p style="color: black;font-size: medium">
+    <span style="color:red">*</span>手机号&nbsp&nbsp&nbsp：{{info.phone}}
+  </p>
+  <br />
+
+  <p style="color: black;font-size: medium">
+    <span style="color:red">*</span>储物柜ID：{{info.lockerId}}
+  </p>
+  <br />
+
+  <p style="margin-left: 3%;">
+    <input type="button" value="修改密码" ng-click="show()" style = "width: 100px;height: 30px;">
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="submit" value="保存"  ng-click="saveUserInfo()" style = "width: 100px;height: 30px;">
+  </p>
+  <br/>
+
+  <div ng-show="passwdFlag">
+    <hr style="position: relative;top: 80%;left: -33%">
+    <form action="/loginController" method="post" id="contactform" name="loginForm">
+      <div class="row input-row col-sm-12">
+        原密码：<input type="password" placeholder="请输入原密码" ng-model="user.oldPasswd" required>
+      </div>
+      <br/>
+      <div class="row input-row col-sm-12">
+        新密码：<input type="password" placeholder="请输入新密码" ng-model="user.passwd" required>
+      </div>
+      <br/>
+      <div class="row input-row col-sm-12" >
+        新密码：<input type="password" placeholder="请再输入新密码" ng-model="passwd2" required>
+      </div>
+      <br/>
+      <div class="row input-row col-sm-12">
+        <button ng-click="updatePasswd()">修改</button>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+
+<!-- Start Footer -->
+<footer class="footer">
+  <!-- Copy Rights -->
+  <div class="copy-rights-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-xs-12">
+          <p>© 2018 - All rights <a href="http://www.17sucai.com/" title="17sucai">Reserved</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Copy Rights -->
+</footer>
+<!-- End Footer -->
+
+<!-- Scroll to top -->
+<a href="#" class="scroll-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<!-- Lightbox JS -->
+<script src="assets/lightbox/js/lightbox.js"></script>
+<!-- Owl Carousal JS -->
+<script src="assets/isotope/js/isotope.min.js"></script>
+<!-- Owl Carousal JS -->
+<script src="assets/owl-carousel/js/owl.carousel.min.js"></script>
+<!-- Aos JS -->
+<script src="assets/aos/aos.js"></script>
+<!-- Jquery Validate JS -->
+<script src="assets/validate/jquery.validate.min.js"></script>
+<!-- CounterUp JS -->
+<script src="assets/counterup/counterup.min.js"></script>
+<!-- Waypoint JS -->
+<script src="assets/counterup/waypoints.min.js"></script>
+<!-- Custom JS -->
+<script src="js/custom.js"></script>
+<!--Angular JS-->
+<script src="js/angular-1.5.5/angular.js"></script>
+<script>
+  function Setcookie (name, value){
+    //设置名称为name,值为value的Cookie
+    var expdate = new Date();   //初始化时间
+    expdate.setTime(expdate.getTime() + 600 * 60 * 1000);   //时间单位毫秒
+    document.cookie = name+"="+value+";expires="+expdate.toGMTString()+";path=/";
+
+    //即document.cookie= name+"="+value+";path=/";  时间默认为当前会话可以不要，但路径要填写，因为JS的默认路径是当前页，如果不填，此cookie只在当前页面生效！
+  }
+
+  var app = angular.module('MyApp', []);
+  app.controller('userHeader', function ($scope, $http) {
+    $scope.cookie = document.cookie.split(/[@=]/);
+    $http.post("http://localhost:8080/members/selectByPhone",{"phone":$scope.cookie[1],"passwd":$scope.cookie[2]}).success(function (result) {
+      $scope.username = result.member.gymMemberName;
+    })
+  });
+  
+  app.controller('selfInfo_data', function ($scope, $http) {
+    $scope.photoUrl = "images/feature-thumb1.png";
+    $scope.passwdFlag = false;
+    $scope.chineseWord = ""
+    $scope.cookie = document.cookie.split(/[@=]/);
+    $http.post("http://localhost:8080/members/selectByPhone", {"phone":$scope.cookie[1],"passwd":$scope.cookie[2]}).success(function (result) {
+      $scope.info = result.member;
+      if ($scope.info.sex == "male"){
+        $scope.chineseWord = "男";
+      }
+      else{
+        $scope.chineseWord = "女";
+      }
+    })
+
+
+    $scope.saveUserInfo = function () {
+      $http.post("http://localhost:8080/members/updateName", {"name":$scope.info.gymMemberName, "phone":$scope.cookie[1],"passwd":$scope.cookie[2]}).success(function (result) {
+        console.log(result)
+        if (result.change_name == "success"){
+          $scope.info = result.member;
+          window.location = "personalCenter.html"
+        }
+        else {
+          alert("更改名字错误")
+        }
+      })
+    }
+    $scope.show = function () {
+      $scope.passwdFlag = !$scope.passwdFlag;
+    }
+
+    $scope.updatePasswd = function () {
+      if ($scope.user.oldPasswd == $scope.user.passwd){
+        alert("密码未修改");
+      }
+      if ($scope.passwd2 != $scope.user.passwd){
+        alert("密码不匹配")
+      }
+      else{
+        $scope.cookie = document.cookie.split(/[@=]/);
+        var user = {
+          "phone": $scope.cookie[1],
+          "oldPasswd": $scope.user.oldPasswd,
+          "newPasswd": $scope.user.passwd
+        }
+        $http.post("http://localhost:8080/members/updatePasswd", user).success(function (result) {
+          if (result.msg == "success"){
+            document.cookie == ""
+            window.location = "login.html"
+          }
+          else{
+            alert("更改密码失败");
+          }
+        })
+      }
+    }
+
+  })
+</script>
+</body>
+</html>
