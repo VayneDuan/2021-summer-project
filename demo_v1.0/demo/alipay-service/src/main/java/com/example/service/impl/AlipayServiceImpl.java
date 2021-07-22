@@ -15,7 +15,11 @@ public class AlipayServiceImpl implements AlipayService {
         try {
             AlipayTradePagePayResponse pay = Factory.Payment.Page()
                     .pay("payment", outTradeNo, amount, return_url);
-            return "success";
+            String payForm = null;
+            if (ResponseChecker.success(pay)) {
+                payForm = pay.getBody();
+            }
+            return payForm;
         } catch (Exception e) {
             return "failed";
         }

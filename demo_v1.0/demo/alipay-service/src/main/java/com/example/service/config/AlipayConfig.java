@@ -2,7 +2,6 @@ package com.example.service.config;
 
 import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.kernel.Config;
-import com.example.service.utils.FileUtils;
 import org.springframework.stereotype.Component;
 
 @Component

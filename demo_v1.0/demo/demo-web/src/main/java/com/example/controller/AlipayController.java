@@ -65,23 +65,14 @@ public class AlipayController {
 //    }
 
     @RequestMapping("/pay")
-    public Map<String, Object> pay() throws Exception {
-//        String outTradeNo, String amount, String return_url, Integer if_vip
-//        String outTradeNo = (String) req.get("tradeNo");
-//        String amount = req.get("sumPrice").toString();
-//        String return_url = (String) req.get("return_url");
-//        Integer if_vip = (Integer) req.get("if_vip");
-        Map<String, Object> payResult = new HashMap<>();
-
-        alipayService.pay("1111", "1.11", "localhost:8080/index.html");
-//        if (if_vip == 1) {
-////            payResult.put("address", "localhost:8080/vip/buy");
-//            alipayService.pay(outTradeNo, amount, "localhost:8080/vip/buy");
-//        } else {
-////            payResult.put("address", return_url);
-//            alipayService.pay(outTradeNo, amount, return_url);
-//        }
-        return payResult;
+    public String pay(String outTradeNo, String amount, String return_url, Integer if_vip) throws Exception {
+        String res = alipayService.pay("20210722193613260", "9.99", "http://localhost:8080");
+        if (if_vip == 1) {
+            alipayService.pay(outTradeNo, amount, "http://localhost:8080/vip/buy");
+        } else {
+            alipayService.pay(outTradeNo, amount, return_url);
+        }
+        return res;
     }
 
     @RequestMapping("/refund")
