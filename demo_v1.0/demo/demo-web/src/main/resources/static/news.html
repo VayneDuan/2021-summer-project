@@ -65,7 +65,7 @@
                                         <a class="nav-link active" href="news.html">新闻</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="login.html">登录</a>
+                                        <a class="nav-link" href={{isLoginUrl}}>{{isLoginStr}}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -171,6 +171,22 @@
         <script>
             var app = angular.module("MyApp", []);
             app.controller('header_data', function ($scope, $http) {
+                $scope.isLoginStr = '登录';
+                $scope.isLoginUrl = "login.html"
+                $scope.cookie = document.cookie.split(/[@=]/);
+                console.log(document.cookie)
+                console.log($scope.cookie)
+                $scope.user = {
+                    "phone": $scope.cookie[1],
+                    "passwd": $scope.cookie[2]
+                }
+                $http.post("http://localhost:8080/check", $scope.user).success(function (result) {
+                    if (result.member != null){
+                        $scope.isLoginStr = result.member.gymMemberName;
+                        $scope.isLoginUrl = "personalCenter.html"
+                    }
+                })
+
                 $scope.searchNews = function (e) {
                     var keycode = window.event?e.keyCode:e.which;
                     if(keycode == 13){

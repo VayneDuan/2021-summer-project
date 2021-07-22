@@ -10,5 +10,5 @@ public interface LoginService {
 
     boolean login(String phone, String passwd);
 
-    void logout(String phone, HttpServletRequest request, HttpServletResponse response);
+//    void logout(String phone, HttpServletRequest request, HttpServletResponse response);
 }

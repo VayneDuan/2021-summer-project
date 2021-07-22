@@ -66,11 +66,11 @@ public class AlipayController {
 
     @RequestMapping("/pay")
     public String pay(String outTradeNo, String amount, String return_url, Integer if_vip) throws Exception {
-        String res = alipayService.pay("20210722193613260", "9.99", "http://localhost:8080");
+        String res = null;
         if (if_vip == 1) {
-            alipayService.pay(outTradeNo, amount, "http://localhost:8080/vip/buy");
+            res = alipayService.pay(outTradeNo, amount, "http://localhost:8080/index.html");
         } else {
-            alipayService.pay(outTradeNo, amount, return_url);
+            res = alipayService.pay(outTradeNo, amount, return_url);
         }
         return res;
     }

@@ -30,6 +30,7 @@ public class LoginController {
     public Map<String, Object> check(@RequestBody Map<String, Object> req) throws IOException {
         Map<String, Object> data = new HashMap<>();
         String phone = (String) req.get("phone");
+        if (phone == null) return null;
         String passwd = (String) req.get("passwd");
         GymMember member = memberService.findByPhone(phone);
         if (member != null) {
@@ -84,10 +85,10 @@ public class LoginController {
     }
 
     @RequestMapping("/logout")
-    public Map<String, Object> logout(@RequestBody Map<String, Object> req, HttpServletRequest request, HttpServletResponse response) {
+    public Map<String, Object> logout(@RequestBody Map<String, Object> req) {
         String phone = (String) req.get("phone");
         Map<String, Object> data = new HashMap<>();
-        loginService.logout(phone, request, response);
+//        loginService.logout(phone, request, response);
         redisService.del("gymMember" + "@" + phone);
         data.put("address", "localhost:8080/index");
         return data;

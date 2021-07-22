@@ -31,7 +31,7 @@
 <!-- Start Header -->
 <header>
     <!-- Start Header Sec -->
-    <div class="container header-sec">
+    <div class="container header-sec" ng-controller="header_data">
         <div class="row">
             <span class="col-xs-12 col-sm-3 logo"><a href="index.html"><img src="images/logo.png" class="main img-responsive" alt="Fitness Gym"><img src="images/logo-fix.png" class="fix img-responsive" alt="Fitness Gym"></a></span>
             <div class="col-xs-12 col-sm-9 header-right">
@@ -61,7 +61,7 @@
                                 <a class="nav-link" href="news.html">新闻</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="login.html">登录</a>
+                                <a class="nav-link" href={{isLoginUrl}}>{{isLoginStr}}</a>
                             </li>
                         </ul>
                     </div>
@@ -169,16 +169,24 @@
 <script src="js/login.js"></script>
 <script>
     var app = angular.module('MyApp', []);
-    app.controller('userHeader', function ($scope, $http) {
-        $http({
-            method:'GET',
-            url:"http://localhost:8080/cart"
+    app.controller('header_data', function ($scope, $http) {
+        $scope.isLoginStr = '登录';
+        $scope.isLoginUrl = "login.html"
+        $scope.cookie = document.cookie.split(/[@=]/);
+        console.log(document.cookie)
+        console.log($scope.cookie)
+        $scope.user = {
+            "phone": $scope.cookie[1],
+            "passwd": $scope.cookie[2]
+        }
+        $http.post("http://localhost:8080/check", $scope.user).success(function (result) {
+            if (result.member != null){
+                $scope.isLoginStr = result.member.gymMemberName;
+                $scope.isLoginUrl = "personalCenter.html"
+            }
         })
-            .then(function success(result) {
-                $scope.username = result.data.name;
-                console.log(result)
-            })
     });
+
     app.controller('cartController', function ($scope, $http) {
         $http.get("http://localhost:8080/cart").success(function (result) {
             $scope.courses = result.arr;

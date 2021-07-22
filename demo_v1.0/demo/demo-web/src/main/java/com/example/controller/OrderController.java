@@ -59,7 +59,7 @@ public class OrderController {
     public Map<String, Object> getOrders(@RequestBody Map<String, Object> req) {
         Map<String, Object> get_orders = new HashMap<>();
         String phone = (String) req.get("phone");
-        List<GymOrders> orders = orderService.findOrdersByStatus(phone, 1);
+        List<GymOrders> orders = orderService.findOrdersByStatus(phone, 2);
         List<List<String>> orders_info = new ArrayList<>();
         for (GymOrders order : orders) {
             Long cv_id = order.getCvId();
@@ -88,7 +88,7 @@ public class OrderController {
             GymOrders order = orderService.findOrdersById(order_id);
             order.setId(tradeNo+"@"+order.getId());
             // 通过System.currentTimeMillis()来获取一个当前时间毫秒数的long型数字
-            order.setIfUsed(0);
+            order.setIfUsed(1);
             orderService.updateOrders(order);
             sumPrice += order.getPrice();
             if (order.getClassVideo() == 0) {

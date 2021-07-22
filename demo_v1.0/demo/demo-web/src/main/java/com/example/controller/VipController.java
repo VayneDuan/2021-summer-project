@@ -7,16 +7,11 @@ import com.example.service.AlipayService;
 import com.example.service.MemberService;
 import com.example.service.OrderService;
 import com.example.service.VipService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
@@ -33,7 +28,10 @@ public class VipController {
 
     @RequestMapping("buy")
     public Map<String, Object> buyVip(@RequestBody Map<String, Object> req) {
-        GymCard card = (GymCard) req.get("card");
+        GymCard card = new GymCard();
+        card.setCardLevel((Integer) req.get("level"));
+        card.setIfTimes((Integer) req.get("if_times"));
+        card.setAmount(24.0);
         // 前端可以传这个吗？
 //        String member_id = request.getParameter("member_id");
 //        Integer if_times = Integer.parseInt(request.getParameter("if_times"));
@@ -80,7 +78,7 @@ public class VipController {
         }
 
         String phone = (String) req.get("phone");
-        Integer price = (Integer) req.get("price");
+        Integer price = 8888;
         GymMember member = memberService.findByPhone(phone);
         // 创建订单
         GymOrders order = new GymOrders();
@@ -107,7 +105,7 @@ public class VipController {
         System.out.println("插入VIP数据成功");
         Map<String,Object> add_success = new HashMap<>();
         add_success.put("vip_data", "购买VIP成功! 会员ID: " + card_id);
-        add_success.put("address", "localhost:8080/home");
+        add_success.put("address", "http://localhost:8080/pay?outTradeNo="+card.getId()+"&amount=24&return_url=http://localhost:8080/index.html&if_vip=1");
         return add_success; // TODO 返回到用户个人中心
     }
 }

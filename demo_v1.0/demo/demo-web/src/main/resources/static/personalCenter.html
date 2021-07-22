@@ -51,7 +51,7 @@
                 <a class="nav-link" href="index.html">首页</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="about-us.html">关于</a>
+                <a class="nav-link" href="cart.html">购买</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="classes.html">课程</a>
@@ -66,7 +66,7 @@
                 <a class="nav-link" href="news.html">新闻</a>
               </li>
               <li class="nav-item  active">
-                <a class="nav-link" href="personalCenter.html">welcome：{{username}}</a>
+                <a class="nav-link" href="" ng-click="logout()">登出</a>
               </li>
             </ul>
           </div>
@@ -130,6 +130,7 @@
     <input type="button" value="修改密码" ng-click="show()" style = "width: 100px;height: 30px;">
     &nbsp;&nbsp;&nbsp;&nbsp;
     <input type="submit" value="保存"  ng-click="saveUserInfo()" style = "width: 100px;height: 30px;">
+    <input type="submit" value="充值会员"  ng-click="showVip()" style = "width: 100px;height: 30px;">
   </p>
   <br/>
 
@@ -154,6 +155,18 @@
     </form>
   </div>
 
+  <div ng-show="vipFlag">
+    <hr style="position: relative;top: 80%;left: -33%">
+      <div class="row input-row col-sm-12">
+        <input type="number" placeholder="请输入会员卡等级" ng-model="level" required>
+        月卡: <input type="checkbox" ng-model="vip1">
+        次卡: <input type="checkbox" ng-model="vip2">
+      </div>
+      <br/>
+      <div class="row input-row col-sm-12">
+        <button ng-click="payVip()">购买</button>
+      </div>
+  </div>
 </div>
 
 
@@ -208,17 +221,52 @@
     //即document.cookie= name+"="+value+";path=/";  时间默认为当前会话可以不要，但路径要填写，因为JS的默认路径是当前页，如果不填，此cookie只在当前页面生效！
   }
 
+  function clearCookie(){
+    let paths = ['/']
+    let domain =[]
+    let host = location.hostname
+    domain.push(host)
+    if(host.indexOf('www') > -1){
+      domain.push(host.substr(3))
+    }
+    let keys = document.cookie.match(/[^ =;]+(?=\=)/g)
+    function deleteCookie(name,path,domain){
+      let keys = document.cookie.match(/[^ =;]+(?=\=)/g) || []
+      if(keys.indexOf(name)<0)return
+      document.cookie= name + '=' + ((path)?';path='+path:'') + ((domain)?';domain='+domain:'') + ';expires=Thu,01-Jan-1970 00:00:01 GMT';
+    }
+    // 确保paths、domain、keys都不相同，都要进行清除
+    paths.forEach(p=>{
+      domain.forEach(d=>{
+        keys.forEach(k=>{
+          deleteCookie(k,p,d)
+        })
+      })
+    })
+  }
+
   var app = angular.module('MyApp', []);
   app.controller('userHeader', function ($scope, $http) {
     $scope.cookie = document.cookie.split(/[@=]/);
     $http.post("http://localhost:8080/members/selectByPhone",{"phone":$scope.cookie[1],"passwd":$scope.cookie[2]}).success(function (result) {
       $scope.username = result.member.gymMemberName;
     })
+
+    $scope.logout = function () {
+      console.log("logout func")
+      $scope.cookie = document.cookie.split(/[@=]/);
+      $http.post("http://localhost:8080/logout", {"phone": $scope.cookie[1]}).success(function (result) {
+        document.cookie = "";
+        window.location = "http://localhost:8080/index.html";
+      })
+    }
   });
   
   app.controller('selfInfo_data', function ($scope, $http) {
     $scope.photoUrl = "images/feature-thumb1.png";
     $scope.passwdFlag = false;
+    $scope.vipFlag = false;
+    $scope.typeList = ["月卡", "次卡"]
     $scope.chineseWord = ""
     $scope.cookie = document.cookie.split(/[@=]/);
     $http.post("http://localhost:8080/members/selectByPhone", {"phone":$scope.cookie[1],"passwd":$scope.cookie[2]}).success(function (result) {
@@ -248,6 +296,31 @@
       $scope.passwdFlag = !$scope.passwdFlag;
     }
 
+    $scope.showVip = function () {
+      $scope.vipFlag = !$scope.vipFlag;
+    }
+
+    $scope.payVip = function () {
+      $scope.cookie = document.cookie.split(/[@=]/);
+      $scope.data = {
+        "phone": $scope.cookie[1],
+        "level": $scope.level,
+        "amount": "8888.0",
+        "if_times": 0
+      }
+      if ($scope.vip1){
+        $scope.data.if_times = 1;
+      }
+      if ($scope.vip2){
+        $scope.data.if_times = 2;
+      }
+
+      $http.post("http://localhost:8080/vip/buy", $scope.data).success(function (result) {
+        console.log(result.address)
+        window.location = result.address
+      })
+    }
+
     $scope.updatePasswd = function () {
       if ($scope.user.oldPasswd == $scope.user.passwd){
         alert("密码未修改");
@@ -264,7 +337,7 @@
         }
         $http.post("http://localhost:8080/members/updatePasswd", user).success(function (result) {
           if (result.msg == "success"){
-            document.cookie == ""
+            clearCookie();
             window.location = "login.html"
           }
           else{

@@ -47,13 +47,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public boolean insertOrders(GymOrders order) {
         try {
-//            order.setId(UUID.randomUUID().toString());
-            Date beginDate = new Date();
-            Calendar calendar = new GregorianCalendar();
-            calendar.setTime(beginDate);
-            beginDate = calendar.getTime();
-            order.setCreateTime(beginDate);
-            order.setIfUsed(1);
             gymOrdersMapper.insert(order);
             return true;
         } catch (Exception e) {
@@ -68,11 +61,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean ifOrderUsed(GymOrders order) {
-        return order.getIfUsed() == -1;
+        return order.getIfUsed() == 0;
     }
 
     @Override
     public boolean ifOrderPayed(GymOrders order) {
-        return order.getIfUsed() == 0;
+        return order.getIfUsed() == 1;
     }
 }

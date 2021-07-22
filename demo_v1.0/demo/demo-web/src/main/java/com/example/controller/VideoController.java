@@ -1,11 +1,9 @@
 package com.example.controller;
 
 import com.example.pojo.GymMember;
-import com.example.pojo.GymOrders;
 import com.example.pojo.GymVideo;
 import com.example.service.AlipayService;
 import com.example.service.MemberService;
-import com.example.service.OrderService;
 import com.example.service.VideoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.dubbo.config.annotation.Reference;
@@ -13,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/videos")
@@ -45,7 +43,7 @@ public class VideoController {
         for (int i=0;i<5;i++) {
             Map<String, String> info = new HashMap<>();
             info.put("name", videos.get(i).getGymVideoName().split("\\.")[1]);
-            info.put("url", "192.168.3.1:18888/" + videos.get(i).getVideourl());
+            info.put("url", "http://192.168.3.1:18888/" + videos.get(i).getVideourl());
             videoList.add(info);
         }
         msg.put("data", videoList);
