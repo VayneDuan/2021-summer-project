@@ -1,12 +1,10 @@
 package hehaorui.dataimport;
 
 import org.apache.solr.client.solrj.beans.Field;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnCloudPlatform;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "gym_news")
@@ -32,8 +30,11 @@ public class News {
     private String title;
 
     @Column(name="content")
-    @Field("content")
     private String content;
+
+    @Field("content")
+    @Transient
+    private List<String> contentList;
 
     public Long getId() {
         return id;
@@ -83,6 +84,14 @@ public class News {
         this.content = content;
     }
 
+    public List<String> getContentList() {
+        return contentList;
+    }
+
+    public void setContentList(List<String> contentList) {
+        this.contentList = contentList;
+    }
+
     @Override
     public String toString(){
         return "news{" +
@@ -91,7 +100,7 @@ public class News {
                 ", writer='" + writer + '\'' +
                 ", url='" + url + '\'' +
                 ", title='" + title +'\'' +
-                ", content='" + content + '\'' +
+                ", content='" + contentList.toString() + '\'' +
                 '}';
     }
 }
